@@ -1,0 +1,88 @@
+// use prisma-8
+
+model User {
+  id        ObjectId @id @map("_id")
+  name      String?
+  email     String   @unique
+  password  String?
+  role      String
+  image     String?
+  orders    Order[]
+  reviews   Review[]
+  createdAt Date
+  updatedAt Date
+  @@map("users")
+}
+
+model Category {
+  id          ObjectId  @id @map("_id")
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  image       String?
+  products    Product[]
+  createdAt   Date
+  @@map("categories")
+}
+
+model Product {
+  id          ObjectId    @id @map("_id")
+  name        String
+  slug        String      @unique
+  description String
+  price       Double
+  salePrice   Double?
+  stock       Int32
+  images      String[]
+  sizes       String[]
+  colors      String[]
+  isFeatured  Bool
+  category    Category    @relation(fields: [categoryId], references: [id])
+  categoryId  ObjectId
+  reviews     Review[]
+  orderItems  OrderItem[]
+  createdAt   Date
+  updatedAt   Date
+  @@map("products")
+}
+
+model Order {
+  id              ObjectId    @id @map("_id")
+  orderNumber     String      @unique
+  user            User        @relation(fields: [userId], references: [id])
+  userId          ObjectId
+  items           OrderItem[]
+  totalAmount     Double
+  status          String
+  paymentMethod   String
+  paymentStatus   String
+  shippingAddress Json
+  createdAt       Date
+  updatedAt       Date
+  @@map("orders")
+}
+
+model OrderItem {
+  id        ObjectId @id @map("_id")
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   ObjectId
+  product   Product  @relation(fields: [productId], references: [id])
+  productId ObjectId
+  quantity  Int32
+  price     Double
+  size      String?
+  color     String?
+  @@map("order_items")
+}
+
+model Review {
+  id        ObjectId @id @map("_id")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    ObjectId
+  product   Product  @relation(fields: [productId], references: [id])
+  productId ObjectId
+  rating    Int32
+  comment   String?
+  createdAt Date
+  @@map("reviews")
+}

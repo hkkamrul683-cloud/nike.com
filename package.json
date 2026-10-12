@@ -1,0 +1,15 @@
+{
+  "name": "shoes",
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^7.10.0",
+    "@prisma/orm-mongo": "^8.0.0-rc.17",
+    "dotenv": "^18.0.7",
+    "mongodb": "^7.7.0",
+    "prisma": "^8.0.0-rc.22"
+  },
+  "scripts": {
+    "postinstall": "prisma skills sync || exit 0",
+    "contract:emit": "prisma contract emit"
+  }
+}
