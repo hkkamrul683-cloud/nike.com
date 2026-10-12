@@ -30,6 +30,14 @@ model Product {
   name        String
   slug        String      @unique
   description String
+  subtitle    String?
+  gender      String?
+  sport       String?
+  colorway    String?
+  sku         String?
+  badge       String?
+  isNew       Bool?
+  isBestseller Bool?
   price       Double
   salePrice   Double?
   stock       Int32
@@ -49,13 +57,21 @@ model Product {
 model Order {
   id              ObjectId    @id @map("_id")
   orderNumber     String      @unique
-  user            User        @relation(fields: [userId], references: [id])
-  userId          ObjectId
+  user            User?       @relation(fields: [userId], references: [id])
+  userId          ObjectId?
+  customerEmail   String?
+  customerName    String?
+  customerPhone   String?
   items           OrderItem[]
+  subtotal        Double?
+  shippingFee     Double?
+  discount        Double?
+  couponCode      String?
   totalAmount     Double
   status          String
   paymentMethod   String
   paymentStatus   String
+  trackingNumber  String?
   shippingAddress Json
   createdAt       Date
   updatedAt       Date
@@ -68,6 +84,8 @@ model OrderItem {
   orderId   ObjectId
   product   Product  @relation(fields: [productId], references: [id])
   productId ObjectId
+  name      String?
+  image     String?
   quantity  Int32
   price     Double
   size      String?
@@ -82,7 +100,20 @@ model Review {
   product   Product  @relation(fields: [productId], references: [id])
   productId ObjectId
   rating    Int32
+  title     String?
   comment   String?
   createdAt Date
   @@map("reviews")
 }
+
+model Coupon {
+  id            ObjectId  @id @map("_id")
+  code          String    @unique
+  discountType  String
+  discountValue Double
+  minOrder      Double
+  isActive      Bool
+  createdAt     Date
+  @@map("coupons")
+}
+

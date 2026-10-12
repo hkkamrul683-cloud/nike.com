@@ -9,6 +9,9 @@
     "prisma": "^8.0.0-rc.22"
   },
   "scripts": {
+    "dev": "npm --prefix shoes run dev",
+    "build": "npm --prefix shoes run build",
+    "start": "npm --prefix shoes run start",
     "postinstall": "prisma skills sync || exit 0",
     "contract:emit": "prisma contract emit"
   }

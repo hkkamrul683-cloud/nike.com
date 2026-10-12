@@ -8,6 +8,10 @@
       "model": "Category",
       "namespace": "__unbound__"
     },
+    "coupons": {
+      "model": "Coupon",
+      "namespace": "__unbound__"
+    },
     "order_items": {
       "model": "OrderItem",
       "namespace": "__unbound__"
@@ -99,6 +103,63 @@
               "collection": "categories"
             }
           },
+          "Coupon": {
+            "fields": {
+              "_id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/objectId@1",
+                  "kind": "scalar"
+                }
+              },
+              "code": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "createdAt": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/date@1",
+                  "kind": "scalar"
+                }
+              },
+              "discountType": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "discountValue": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/double@1",
+                  "kind": "scalar"
+                }
+              },
+              "isActive": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "minOrder": {
+                "nullable": false,
+                "type": {
+                  "codecId": "mongo/double@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {},
+            "storage": {
+              "collection": "coupons"
+            }
+          },
           "Order": {
             "fields": {
               "_id": {
@@ -108,10 +169,45 @@
                   "kind": "scalar"
                 }
               },
+              "couponCode": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
               "createdAt": {
                 "nullable": false,
                 "type": {
                   "codecId": "mongo/date@1",
+                  "kind": "scalar"
+                }
+              },
+              "customerEmail": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "customerName": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "customerPhone": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "discount": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/double@1",
                   "kind": "scalar"
                 }
               },
@@ -143,6 +239,13 @@
                   "kind": "scalar"
                 }
               },
+              "shippingFee": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/double@1",
+                  "kind": "scalar"
+                }
+              },
               "status": {
                 "nullable": false,
                 "type": {
@@ -150,10 +253,24 @@
                   "kind": "scalar"
                 }
               },
+              "subtotal": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/double@1",
+                  "kind": "scalar"
+                }
+              },
               "totalAmount": {
                 "nullable": false,
                 "type": {
                   "codecId": "mongo/double@1",
+                  "kind": "scalar"
+                }
+              },
+              "trackingNumber": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
                   "kind": "scalar"
                 }
               },
@@ -165,7 +282,7 @@
                 }
               },
               "userId": {
-                "nullable": false,
+                "nullable": true,
                 "type": {
                   "codecId": "mongo/objectId@1",
                   "kind": "scalar"
@@ -190,7 +307,7 @@
               },
               "user": {
                 "cardinality": "N:1",
-                "nullable": false,
+                "nullable": true,
                 "on": {
                   "localFields": [
                     "userId"
@@ -219,6 +336,20 @@
                 }
               },
               "color": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "image": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "name": {
                 "nullable": true,
                 "type": {
                   "codecId": "mongo/string@1",
@@ -308,6 +439,13 @@
                   "kind": "scalar"
                 }
               },
+              "badge": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
               "categoryId": {
                 "nullable": false,
                 "type": {
@@ -320,6 +458,13 @@
                   "elementNullable": false
                 },
                 "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "colorway": {
+                "nullable": true,
                 "type": {
                   "codecId": "mongo/string@1",
                   "kind": "scalar"
@@ -339,6 +484,13 @@
                   "kind": "scalar"
                 }
               },
+              "gender": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
               "images": {
                 "many": {
                   "elementNullable": false
@@ -349,8 +501,22 @@
                   "kind": "scalar"
                 }
               },
+              "isBestseller": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/bool@1",
+                  "kind": "scalar"
+                }
+              },
               "isFeatured": {
                 "nullable": false,
+                "type": {
+                  "codecId": "mongo/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "isNew": {
+                "nullable": true,
                 "type": {
                   "codecId": "mongo/bool@1",
                   "kind": "scalar"
@@ -387,8 +553,22 @@
                   "kind": "scalar"
                 }
               },
+              "sku": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
               "slug": {
                 "nullable": false,
+                "type": {
+                  "codecId": "mongo/string@1",
+                  "kind": "scalar"
+                }
+              },
+              "sport": {
+                "nullable": true,
                 "type": {
                   "codecId": "mongo/string@1",
                   "kind": "scalar"
@@ -398,6 +578,13 @@
                 "nullable": false,
                 "type": {
                   "codecId": "mongo/int32@1",
+                  "kind": "scalar"
+                }
+              },
+              "subtitle": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
                   "kind": "scalar"
                 }
               },
@@ -495,6 +682,13 @@
                 "nullable": false,
                 "type": {
                   "codecId": "mongo/int32@1",
+                  "kind": "scalar"
+                }
+              },
+              "title": {
+                "nullable": true,
+                "type": {
+                  "codecId": "mongo/string@1",
                   "kind": "scalar"
                 }
               },
@@ -714,6 +908,62 @@
                 "validationLevel": "strict"
               }
             },
+            "coupons": {
+              "indexes": [
+                {
+                  "keys": [
+                    {
+                      "direction": 1,
+                      "field": "code"
+                    }
+                  ],
+                  "kind": "mongo-index",
+                  "unique": true
+                }
+              ],
+              "kind": "mongo-collection",
+              "validator": {
+                "jsonSchema": {
+                  "additionalProperties": false,
+                  "bsonType": "object",
+                  "properties": {
+                    "_id": {
+                      "bsonType": "objectId"
+                    },
+                    "code": {
+                      "bsonType": "string"
+                    },
+                    "createdAt": {
+                      "bsonType": "date"
+                    },
+                    "discountType": {
+                      "bsonType": "string"
+                    },
+                    "discountValue": {
+                      "bsonType": "double"
+                    },
+                    "isActive": {
+                      "bsonType": "bool"
+                    },
+                    "minOrder": {
+                      "bsonType": "double"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "code",
+                    "createdAt",
+                    "discountType",
+                    "discountValue",
+                    "isActive",
+                    "minOrder"
+                  ]
+                },
+                "kind": "mongo-validator",
+                "validationAction": "error",
+                "validationLevel": "strict"
+              }
+            },
             "order_items": {
               "kind": "mongo-collection",
               "validator": {
@@ -725,6 +975,18 @@
                       "bsonType": "objectId"
                     },
                     "color": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "image": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "name": {
                       "bsonType": [
                         "null",
                         "string"
@@ -784,8 +1046,38 @@
                     "_id": {
                       "bsonType": "objectId"
                     },
+                    "couponCode": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
                     "createdAt": {
                       "bsonType": "date"
+                    },
+                    "customerEmail": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "customerName": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "customerPhone": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "discount": {
+                      "bsonType": [
+                        "null",
+                        "double"
+                      ]
                     },
                     "orderNumber": {
                       "bsonType": "string"
@@ -808,17 +1100,38 @@
                         "null"
                       ]
                     },
+                    "shippingFee": {
+                      "bsonType": [
+                        "null",
+                        "double"
+                      ]
+                    },
                     "status": {
                       "bsonType": "string"
                     },
+                    "subtotal": {
+                      "bsonType": [
+                        "null",
+                        "double"
+                      ]
+                    },
                     "totalAmount": {
                       "bsonType": "double"
+                    },
+                    "trackingNumber": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
                     },
                     "updatedAt": {
                       "bsonType": "date"
                     },
                     "userId": {
-                      "bsonType": "objectId"
+                      "bsonType": [
+                        "null",
+                        "objectId"
+                      ]
                     }
                   },
                   "required": [
@@ -830,8 +1143,7 @@
                     "shippingAddress",
                     "status",
                     "totalAmount",
-                    "updatedAt",
-                    "userId"
+                    "updatedAt"
                   ]
                 },
                 "kind": "mongo-validator",
@@ -861,6 +1173,12 @@
                     "_id": {
                       "bsonType": "objectId"
                     },
+                    "badge": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
                     "categoryId": {
                       "bsonType": "objectId"
                     },
@@ -870,11 +1188,23 @@
                         "bsonType": "string"
                       }
                     },
+                    "colorway": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
                     "createdAt": {
                       "bsonType": "date"
                     },
                     "description": {
                       "bsonType": "string"
+                    },
+                    "gender": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
                     },
                     "images": {
                       "bsonType": "array",
@@ -882,8 +1212,20 @@
                         "bsonType": "string"
                       }
                     },
+                    "isBestseller": {
+                      "bsonType": [
+                        "null",
+                        "bool"
+                      ]
+                    },
                     "isFeatured": {
                       "bsonType": "bool"
+                    },
+                    "isNew": {
+                      "bsonType": [
+                        "null",
+                        "bool"
+                      ]
                     },
                     "name": {
                       "bsonType": "string"
@@ -903,11 +1245,29 @@
                         "bsonType": "string"
                       }
                     },
+                    "sku": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
                     "slug": {
                       "bsonType": "string"
                     },
+                    "sport": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
+                    },
                     "stock": {
                       "bsonType": "int"
+                    },
+                    "subtitle": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
                     },
                     "updatedAt": {
                       "bsonType": "date"
@@ -958,6 +1318,12 @@
                     },
                     "rating": {
                       "bsonType": "int"
+                    },
+                    "title": {
+                      "bsonType": [
+                        "null",
+                        "string"
+                      ]
                     },
                     "userId": {
                       "bsonType": "objectId"
@@ -1048,7 +1414,7 @@
         "kind": "mongo-database"
       }
     },
-    "storageHash": "ffca93a1478310989cbfb500eb6f4a1f0181c36f98ef5a8b69676c61c8130926"
+    "storageHash": "0a9fe265f556fabc7e0b6a8bda7b69967b191d915c0d291f60287f4701f1ff0f"
   },
   "capabilities": {},
   "extensions": {},
