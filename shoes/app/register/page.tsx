@@ -9,7 +9,7 @@ import { useCartWishlist } from '@/context/CartWishlistContext';
 
 export default function RegisterPage() {
   const router = useRouter();
-  const { refreshUser } = useCartWishlist();
+  const { refreshUser, openAuthModal } = useCartWishlist();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -59,12 +59,23 @@ export default function RegisterPage() {
           </p>
         </div>
 
-        {errorMsg && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2 text-red-600 text-xs font-semibold">
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>{errorMsg}</span>
+        <div className="pt-2">
+          <button
+            type="button"
+            onClick={openAuthModal}
+            className="w-full py-3.5 bg-black text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
+          >
+            Quick Join with Mobile OTP
+          </button>
+          <div className="relative my-4 text-center">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-zinc-200" />
+            </div>
+            <span className="relative bg-white px-3 text-[11px] font-bold text-zinc-400 uppercase tracking-wider">
+              Or with Email
+            </span>
           </div>
-        )}
+        </div>
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
           <div>
@@ -78,7 +89,7 @@ export default function RegisterPage() {
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Alex Rivera"
+                placeholder="Enter your full name"
                 className="w-full pl-10 pr-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950 font-medium"
               />
             </div>

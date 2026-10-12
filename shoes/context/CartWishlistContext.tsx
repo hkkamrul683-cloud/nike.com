@@ -61,6 +61,11 @@ interface CartWishlistContextType {
   isCartDrawerOpen: boolean;
   setIsCartDrawerOpen: (open: boolean) => void;
 
+  isAuthModalOpen: boolean;
+  setIsAuthModalOpen: (open: boolean) => void;
+  openAuthModal: () => void;
+  closeAuthModal: () => void;
+
   wishlist: WishlistItem[];
   toggleWishlist: (item: WishlistItem) => void;
   isInWishlist: (productId: string) => boolean;
@@ -78,7 +83,11 @@ export function CartWishlistProvider({ children }: { children: React.ReactNode }
   const [wishlist, setWishlist] = useState<WishlistItem[]>([]);
   const [coupon, setCoupon] = useState<AppliedCoupon | null>(null);
   const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [user, setUser] = useState<UserSession | null>(null);
+
+  const openAuthModal = () => setIsAuthModalOpen(true);
+  const closeAuthModal = () => setIsAuthModalOpen(false);
 
   // Initialize from localStorage and fetch current user
   useEffect(() => {
@@ -257,6 +266,10 @@ export function CartWishlistProvider({ children }: { children: React.ReactNode }
         removeCoupon,
         isCartDrawerOpen,
         setIsCartDrawerOpen,
+        isAuthModalOpen,
+        setIsAuthModalOpen,
+        openAuthModal,
+        closeAuthModal,
         wishlist,
         toggleWishlist,
         isInWishlist,

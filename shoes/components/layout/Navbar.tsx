@@ -268,7 +268,7 @@ const MEGA_MENUS: Record<string, MegaMenuContent> = {
 };
 
 export default function Navbar() {
-  const { totalCartItems, wishlist, isCartDrawerOpen, setIsCartDrawerOpen, user, logout } = useCartWishlist();
+  const { totalCartItems, wishlist, isCartDrawerOpen, setIsCartDrawerOpen, user, logout, openAuthModal } = useCartWishlist();
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -318,12 +318,18 @@ export default function Navbar() {
                 </div>
               ) : (
                 <div className="pl-4 flex items-center gap-3">
-                  <Link href="/register" className="hover:text-zinc-950 transition-colors">
+                  <button
+                    onClick={openAuthModal}
+                    className="hover:text-zinc-950 transition-colors cursor-pointer"
+                  >
                     Join Us
-                  </Link>
-                  <Link href="/login" className="font-bold text-zinc-950 hover:underline">
+                  </button>
+                  <button
+                    onClick={openAuthModal}
+                    className="font-bold text-zinc-950 hover:underline cursor-pointer"
+                  >
                     Sign In
-                  </Link>
+                  </button>
                 </div>
               )}
             </div>
@@ -462,20 +468,24 @@ export default function Navbar() {
                     </>
                   ) : (
                     <div className="p-3 space-y-2">
-                      <Link
-                        href="/login"
-                        onClick={() => setIsUserMenuOpen(false)}
-                        className="block w-full py-2.5 bg-zinc-950 text-white text-center rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-colors"
+                      <button
+                        onClick={() => {
+                          setIsUserMenuOpen(false);
+                          openAuthModal();
+                        }}
+                        className="block w-full py-2.5 bg-zinc-950 text-white text-center rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-colors cursor-pointer"
                       >
                         Sign In
-                      </Link>
-                      <Link
-                        href="/register"
-                        onClick={() => setIsUserMenuOpen(false)}
-                        className="block w-full py-2 border border-zinc-300 text-zinc-900 text-center rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-100 transition-colors"
+                      </button>
+                      <button
+                        onClick={() => {
+                          setIsUserMenuOpen(false);
+                          openAuthModal();
+                        }}
+                        className="block w-full py-2 border border-zinc-300 text-zinc-900 text-center rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer"
                       >
                         Join SPORTIX Club
-                      </Link>
+                      </button>
                     </div>
                   )}
                 </div>
@@ -646,20 +656,24 @@ export default function Navbar() {
                 </button>
               ) : (
                 <div className="space-y-2">
-                  <Link
-                    href="/login"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full py-3 bg-zinc-950 text-white text-center rounded-full text-xs font-bold uppercase tracking-wider"
+                  <button
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      openAuthModal();
+                    }}
+                    className="block w-full py-3 bg-zinc-950 text-white text-center rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer hover:bg-zinc-800 transition-colors"
                   >
                     Sign In
-                  </Link>
-                  <Link
-                    href="/register"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full py-2.5 border border-zinc-300 text-zinc-900 text-center rounded-full text-xs font-bold uppercase tracking-wider"
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsMobileMenuOpen(false);
+                      openAuthModal();
+                    }}
+                    className="block w-full py-2.5 border border-zinc-300 text-zinc-900 text-center rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer hover:bg-zinc-100 transition-colors"
                   >
                     Join SPORTIX
-                  </Link>
+                  </button>
                 </div>
               )}
             </div>

@@ -1,15 +1,21 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Lock, Mail, ArrowRight, AlertCircle, ShieldCheck, User } from 'lucide-react';
+import Image from 'next/image';
+import { Lock, Mail, ArrowRight, AlertCircle, Smartphone } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 import { useCartWishlist } from '@/context/CartWishlistContext';
+import NikeOtpModal from '@/components/auth/NikeOtpModal';
 
-export default function LoginPage() {
+function LoginPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialMode = searchParams.get('mode') === 'password' ? 'password' : 'otp';
+
   const { refreshUser } = useCartWishlist();
+  const [authMode, setAuthMode] = useState<'otp' | 'password'>(initialMode);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,106 +52,130 @@ export default function LoginPage() {
     }
   };
 
-  const fillDemo = (demoEmail: string, demoPass: string) => {
-    setEmail(demoEmail);
-    setPassword(demoPass);
-  };
-
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-16">
-      <div className="max-w-md w-full bg-white p-8 sm:p-10 rounded-3xl border border-zinc-200 shadow-xl space-y-8">
-        <div className="text-center space-y-2">
-          <Logo size="lg" className="justify-center mb-2" />
-          <h1 className="text-2xl font-black uppercase tracking-tight text-zinc-950">
-            Sign In to SPORTIX
-          </h1>
-          <p className="text-xs text-zinc-500 font-medium">
-            Enter your credentials to access your member profile, bag, and orders.
-          </p>
-        </div>
+    <div className="relative min-h-[90vh] flex items-center justify-center px-4 py-12 overflow-hidden bg-[#e6e6e6]">
+      {/* Background Athlete Runner Image (Exactly matching the screenshot atmosphere) */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=2000&q=80"
+          alt="Athlete background"
+          fill
+          priority
+          className="object-cover object-center filter grayscale contrast-125 brightness-95 opacity-80"
+        />
+        <div className="absolute inset-0 bg-neutral-900/30 backdrop-blur-[2px]" />
+      </div>
 
-        {/* Quick Demo Credentials */}
-        <div className="bg-zinc-50 p-4 rounded-2xl border border-zinc-200 text-xs space-y-2">
-          <p className="font-bold text-zinc-800 uppercase tracking-wider text-[11px]">
-            ⚡ Quick Demo Sign-in:
-          </p>
-          <div className="flex flex-col sm:flex-row gap-2">
-            <button
-              type="button"
-              onClick={() => fillDemo('admin@sportix.com', 'Admin123!')}
-              className="flex-1 py-1.5 px-3 bg-zinc-900 text-white rounded-lg font-semibold hover:bg-zinc-800 text-[11px] flex items-center justify-center gap-1"
-            >
-              <ShieldCheck className="w-3.5 h-3.5" /> Admin Account
-            </button>
-            <button
-              type="button"
-              onClick={() => fillDemo('member@sportix.com', 'Member123!')}
-              className="flex-1 py-1.5 px-3 bg-zinc-200 text-zinc-900 rounded-lg font-semibold hover:bg-zinc-300 text-[11px] flex items-center justify-center gap-1"
-            >
-              <User className="w-3.5 h-3.5" /> Member Account
-            </button>
-          </div>
-        </div>
+      {/* Main Centered Login Container */}
+      <div className="relative z-10 w-full flex justify-center">
+        {authMode === 'otp' ? (
+          /* Exact Nike OTP Login Modal Card */
+          <NikeOtpModal isInlinePage={true} />
+        ) : (
+          /* Traditional Email & Password Form for Admins / Password Users */
+          <div className="max-w-[440px] w-full bg-white p-7 sm:p-10 rounded-[28px] sm:rounded-[32px] border border-zinc-100 shadow-2xl space-y-6">
+            <div className="text-center space-y-2">
+              {/* Nike Swoosh */}
+              <div className="flex justify-center pt-1">
+                <svg
+                  className="w-16 h-7 text-black transition-transform hover:scale-105"
+                  viewBox="0 0 64 24"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M58.74 3.25C42.84 12.3 27.8 17.5 15.48 17.5c-5.43 0-9.52-2.3-9.52-6.95 0-2.8 1.72-5 4.63-6.1-4.73 1.05-8.69 4.15-8.69 8.85 0 6.65 6.83 11.9 17.38 11.9 14.82 0 31.4-7.75 39.46-21.95z" />
+                </svg>
+              </div>
+              <h1 className="text-2xl font-bold tracking-tight text-zinc-950 mt-4">
+                Sign In with Password
+              </h1>
+              <p className="text-xs text-zinc-500 font-medium">
+                Enter your credentials or switch to fast Mobile OTP sign-in.
+              </p>
+            </div>
 
-        {errorMsg && (
-          <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2 text-red-600 text-xs font-semibold">
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>{errorMsg}</span>
+            {errorMsg && (
+              <div className="p-3 bg-red-50 border border-red-200 rounded-xl flex items-center gap-2 text-red-600 text-xs font-semibold">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{errorMsg}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4 text-xs">
+              <div>
+                <label className="font-bold uppercase text-zinc-700 block mb-1">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5" />
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="name@example.com"
+                    className="w-full pl-10 pr-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950 font-medium text-sm"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="font-bold uppercase text-zinc-700 block mb-1">
+                  Password
+                </label>
+                <div className="relative">
+                  <Lock className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5" />
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full pl-10 pr-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950 font-medium text-sm"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-4 bg-zinc-950 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-2"
+              >
+                {isLoading ? 'Signing In...' : 'Sign In'}
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </form>
+
+            {/* Switch back to OTP */}
+            <div className="pt-3 border-t border-zinc-100 text-center space-y-2">
+              <button
+                type="button"
+                onClick={() => setAuthMode('otp')}
+                className="inline-flex items-center gap-1.5 text-xs text-zinc-700 hover:text-black font-semibold hover:underline cursor-pointer"
+              >
+                <Smartphone className="w-3.5 h-3.5" /> Switch to Mobile Number / OTP Login
+              </button>
+              <div className="text-xs text-zinc-500">
+                Not a member yet?{' '}
+                <button
+                  onClick={() => setAuthMode('otp')}
+                  className="font-bold text-zinc-950 hover:underline cursor-pointer"
+                >
+                  Join SPORTIX Club
+                </button>
+              </div>
+            </div>
           </div>
         )}
-
-        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-          <div>
-            <label className="font-bold uppercase text-zinc-700 block mb-1">
-              Email Address
-            </label>
-            <div className="relative">
-              <Mail className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5" />
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@example.com"
-                className="w-full pl-10 pr-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950 font-medium"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label className="font-bold uppercase text-zinc-700 block mb-1">
-              Password
-            </label>
-            <div className="relative">
-              <Lock className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5" />
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full pl-10 pr-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950 font-medium"
-              />
-            </div>
-          </div>
-
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full py-4 bg-zinc-950 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-2"
-          >
-            {isLoading ? 'Signing In...' : 'Sign In'}
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </form>
-
-        <div className="text-center text-xs text-zinc-500 pt-2 border-t border-zinc-100">
-          Not a member yet?{' '}
-          <Link href="/register" className="font-bold text-zinc-950 hover:underline">
-            Join SPORTIX Club
-          </Link>
-        </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-[80vh] flex items-center justify-center">Loading...</div>}>
+      <LoginPageContent />
+    </Suspense>
   );
 }

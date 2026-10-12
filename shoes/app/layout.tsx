@@ -6,6 +6,7 @@ import PromoBar from '@/components/layout/PromoBar';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/cart/CartDrawer';
+import NikeOtpModal from '@/components/auth/NikeOtpModal';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -68,6 +69,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <CartDrawer />
+          <NikeOtpModal />
         </CartWishlistProvider>
       </body>
     </html>
