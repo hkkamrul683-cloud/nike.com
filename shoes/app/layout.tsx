@@ -64,8 +64,8 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-white text-zinc-950 font-sans selection:bg-zinc-900 selection:text-white">
         <CartWishlistProvider>
-          <PromoBar />
           <Navbar />
+          <PromoBar />
           <main className="flex-1">{children}</main>
           <Footer />
           <CartDrawer />

@@ -144,6 +144,20 @@ function LoginPageContent() {
                 {isLoading ? 'Signing In...' : 'Sign In'}
                 <ArrowRight className="w-4 h-4" />
               </button>
+
+              {/* Quick Fill Admin Button */}
+              <div className="pt-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEmail('admin@sportix.com');
+                    setPassword('Admin123!');
+                  }}
+                  className="w-full py-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-700 rounded-xl text-[11px] font-semibold transition-colors flex items-center justify-center gap-1 cursor-pointer"
+                >
+                  ⚡ Auto-fill Admin (admin@sportix.com)
+                </button>
+              </div>
             </form>
 
             {/* Switch back to OTP */}

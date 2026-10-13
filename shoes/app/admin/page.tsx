@@ -21,11 +21,26 @@ import {
   ShieldAlert,
   ShieldCheck,
   RefreshCw,
+  Mail,
+  Lock,
+  Eye,
+  EyeOff,
+  ArrowRight,
+  ArrowLeft,
+  Loader2,
+  Sparkles,
 } from 'lucide-react';
 import { useCartWishlist } from '@/context/CartWishlistContext';
 
 export default function AdminDashboardPage() {
-  const { user } = useCartWishlist();
+  const { user, refreshUser } = useCartWishlist();
+
+  // Admin direct login form state
+  const [adminEmail, setAdminEmail] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
+  const [showAdminPassword, setShowAdminPassword] = useState(false);
+  const [loginLoading, setLoginLoading] = useState(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const [activeTab, setActiveTab] = useState<'products' | 'orders' | 'coupons'>('products');
   const [products, setProducts] = useState<any[]>([]);
@@ -235,26 +250,175 @@ export default function AdminDashboardPage() {
     }
   };
 
-  // Role Gate check
+  const handleAdminLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError(null);
+    setLoginLoading(true);
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: adminEmail, password: adminPassword }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Invalid credentials');
+      }
+      if (data.user?.role !== 'ADMIN') {
+        throw new Error('This account does not have admin permissions.');
+      }
+      await refreshUser();
+    } catch (err: any) {
+      setLoginError(err.message || 'Login failed');
+    } finally {
+      setLoginLoading(false);
+    }
+  };
+
+  // Role Gate check - Direct Email & Password form
   if (!user || user.role !== 'ADMIN') {
     return (
-      <div className="max-w-xl mx-auto px-6 py-28 text-center space-y-4">
-        <div className="w-16 h-16 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto">
-          <ShieldAlert className="w-8 h-8" />
-        </div>
-        <h1 className="text-2xl font-black uppercase tracking-tight text-zinc-950">
-          Admin Access Required
-        </h1>
-        <p className="text-xs text-zinc-500 max-w-sm mx-auto">
-          This portal is reserved for store managers. Sign in with the administrator account (<code className="font-bold text-zinc-800">admin@sportix.com</code>) to manage products and orders.
-        </p>
-        <div className="pt-2">
-          <Link
-            href="/login"
-            className="inline-block px-8 py-3.5 bg-zinc-950 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-800"
-          >
-            Sign In As Admin
-          </Link>
+      <div className="relative min-h-[85vh] flex items-center justify-center px-4 py-16 overflow-hidden bg-gradient-to-b from-zinc-100 via-zinc-50 to-white">
+        {/* Subtle background mesh pattern */}
+        <div className="absolute inset-0 bg-[radial-gradient(#e4e4e7_1px,transparent_1px)] [background-size:20px_20px] opacity-70 pointer-events-none" />
+
+        <div className="relative max-w-md w-full bg-white/95 backdrop-blur-xl p-8 sm:p-10 rounded-[32px] border border-zinc-200/90 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.1)] space-y-6">
+          {/* Header */}
+          <div className="flex flex-col items-center text-center space-y-3">
+            <div className="w-14 h-14 rounded-2xl bg-zinc-950 flex items-center justify-center text-white shadow-xl shadow-zinc-950/20 ring-4 ring-zinc-100 transition-transform hover:scale-105">
+              <ShieldCheck className="w-7 h-7 text-white" />
+            </div>
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-[11px] font-bold uppercase tracking-wider text-zinc-600 mb-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                Admin Portal
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-950">
+                Administrator Sign In
+              </h1>
+              <p className="text-xs sm:text-sm text-zinc-500 font-medium mt-1">
+                Enter your administrative credentials to access the SPORTIX control center.
+              </p>
+            </div>
+          </div>
+
+          {/* Current session info if signed in with non-admin */}
+          {user && user.role !== 'ADMIN' && (
+            <div className="p-3.5 bg-amber-50/90 border border-amber-200/90 rounded-2xl text-amber-800 text-xs flex items-start gap-2.5">
+              <AlertCircle className="w-4 h-4 shrink-0 text-amber-600 mt-0.5" />
+              <div>
+                <span className="font-bold">Access Restricted:</span> Currently signed in as <span className="font-semibold underline">{user.email}</span> (Customer). Please login with an administrator account.
+              </div>
+            </div>
+          )}
+
+          {/* Error Message */}
+          {loginError && (
+            <div className="p-3.5 bg-red-50/90 border border-red-200/90 rounded-2xl text-red-600 text-xs font-semibold flex items-center gap-2.5 animate-in fade-in">
+              <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
+              <span>{loginError}</span>
+            </div>
+          )}
+
+          {/* Login Form */}
+          <form onSubmit={handleAdminLogin} className="space-y-4">
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-1.5">
+                Email Address
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-400">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <input
+                  type="email"
+                  required
+                  value={adminEmail}
+                  onChange={(e) => setAdminEmail(e.target.value)}
+                  placeholder="admin@sportix.com"
+                  className="w-full pl-10 pr-4 py-3 bg-zinc-50/80 border border-zinc-200 rounded-xl text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-950 focus:bg-white focus:ring-4 focus:ring-zinc-950/5 transition-all font-medium"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold uppercase tracking-wider text-zinc-700 mb-1.5">
+                Password
+              </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-zinc-400">
+                  <Lock className="w-4 h-4" />
+                </div>
+                <input
+                  type={showAdminPassword ? 'text' : 'password'}
+                  required
+                  value={adminPassword}
+                  onChange={(e) => setAdminPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full pl-10 pr-11 py-3 bg-zinc-50/80 border border-zinc-200 rounded-xl text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-950 focus:bg-white focus:ring-4 focus:ring-zinc-950/5 transition-all font-medium"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowAdminPassword(!showAdminPassword)}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-zinc-400 hover:text-zinc-700 transition-colors"
+                  tabIndex={-1}
+                >
+                  {showAdminPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
+            </div>
+
+            {/* Quick Demo Helper */}
+            <div className="p-3 bg-zinc-50 border border-zinc-200/80 rounded-xl flex items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2 text-zinc-600 min-w-0">
+                <Sparkles className="w-3.5 h-3.5 text-zinc-400 shrink-0" />
+                <span className="font-mono text-[11px] truncate">admin@sportix.com</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setAdminEmail('admin@sportix.com');
+                  setAdminPassword('Admin123!');
+                }}
+                className="shrink-0 text-[11px] font-bold text-zinc-950 hover:text-zinc-700 uppercase tracking-wider px-2.5 py-1 bg-white border border-zinc-200 rounded-lg hover:border-zinc-400 transition-all shadow-xs cursor-pointer"
+              >
+                Quick Fill
+              </button>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loginLoading}
+              className="w-full py-3.5 bg-zinc-950 text-white rounded-xl text-xs font-black uppercase tracking-wider hover:bg-zinc-800 active:scale-[0.99] transition-all shadow-md shadow-zinc-950/20 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer group"
+            >
+              {loginLoading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Authenticating...</span>
+                </>
+              ) : (
+                <>
+                  <span>Sign In to Dashboard</span>
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                </>
+              )}
+            </button>
+          </form>
+
+          {/* Footer */}
+          <div className="pt-2 text-center flex flex-col items-center gap-2.5 border-t border-zinc-100">
+            <Link
+              href="/"
+              className="text-xs font-semibold text-zinc-500 hover:text-zinc-950 inline-flex items-center gap-1.5 transition-colors"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              Return to Store
+            </Link>
+            <div className="text-[10px] text-zinc-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
+              <Lock className="w-2.5 h-2.5" />
+              <span>Protected Administrator Gateway</span>
+            </div>
+          </div>
         </div>
       </div>
     );

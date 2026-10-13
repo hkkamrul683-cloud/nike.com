@@ -235,36 +235,6 @@ const MEGA_MENUS: Record<string, MegaMenuContent> = {
       },
     ],
   },
-  Sale: {
-    title: 'Sale',
-    columns: [
-      {
-        heading: 'Sale by Category',
-        links: [
-          { name: 'Shop All Sale', href: '/products?sale=true' },
-          { name: 'Men\'s Sale', href: '/products?gender=men&sale=true' },
-          { name: 'Women\'s Sale', href: '/products?gender=women&sale=true' },
-          { name: 'Footwear on Sale', href: '/products?category=shoes&sale=true' },
-          { name: 'Apparel on Sale', href: '/products?category=clothing&sale=true' },
-        ],
-      },
-      {
-        heading: 'Limited Deals',
-        links: [
-          { name: 'Use Promo Code MOVE20', href: '/products?sale=true' },
-          { name: 'Last Chance Sizes', href: '/products?sale=true' },
-        ],
-      },
-    ],
-    featured: [
-      {
-        title: 'Air Infinity Pro - 20% Off',
-        image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
-        href: '/products/sportix-air-infinity-pro',
-        tag: 'Special Pricing',
-      },
-    ],
-  },
 };
 
 export default function Navbar() {
@@ -289,48 +259,56 @@ export default function Navbar() {
     <>
       <header className="sticky top-0 z-40 bg-white border-b border-zinc-200">
         {/* Top Micro Utility Bar (Nike Style) */}
-        <div className="bg-zinc-50 border-b border-zinc-200/80 px-6 py-1.5 hidden md:block text-[11px] text-zinc-600 font-medium">
+        <div className="bg-zinc-50 border-b border-zinc-200/80 px-6 py-1.5 hidden md:block text-[12px] text-zinc-900 font-medium">
           <div className="max-w-7xl mx-auto flex justify-between items-center">
             {/* Wing Logo Mark */}
             <div className="flex items-center gap-4">
               <span className="font-semibold text-zinc-800 tracking-wider">SPORTIX GLOBAL</span>
             </div>
 
-            {/* Utility links */}
-            <div className="flex items-center gap-4 divide-x divide-zinc-300">
-              <Link href="/products" className="hover:text-zinc-950 transition-colors">
-                Find a Store
-              </Link>
-              <Link href="/help" className="pl-4 hover:text-zinc-950 transition-colors">
+            {/* Utility links: Help | Sign Up | Log In */}
+            <div className="flex items-center gap-3">
+              <Link href="/help" className="hover:text-zinc-600 transition-colors">
                 Help
               </Link>
+              <span className="text-zinc-900 select-none">|</span>
               {user ? (
-                <div className="pl-4 flex items-center gap-2">
-                  <span>Hi, <strong className="text-zinc-900">{user.name || user.email.split('@')[0]}</strong></span>
-                  {user.role === 'ADMIN' && (
-                    <Link
-                      href="/admin"
-                      className="inline-flex items-center gap-1 bg-zinc-900 text-white text-[10px] px-2 py-0.5 rounded font-bold hover:bg-zinc-800"
-                    >
-                      <ShieldCheck className="w-3 h-3" /> Admin
-                    </Link>
-                  )}
-                </div>
+                <>
+                  <div className="flex items-center gap-2">
+                    <span>Hi, <strong className="text-zinc-950 font-semibold">{user.name || user.email.split('@')[0]}</strong></span>
+                    {user.role === 'ADMIN' && (
+                      <Link
+                        href="/admin"
+                        className="inline-flex items-center gap-1 bg-zinc-900 text-white text-[10px] px-2 py-0.5 rounded font-bold hover:bg-zinc-800"
+                      >
+                        <ShieldCheck className="w-3 h-3" /> Admin
+                      </Link>
+                    )}
+                  </div>
+                  <span className="text-zinc-900 select-none">|</span>
+                  <button
+                    onClick={logout}
+                    className="hover:text-zinc-600 transition-colors cursor-pointer"
+                  >
+                    Log Out
+                  </button>
+                </>
               ) : (
-                <div className="pl-4 flex items-center gap-3">
-                  <button
-                    onClick={openAuthModal}
-                    className="hover:text-zinc-950 transition-colors cursor-pointer"
+                <>
+                  <Link
+                    href="/register"
+                    className="hover:text-zinc-600 transition-colors font-medium"
                   >
-                    Join Us
-                  </button>
-                  <button
-                    onClick={openAuthModal}
-                    className="font-bold text-zinc-950 hover:underline cursor-pointer"
+                    Sign Up
+                  </Link>
+                  <span className="text-zinc-900 select-none">|</span>
+                  <Link
+                    href="/login"
+                    className="hover:text-zinc-600 transition-colors font-medium"
                   >
-                    Sign In
-                  </button>
-                </div>
+                    Log In
+                  </Link>
+                </>
               )}
             </div>
           </div>
@@ -351,15 +329,11 @@ export default function Navbar() {
               >
                 <Link
                   href={
-                    item === 'Sale'
-                      ? '/products?sale=true'
-                      : item === 'SPORTIX Flight'
+                    item === 'SPORTIX Flight'
                       ? '/products?category=flight'
                       : `/products?gender=${item.toLowerCase()}`
                   }
-                  className={`text-sm font-semibold tracking-tight transition-colors py-2 relative ${
-                    item === 'Sale' ? 'text-red-600' : 'text-zinc-900 hover:text-black'
-                  }`}
+                  className="text-sm font-semibold tracking-tight transition-colors py-2 relative text-zinc-900 hover:text-black"
                 >
                   {item}
                   {activeMenu === item && (
@@ -656,24 +630,20 @@ export default function Navbar() {
                 </button>
               ) : (
                 <div className="space-y-2">
-                  <button
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      openAuthModal();
-                    }}
+                  <Link
+                    href="/login"
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="block w-full py-3 bg-zinc-950 text-white text-center rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer hover:bg-zinc-800 transition-colors"
                   >
-                    Sign In
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      openAuthModal();
-                    }}
+                    Log In
+                  </Link>
+                  <Link
+                    href="/register"
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="block w-full py-2.5 border border-zinc-300 text-zinc-900 text-center rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer hover:bg-zinc-100 transition-colors"
                   >
-                    Join SPORTIX
-                  </button>
+                    Sign Up
+                  </Link>
                 </div>
               )}
             </div>

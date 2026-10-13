@@ -408,7 +408,7 @@ export default function NikeOtpModal({
           <div className="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
             <CheckCircle2 className="w-8 h-8" />
           </div>
-          <h3 className="text-xl font-bold text-zinc-900">Welcome to Nike / SPORTIX!</h3>
+          <h3 className="text-xl font-bold text-zinc-900">Welcome to SPORTIX!</h3>
           <p className="text-xs text-zinc-500">
             Successfully verified and logged in. Loading your personalized profile...
           </p>
