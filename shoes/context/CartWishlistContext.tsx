@@ -43,6 +43,7 @@ export interface UserSession {
   image?: string;
   phone?: string;
   addresses?: any[];
+  createdAt?: string | Date;
 }
 
 interface CartWishlistContextType {
@@ -69,6 +70,7 @@ interface CartWishlistContextType {
 
   wishlist: WishlistItem[];
   toggleWishlist: (item: WishlistItem) => void;
+  removeFromWishlist: (productId: string) => void;
   isInWishlist: (productId: string) => boolean;
 
   user: UserSession | null;
@@ -227,6 +229,10 @@ export function CartWishlistProvider({ children }: { children: React.ReactNode }
     });
   };
 
+  const removeFromWishlist = (productId: string) => {
+    setWishlist((prev) => prev.filter((w) => w.productId !== productId));
+  };
+
   const isInWishlist = (productId: string) => {
     return wishlist.some((w) => w.productId === productId);
   };
@@ -298,6 +304,7 @@ export function CartWishlistProvider({ children }: { children: React.ReactNode }
         closeAuthModal,
         wishlist,
         toggleWishlist,
+        removeFromWishlist,
         isInWishlist,
         user,
         setUser,
