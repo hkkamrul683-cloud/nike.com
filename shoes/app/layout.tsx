@@ -7,6 +7,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/cart/CartDrawer';
 import NikeOtpModal from '@/components/auth/NikeOtpModal';
+import AnalyticsScripts from '@/components/analytics/AnalyticsScripts';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -19,36 +20,41 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'SPORTIX — Official Store | High Performance Sportswear & Footwear',
+  title: 'Nike. Just Do It. Nike IN',
   description:
-    'Experience the pinnacle of athletic innovation. Shop SPORTIX road running shoes, basketball high-tops, gym essentials, and technical fleece collections.',
+    'Find your perfect pair. Shop Nike shoes, clothing, and accessories. Free delivery and returns for Nike Members.',
   keywords: [
-    'SPORTIX',
-    'athletic footwear',
+    'Nike',
+    'Nike India',
+    'Nike shoes',
     'running shoes',
     'basketball sneakers',
-    'sportswear',
-    'training shoes',
-    'fleece hoodie',
+    'Nike sportswear',
+    'Air Max',
+    'Air Force 1',
+    'Jordan',
   ],
   openGraph: {
-    title: 'SPORTIX — Official Store | High Performance Sportswear',
-    description: 'BUILT TO MOVE. Explore new footwear and technical apparel.',
-    url: 'https://sportix.com',
-    siteName: 'SPORTIX Global Store',
+    title: 'Nike. Just Do It. Nike IN',
+    description: 'Shop Nike shoes, clothing and accessories. Free delivery for Nike Members.',
+    url: 'https://www.nike.in',
+    siteName: 'Nike India',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80',
         width: 1200,
         height: 630,
-        alt: 'SPORTIX Air Infinity Pro',
+        alt: 'Nike — Just Do It',
       },
     ],
-    locale: 'en_US',
+    locale: 'en_IN',
     type: 'website',
   },
   icons: {
     icon: '/favicon.ico',
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || undefined,
   },
 };
 
@@ -57,15 +63,30 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID;
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <AnalyticsScripts />
+      </head>
       <body className="min-h-full flex flex-col bg-white text-zinc-950 font-sans selection:bg-zinc-900 selection:text-white">
+        {gtmId && gtmId.startsWith('GTM-') && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+              height="0"
+              width="0"
+              style={{ display: 'none', visibility: 'hidden' }}
+            />
+          </noscript>
+        )}
         <CartWishlistProvider>
-          <Navbar />
           <PromoBar />
+          <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
           <CartDrawer />

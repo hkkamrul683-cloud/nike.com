@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { useCartWishlist } from '@/context/CartWishlistContext';
 import ProductCard from '@/components/product/ProductCard';
+import { trackViewItem } from '@/lib/analytics';
 
 export default function ProductDetailPage({
   params,
@@ -74,6 +75,15 @@ export default function ProductDetailPage({
           if (data.product.sizes?.length > 0) {
             setSelectedSize(data.product.sizes[0]);
           }
+          // Track ViewItem event for GTM & Meta Pixel
+          trackViewItem({
+            id: data.product._id || data.product.id || data.product.slug,
+            name: data.product.name,
+            price: data.product.price,
+            salePrice: data.product.salePrice,
+            category: data.product.category,
+            brand: 'SPORTIX',
+          });
         }
       } catch (e: any) {
         setErrorMsg(e.message);

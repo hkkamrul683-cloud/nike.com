@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Heart, Star, MapPin, ShoppingCart, Check } from 'lucide-react';
+import { Heart, ShoppingBag, Check } from 'lucide-react';
 import { useCartWishlist } from '@/context/CartWishlistContext';
 
 export interface ProductCardProps {
@@ -26,61 +26,36 @@ export interface ProductCardProps {
     isBestseller?: boolean;
     rating?: number;
     reviewsCount?: number;
-    storeName?: string;
-    storeLocation?: string;
-    soldCount?: number;
   };
   priority?: boolean;
-  currency?: 'IDR' | 'USD';
+  currency?: 'USD' | 'IDR';
 }
 
 export default function ProductCard({
   product,
   priority = false,
-  currency = 'IDR',
+  currency = 'USD',
 }: ProductCardProps) {
   const { isInWishlist, toggleWishlist, addToCart } = useCartWishlist();
   const [added, setAdded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const productId = product._id?.toString() || product.id || product.slug;
   const isFavorite = isInWishlist(productId);
 
-  // Deterministic hash helper for consistent mock data if not in DB
-  const strHash = (str: string) => {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      hash = (hash << 5) - hash + str.charCodeAt(i);
-      hash |= 0;
-    }
-    return Math.abs(hash);
-  };
+  const displayPrice =
+    product.salePrice && product.salePrice > 0 ? product.salePrice : product.price;
+  const originalPrice =
+    product.salePrice && product.salePrice > 0 ? product.price : null;
 
-  const seed = strHash(productId);
-  const reviewsCount = product.reviewsCount ?? (50 + (seed % 450));
-  const soldCount = product.soldCount ?? (120 + (seed % 980));
-  const storeLocation = product.storeLocation || (seed % 2 === 0 ? 'Jakarta Center' : 'South Jakarta');
-  const storeName = product.storeName || (seed % 3 === 0 ? 'SPORTIX Store' : 'Official Store');
-
-  const discountPercent =
-    product.salePrice && product.salePrice < product.price
-      ? Math.round(((product.price - product.salePrice) / product.price) * 100)
-      : (seed % 4 === 0 ? 15 : seed % 5 === 0 ? 25 : 0);
-
-  // Formatting price to match mockup (e.g. Rp 2.799.999 or $129.99)
   const formatPrice = (val: number) => {
     if (currency === 'IDR') {
       const idrVal = val < 1000 ? Math.round(val * 19500) : val;
       return `Rp ${idrVal.toLocaleString('id-ID')}`;
     }
-    return `$${val.toFixed(2)}`;
+    // Nike USD format: integers without .00, decimals with .99
+    return Number.isInteger(val) ? `$${val}` : `$${val.toFixed(2)}`;
   };
-
-  const displayPrice = product.salePrice && product.salePrice > 0 ? product.salePrice : product.price;
-  const originalPrice = product.salePrice && product.salePrice > 0
-    ? product.price
-    : discountPercent > 0
-    ? Math.round(product.price * (1 + discountPercent / 100))
-    : null;
 
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -91,7 +66,9 @@ export default function ProductCard({
       slug: product.slug,
       price: product.price,
       salePrice: product.salePrice,
-      image: product.images?.[0] || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
+      image:
+        product.images?.[0] ||
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
       subtitle: product.subtitle,
       category: product.categorySlug,
     });
@@ -106,7 +83,9 @@ export default function ProductCard({
       slug: product.slug,
       price: product.price,
       salePrice: product.salePrice,
-      image: product.images?.[0] || 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
+      image:
+        product.images?.[0] ||
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80',
       color: product.colors?.[0] || 'Default',
       size: 'US 9',
       quantity: 1,
@@ -115,121 +94,123 @@ export default function ProductCard({
     setTimeout(() => setAdded(false), 2000);
   };
 
+  const colorsCount = product.colors?.length || 1;
+  const colorCountText = colorsCount === 1 ? '1 Colour' : `${colorsCount} Colours`;
+
+  // Determine badge text
+  const badgeText =
+    product.badge ||
+    (product.salePrice && product.salePrice < product.price
+      ? 'Sale'
+      : product.isBestseller
+      ? 'Best Seller'
+      : product.isNew
+      ? 'Just In'
+      : null);
+
   return (
-    <div className="group relative bg-white rounded-2xl p-3 border border-zinc-100 hover:border-zinc-200 hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
-      {/* Top Image Box */}
-      <div className="relative">
-        <Link
-          href={`/products/${product.slug}`}
-          className="relative aspect-4/3 w-full bg-[#f9fafb] rounded-xl overflow-hidden flex items-center justify-center p-3 block"
-        >
+    <div
+      className="group relative flex flex-col justify-between w-full"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* Product Image Container */}
+      <div className="relative aspect-square w-full bg-[#f6f6f6] overflow-hidden rounded-md">
+        <Link href={`/products/${product.slug}`} className="block w-full h-full">
           <Image
             src={
+              (isHovered && product.images?.[1]) ||
               product.images?.[0] ||
               'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80'
             }
             alt={product.name}
             fill
             priority={priority}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-contain p-2 group-hover:scale-105 transition-transform duration-500 ease-out"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            className="object-contain p-4 group-hover:scale-105 transition-transform duration-500 ease-out"
           />
-
-          {/* Wishlist Heart Icon */}
-          <button
-            onClick={handleFavoriteClick}
-            aria-label="Add to wishlist"
-            className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-white/90 hover:bg-white text-zinc-600 hover:text-red-500 transition-all shadow-xs z-10"
-          >
-            <Heart
-              className={`w-3.5 h-3.5 ${
-                isFavorite ? 'fill-red-500 text-red-500' : 'text-zinc-600'
-              }`}
-            />
-          </button>
         </Link>
+
+        {/* Wishlist Button (Nike Minimalist Pill) */}
+        <button
+          onClick={handleFavoriteClick}
+          aria-label={isFavorite ? 'Remove from favourites' : 'Add to favourites'}
+          className="absolute top-3 right-3 p-2 rounded-full bg-white/90 hover:bg-white text-zinc-900 transition-all shadow-xs z-10 hover:scale-110"
+        >
+          <Heart
+            className={`w-4 h-4 transition-colors ${
+              isFavorite ? 'fill-red-600 text-red-600' : 'text-zinc-900'
+            }`}
+          />
+        </button>
+
+        {/* Quick Add To Bag Pill on Hover */}
+        <button
+          onClick={handleAddToCart}
+          className={`absolute bottom-3 right-3 p-2.5 rounded-full shadow-md transition-all duration-300 z-10 flex items-center gap-1.5 ${
+            added
+              ? 'bg-emerald-600 text-white opacity-100 scale-100'
+              : 'bg-zinc-950 text-white hover:bg-zinc-800 opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0'
+          }`}
+          title="Add to Bag"
+        >
+          {added ? (
+            <Check className="w-4 h-4" />
+          ) : (
+            <ShoppingBag className="w-4 h-4" />
+          )}
+        </button>
       </div>
 
-      {/* Product Information */}
-      <div className="pt-2.5 flex flex-col flex-1">
-        {/* Title */}
+      {/* Product Details (Nike Authentic Layout) */}
+      <div className="pt-3 pb-1 flex flex-col">
+        {/* Badge / Tagline */}
+        {badgeText && (
+          <span
+            className={`text-[13px] font-bold tracking-tight mb-0.5 ${
+              badgeText === 'Sale'
+                ? 'text-red-600'
+                : badgeText === 'Best Seller'
+                ? 'text-[#9e3500]'
+                : 'text-zinc-900'
+            }`}
+          >
+            {badgeText}
+          </span>
+        )}
+
+        {/* Product Title */}
         <Link
           href={`/products/${product.slug}`}
-          className="text-xs sm:text-[13px] font-semibold text-zinc-900 group-hover:text-[#FF4A22] transition-colors line-clamp-2 leading-snug min-h-[2.4rem]"
+          className="text-[15px] font-medium text-zinc-900 hover:text-zinc-600 transition-colors line-clamp-1"
           title={product.name}
         >
           {product.name}
         </Link>
 
-        {/* Rating Stars & Reviews */}
-        <div className="flex items-center gap-1.5 mt-1.5">
-          <div className="flex items-center text-amber-400">
-            {[...Array(5)].map((_, i) => (
-              <Star key={i} className="w-3 h-3 fill-amber-400 text-amber-400" />
-            ))}
-          </div>
-          <span className="text-[11px] text-zinc-500 font-medium">
-            {reviewsCount} Reviews
-          </span>
-        </div>
+        {/* Subtitle / Category */}
+        <p className="text-[14px] text-zinc-500 font-normal line-clamp-1 mt-0.5">
+          {product.subtitle ||
+            `${product.gender ? product.gender.charAt(0).toUpperCase() + product.gender.slice(1) + "'s " : ''}${
+              product.sport ? product.sport.charAt(0).toUpperCase() + product.sport.slice(1) + ' ' : ''
+            }Shoes`}
+        </p>
 
-        {/* Store Location */}
-        <div className="flex items-center gap-1 text-[11px] text-zinc-500 mt-1">
-          <MapPin className="w-3 h-3 text-zinc-400 shrink-0" />
-          <span className="truncate">
-            {storeName} | {storeLocation}
-          </span>
-        </div>
+        {/* Color count */}
+        <p className="text-[14px] text-zinc-500 font-normal mt-0.5">
+          {colorCountText}
+        </p>
 
-        {/* Price & Discounts Row */}
-        <div className="mt-2.5 pt-1">
-          <div className="flex items-baseline gap-1.5 flex-wrap">
-            {/* Active Price in vibrant Red/Orange */}
-            <span className="text-sm sm:text-[15px] font-bold text-[#FF4A22]">
-              {formatPrice(displayPrice)}
+        {/* Price Row */}
+        <div className="mt-2 flex items-baseline gap-2">
+          <span className="text-[15px] font-medium text-zinc-900">
+            {formatPrice(displayPrice)}
+          </span>
+          {originalPrice && (
+            <span className="text-[14px] text-zinc-400 line-through font-normal">
+              {formatPrice(originalPrice)}
             </span>
-
-            {/* Discount Badge */}
-            {discountPercent > 0 && (
-              <span className="bg-zinc-100 text-zinc-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
-                {discountPercent}%
-              </span>
-            )}
-
-            {/* Strikethrough Original Price */}
-            {originalPrice && (
-              <span className="text-[11px] text-zinc-400 line-through">
-                {formatPrice(originalPrice)}
-              </span>
-            )}
-          </div>
-
-          {/* Sold Count */}
-          <div className="text-[11px] text-zinc-400 mt-0.5">
-            {soldCount} sold
-          </div>
-        </div>
-
-        {/* Action Button: Orange Add to Cart */}
-        <div className="mt-3">
-          <button
-            onClick={handleAddToCart}
-            className={`w-full py-2 px-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm transition-all duration-200 active:scale-95 ${
-              added
-                ? 'bg-emerald-600 text-white'
-                : 'bg-[#FF4A22] hover:bg-[#E03E19] text-white shadow-orange-500/20'
-            }`}
-          >
-            {added ? (
-              <>
-                <Check className="w-3.5 h-3.5" /> Added to Cart
-              </>
-            ) : (
-              <>
-                <ShoppingCart className="w-3.5 h-3.5" /> Add to cart
-              </>
-            )}
-          </button>
+          )}
         </div>
       </div>
     </div>

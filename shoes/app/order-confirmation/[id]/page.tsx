@@ -12,6 +12,7 @@ import {
   ArrowRight,
   Printer,
 } from 'lucide-react';
+import { trackPurchase } from '@/lib/analytics';
 
 export default function OrderConfirmationPage({
   params,
@@ -29,6 +30,23 @@ export default function OrderConfirmationPage({
         const data = await res.json();
         if (data.order) {
           setOrder(data.order);
+          // Dispatch purchase conversion event to GTM and Meta Pixel
+          trackPurchase({
+            id: data.order._id || id,
+            orderNumber: data.order.orderNumber,
+            total: data.order.totalAmount || 0,
+            subtotal: data.order.subtotal || 0,
+            shipping: data.order.shippingFee || 0,
+            currency: 'USD',
+            items: (data.order.items || []).map((it: any) => ({
+              id: it.productId || it.id,
+              name: it.name,
+              price: it.price,
+              quantity: it.quantity,
+              size: it.size,
+              color: it.color,
+            })),
+          });
         }
       } catch (e) {
         console.error(e);

@@ -16,6 +16,7 @@ import {
   Banknote,
 } from 'lucide-react';
 import { useCartWishlist } from '@/context/CartWishlistContext';
+import { trackBeginCheckout } from '@/lib/analytics';
 
 export default function CheckoutPage() {
   const router = useRouter();
@@ -72,6 +73,24 @@ export default function CheckoutPage() {
       }));
     }
   }, [user]);
+
+  // Track Begin Checkout event for GTM & Meta Pixel
+  useEffect(() => {
+    if (cart && cart.length > 0) {
+      trackBeginCheckout(
+        cart.map((item) => ({
+          id: item.productId,
+          name: item.name,
+          price: item.price,
+          salePrice: item.salePrice,
+          quantity: item.quantity,
+          size: item.size,
+          color: item.color,
+        })),
+        subtotal
+      );
+    }
+  }, []);
 
   // Shipping calculation based on choice
   const standardShipping = subtotal > 150 ? 0 : 12.00;

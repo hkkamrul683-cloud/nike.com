@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { trackAddToCart, trackRemoveFromCart } from '@/lib/analytics';
 
 export interface CartItem {
   id: string; // generated unique cart item id (e.g. productId-size-color)
@@ -170,9 +171,34 @@ export function CartWishlistProvider({ children }: { children: React.ReactNode }
       return [...prev, { ...newItem, id: itemKey }];
     });
     setIsCartDrawerOpen(true);
+
+    // Trigger Analytics Tracking for GTM, Meta Pixel & GA4
+    trackAddToCart(
+      {
+        id: newItem.productId,
+        name: newItem.name,
+        price: newItem.price,
+        salePrice: newItem.salePrice,
+        size: newItem.size,
+        color: newItem.color,
+      },
+      newItem.quantity
+    );
   };
 
   const removeFromCart = (cartItemId: string) => {
+    const itemToRemove = cart.find((i) => i.id === cartItemId);
+    if (itemToRemove) {
+      trackRemoveFromCart(
+        {
+          id: itemToRemove.productId,
+          name: itemToRemove.name,
+          price: itemToRemove.price,
+          salePrice: itemToRemove.salePrice,
+        },
+        itemToRemove.quantity
+      );
+    }
     setCart((prev) => prev.filter((i) => i.id !== cartItemId));
   };
 

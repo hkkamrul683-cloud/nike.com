@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import {
   Search,
   Heart,
@@ -10,7 +10,6 @@ import {
   User as UserIcon,
   Menu,
   X,
-  ChevronDown,
   ChevronRight,
   LogOut,
   ShieldCheck,
@@ -51,7 +50,7 @@ const MEGA_MENUS: Record<string, MegaMenuContent> = {
         heading: 'Shop Icons',
         links: [
           { name: 'Air Infinity Series', href: '/products?search=Infinity' },
-          { name: 'SPORTIX Flight Court', href: '/products?category=flight' },
+          { name: 'Nike Flight Court', href: '/products?category=flight' },
           { name: 'Metatrack Cross 9', href: '/products?search=Metatrack' },
           { name: 'Club Fleece Essentials', href: '/products?search=Fleece' },
         ],
@@ -205,47 +204,48 @@ const MEGA_MENUS: Record<string, MegaMenuContent> = {
       },
     ],
   },
-  'SPORTIX Flight': {
-    title: 'SPORTIX Flight',
+  Sale: {
+    title: 'Sale',
     columns: [
       {
-        heading: 'Court Silhouettes',
+        heading: 'Shoes on Sale',
         links: [
-          { name: 'Shop All Flight', href: '/products?category=flight' },
-          { name: 'Flight Retro High', href: '/products/sportix-flight-retro-high' },
-          { name: 'Flight Court Elevate', href: '/products/sportix-flight-court-elevate' },
-          { name: 'Flight Tearaway Pants', href: '/products/sportix-flight-warmup-tearaway-pants' },
+          { name: 'All Sale Shoes', href: '/products?sale=true&category=shoes' },
+          { name: 'Men\'s Sale Shoes', href: '/products?sale=true&gender=men' },
+          { name: 'Women\'s Sale Shoes', href: '/products?sale=true&gender=women' },
+          { name: 'Kids\' Sale Shoes', href: '/products?sale=true&gender=kids' },
         ],
       },
       {
-        heading: 'Heritage & Street',
+        heading: 'Clothing on Sale',
         links: [
-          { name: 'Basketball Headwear & Caps', href: '/products/sportix-flight-heritage-snapback-cap' },
-          { name: 'Youth Edition Flight', href: '/products/sportix-flight-youth-edition' },
-          { name: 'Elite Crew Cushion Socks', href: '/products/sportix-elite-crew-cushion-socks-3-pack' },
+          { name: 'All Sale Clothing', href: '/products?sale=true&category=clothing' },
+          { name: 'Men\'s Sale Tops', href: '/products?sale=true&gender=men&search=Tee' },
+          { name: 'Women\'s Sale Leggings', href: '/products?sale=true&gender=women&search=Leggings' },
         ],
       },
     ],
     featured: [
       {
-        title: 'Flight Retro High Chicago',
-        image: 'https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=600&q=80',
-        href: '/products/sportix-flight-retro-high',
-        tag: 'Hardwood Royalty',
+        title: 'Up to 40% Off Running Gear',
+        image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80',
+        href: '/products?sale=true&sport=running',
+        tag: 'Up to 40% Off',
       },
     ],
   },
 };
 
 export default function Navbar() {
-  const { totalCartItems, wishlist, isCartDrawerOpen, setIsCartDrawerOpen, user, logout, openAuthModal } = useCartWishlist();
+  const pathname = usePathname();
+  const { totalCartItems, wishlist, setIsCartDrawerOpen, user, logout, openAuthModal } = useCartWishlist();
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-  // Close menus on route change or scroll
   useEffect(() => {
     const handleScroll = () => {
       setActiveMenu(null);
@@ -255,186 +255,173 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  if (pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white border-b border-zinc-200">
-        {/* Top Micro Utility Bar (Nike Style) */}
-        <div className="bg-zinc-50 border-b border-zinc-200/80 px-6 py-1.5 hidden md:block text-[12px] text-zinc-900 font-medium">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            {/* Wing Logo Mark */}
-            <div className="flex items-center gap-4">
-              <span className="font-semibold text-zinc-800 tracking-wider">SPORTIX GLOBAL</span>
-            </div>
-
-            {/* Utility links: Help | Sign Up | Log In */}
-            <div className="flex items-center gap-3">
-              <Link href="/help" className="hover:text-zinc-600 transition-colors">
-                Help
-              </Link>
-              <span className="text-zinc-900 select-none">|</span>
-              {user ? (
-                <>
-                  <div className="flex items-center gap-2">
-                    <span>Hi, <strong className="text-zinc-950 font-semibold">{user.name || user.email.split('@')[0]}</strong></span>
-                    {user.role === 'ADMIN' && (
-                      <Link
-                        href="/admin"
-                        className="inline-flex items-center gap-1 bg-zinc-900 text-white text-[10px] px-2 py-0.5 rounded font-bold hover:bg-zinc-800"
-                      >
-                        <ShieldCheck className="w-3 h-3" /> Admin
-                      </Link>
-                    )}
-                  </div>
-                  <span className="text-zinc-900 select-none">|</span>
-                  <button
-                    onClick={logout}
-                    className="hover:text-zinc-600 transition-colors cursor-pointer"
-                  >
-                    Log Out
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link
-                    href="/register"
-                    className="hover:text-zinc-600 transition-colors font-medium"
-                  >
-                    Sign Up
-                  </Link>
-                  <span className="text-zinc-900 select-none">|</span>
-                  <Link
-                    href="/login"
-                    className="hover:text-zinc-600 transition-colors font-medium"
-                  >
-                    Log In
-                  </Link>
-                </>
-              )}
-            </div>
+      <header className="sticky top-0 z-40 bg-white">
+        {/* Top Micro Utility Bar — Nike style */}
+        <div className="bg-white border-b border-zinc-100 px-6 py-2 hidden md:block text-[12px] text-zinc-700">
+          <div className="max-w-7xl mx-auto flex justify-end items-center gap-4">
+            <a href="/help" className="hover:underline transition-colors">Find a Store</a>
+            <span className="text-zinc-300 select-none">|</span>
+            <a href="/help" className="hover:underline transition-colors">Help</a>
+            <span className="text-zinc-300 select-none">|</span>
+            {user ? (
+              <>
+                <div className="flex items-center gap-2">
+                  <span>Hi, <strong className="font-semibold">{user.name || user.email.split('@')[0]}</strong></span>
+                  {user.role === 'ADMIN' && (
+                    <a
+                      href="/admin"
+                      className="inline-flex items-center gap-1 bg-zinc-900 text-white text-[10px] px-2 py-0.5 rounded font-bold hover:bg-zinc-700"
+                    >
+                      <ShieldCheck className="w-3 h-3" /> Admin
+                    </a>
+                  )}
+                </div>
+                <span className="text-zinc-300 select-none">|</span>
+                <button
+                  onClick={logout}
+                  className="hover:underline transition-colors cursor-pointer"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <a href="/register" className="hover:underline transition-colors font-medium">Join Us</a>
+                <span className="text-zinc-300 select-none">|</span>
+                <a href="/login" className="hover:underline transition-colors font-medium">Sign In</a>
+              </>
+            )}
           </div>
         </div>
 
         {/* Main Navbar */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-18 flex items-center justify-between">
-          {/* Brand Logo */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-[60px] flex items-center justify-between border-b border-zinc-100">
+          {/* Nike Swoosh Logo — left */}
           <Logo size="md" />
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7 h-full">
+          {/* Desktop Navigation Links — center */}
+          <nav className="hidden lg:flex items-center gap-8 h-full" onMouseLeave={() => setActiveMenu(null)}>
             {Object.keys(MEGA_MENUS).map((item) => (
               <div
                 key={item}
-                className="h-full flex items-center"
+                className="h-full flex items-center relative"
                 onMouseEnter={() => setActiveMenu(item)}
               >
-                <Link
+                <a
                   href={
-                    item === 'SPORTIX Flight'
-                      ? '/products?category=flight'
+                    item === 'Sale'
+                      ? '/products?sale=true'
+                      : item === 'New & Featured'
+                      ? '/products?sort=newest'
                       : `/products?gender=${item.toLowerCase()}`
                   }
-                  className="text-sm font-semibold tracking-tight transition-colors py-2 relative text-zinc-900 hover:text-black"
+                  className={`text-[15px] font-medium tracking-normal transition-colors py-2 relative text-zinc-900 hover:text-black ${
+                    activeMenu === item ? 'font-semibold' : ''
+                  }`}
                 >
                   {item}
                   {activeMenu === item && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-zinc-950" />
+                    <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-zinc-950 rounded-full" />
                   )}
-                </Link>
+                </a>
               </div>
             ))}
           </nav>
 
           {/* Right Action Icons */}
-          <div className="flex items-center gap-1 sm:gap-2">
-            {/* Search Pill Button */}
+          <div className="flex items-center gap-1">
+            {/* Search */}
             <button
               onClick={() => setIsSearchOpen(true)}
-              className="flex items-center gap-2 bg-zinc-100 hover:bg-zinc-200/80 px-3 py-2 rounded-full text-zinc-500 hover:text-zinc-900 transition-all text-xs font-medium cursor-pointer"
+              className="flex items-center gap-1.5 bg-zinc-100 hover:bg-zinc-200 px-3 py-2 rounded-full text-zinc-700 hover:text-zinc-900 transition-all text-sm font-medium cursor-pointer"
               title="Search"
             >
-              <Search className="w-4 h-4 text-zinc-700" />
-              <span className="hidden sm:inline pr-2">Search</span>
+              <Search className="w-4 h-4" />
+              <span className="hidden sm:inline text-sm pr-1">Search</span>
             </button>
 
-            {/* Wishlist Link */}
-            <Link
+            {/* Wishlist */}
+            <a
               href="/wishlist"
               className="relative p-2.5 rounded-full hover:bg-zinc-100 text-zinc-800 transition-colors"
-              title="Wishlist"
+              title="Favourites"
             >
               <Heart className="w-5 h-5" />
               {wishlist.length > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-red-600 text-white rounded-full text-[10px] font-bold flex items-center justify-center">
+                <span className="absolute top-1 right-1 w-[14px] h-[14px] bg-zinc-950 text-white rounded-full text-[9px] font-bold flex items-center justify-center">
                   {wishlist.length}
                 </span>
               )}
-            </Link>
+            </a>
 
-            {/* Shopping Bag Trigger */}
+            {/* Shopping Bag */}
             <button
               onClick={() => setIsCartDrawerOpen(true)}
-              className="relative p-2.5 rounded-full hover:bg-zinc-100 text-zinc-800 transition-colors"
-              title="Shopping Bag"
+              className="relative p-2.5 rounded-full hover:bg-zinc-100 text-zinc-800 transition-colors cursor-pointer"
+              title="Bag"
             >
               <ShoppingBag className="w-5 h-5" />
               {totalCartItems > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-zinc-950 text-white rounded-full text-[10px] font-bold flex items-center justify-center">
+                <span className="absolute top-1 right-1 w-[14px] h-[14px] bg-zinc-950 text-white rounded-full text-[9px] font-bold flex items-center justify-center">
                   {totalCartItems}
                 </span>
               )}
             </button>
 
-            {/* User Account Dropdown */}
+            {/* User Account */}
             <div className="relative">
               <button
                 onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                className="p-2.5 rounded-full hover:bg-zinc-100 text-zinc-800 transition-colors"
+                className="p-2.5 rounded-full hover:bg-zinc-100 text-zinc-800 transition-colors cursor-pointer"
                 title="Account"
               >
                 <UserIcon className="w-5 h-5" />
               </button>
 
               {isUserMenuOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-zinc-200 py-2 z-50 animate-fadeIn">
+                <div className="absolute right-0 mt-2 w-60 bg-white rounded-xl shadow-2xl border border-zinc-100 py-2 z-50">
                   {user ? (
                     <>
                       <div className="px-4 py-3 border-b border-zinc-100">
-                        <p className="text-xs text-zinc-500 font-medium">Signed in as</p>
-                        <p className="text-sm font-bold text-zinc-900 truncate">{user.name || user.email}</p>
-                        <span className="inline-block mt-1 text-[10px] font-bold uppercase tracking-wider bg-zinc-100 text-zinc-700 px-2 py-0.5 rounded">
+                        <p className="text-xs text-zinc-400 font-medium">Signed in as</p>
+                        <p className="text-sm font-bold text-zinc-900 truncate mt-0.5">{user.name || user.email}</p>
+                        <span className="inline-block mt-1 text-[10px] font-bold uppercase tracking-wider bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded">
                           {user.role}
                         </span>
                       </div>
-                      <Link
+                      <a
                         href="/account"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-zinc-700 hover:bg-zinc-50"
+                        className="flex items-center gap-2 px-4 py-2.5 text-[13px] text-zinc-700 hover:bg-zinc-50"
                       >
                         <UserIcon className="w-4 h-4" /> My Profile
-                      </Link>
-                      <Link
+                      </a>
+                      <a
                         href="/account/orders"
                         onClick={() => setIsUserMenuOpen(false)}
-                        className="flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-zinc-700 hover:bg-zinc-50"
+                        className="flex items-center gap-2 px-4 py-2.5 text-[13px] text-zinc-700 hover:bg-zinc-50"
                       >
                         <Package className="w-4 h-4" /> Orders & Tracking
-                      </Link>
+                      </a>
                       {user.role === 'ADMIN' && (
-                        <Link
+                        <a
                           href="/admin"
                           onClick={() => setIsUserMenuOpen(false)}
-                          className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-red-600 hover:bg-red-50"
+                          className="flex items-center gap-2 px-4 py-2.5 text-[13px] font-bold text-red-600 hover:bg-red-50"
                         >
                           <ShieldCheck className="w-4 h-4" /> Admin Dashboard
-                        </Link>
+                        </a>
                       )}
                       <div className="border-t border-zinc-100 mt-1 pt-1">
                         <button
-                          onClick={() => {
-                            setIsUserMenuOpen(false);
-                            logout();
-                          }}
-                          className="w-full flex items-center gap-2 px-4 py-2.5 text-xs font-semibold text-zinc-500 hover:text-zinc-950 hover:bg-zinc-50 text-left"
+                          onClick={() => { setIsUserMenuOpen(false); logout(); }}
+                          className="w-full flex items-center gap-2 px-4 py-2.5 text-[13px] text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50 text-left cursor-pointer"
                         >
                           <LogOut className="w-4 h-4" /> Sign Out
                         </button>
@@ -443,22 +430,16 @@ export default function Navbar() {
                   ) : (
                     <div className="p-3 space-y-2">
                       <button
-                        onClick={() => {
-                          setIsUserMenuOpen(false);
-                          openAuthModal();
-                        }}
-                        className="block w-full py-2.5 bg-zinc-950 text-white text-center rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-colors cursor-pointer"
+                        onClick={() => { setIsUserMenuOpen(false); openAuthModal(); }}
+                        className="block w-full py-3 bg-zinc-950 text-white text-center rounded-full text-[13px] font-bold hover:bg-zinc-700 transition-colors cursor-pointer"
                       >
                         Sign In
                       </button>
                       <button
-                        onClick={() => {
-                          setIsUserMenuOpen(false);
-                          openAuthModal();
-                        }}
-                        className="block w-full py-2 border border-zinc-300 text-zinc-900 text-center rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-100 transition-colors cursor-pointer"
+                        onClick={() => { setIsUserMenuOpen(false); openAuthModal(); }}
+                        className="block w-full py-2.5 border border-zinc-300 text-zinc-900 text-center rounded-full text-[13px] font-medium hover:bg-zinc-100 transition-colors cursor-pointer"
                       >
-                        Join SPORTIX Club
+                        Join Us
                       </button>
                     </div>
                   )}
@@ -466,40 +447,40 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Mobile Hamburger Menu Toggle */}
+            {/* Mobile Menu */}
             <button
               onClick={() => setIsMobileMenuOpen(true)}
-              className="lg:hidden p-2 rounded-full hover:bg-zinc-100 text-zinc-800"
+              className="lg:hidden p-2.5 rounded-full hover:bg-zinc-100 text-zinc-800"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        {/* Expandable Mega Menu Dropdown */}
+        {/* Mega Menu Dropdown */}
         {activeMenu && MEGA_MENUS[activeMenu] && (
           <div
-            className="hidden lg:block absolute top-full left-0 right-0 bg-white border-b border-zinc-200 shadow-xl animate-fadeIn"
+            className="hidden lg:block absolute top-full left-0 right-0 bg-white border-b border-zinc-200 shadow-lg"
+            onMouseEnter={() => setActiveMenu(activeMenu)}
             onMouseLeave={() => setActiveMenu(null)}
           >
-            <div className="max-w-7xl mx-auto px-8 py-8 grid grid-cols-12 gap-8">
-              {/* Columns */}
-              <div className="col-span-8 grid grid-cols-3 gap-6">
+            <div className="max-w-7xl mx-auto px-8 py-10 grid grid-cols-12 gap-8">
+              <div className="col-span-8 grid grid-cols-3 gap-8">
                 {MEGA_MENUS[activeMenu].columns.map((col, idx) => (
                   <div key={idx} className="space-y-3">
-                    <h4 className="text-xs font-bold uppercase tracking-wider text-zinc-900">
+                    <h4 className="text-[11px] font-bold uppercase tracking-widest text-zinc-400">
                       {col.heading}
                     </h4>
-                    <ul className="space-y-2">
+                    <ul className="space-y-2.5">
                       {col.links.map((link, lIdx) => (
                         <li key={lIdx}>
-                          <Link
+                          <a
                             href={link.href}
                             onClick={() => setActiveMenu(null)}
-                            className="text-xs text-zinc-600 hover:text-zinc-950 hover:underline font-medium block py-0.5 transition-colors"
+                            className="text-[14px] text-zinc-800 hover:text-black font-medium block transition-colors"
                           >
                             {link.name}
-                          </Link>
+                          </a>
                         </li>
                       ))}
                     </ul>
@@ -510,27 +491,26 @@ export default function Navbar() {
               {/* Featured Visual Tiles */}
               <div className="col-span-4 grid grid-cols-2 gap-4 border-l border-zinc-100 pl-8">
                 {MEGA_MENUS[activeMenu].featured.map((card, fIdx) => (
-                  <Link
+                  <a
                     key={fIdx}
                     href={card.href}
                     onClick={() => setActiveMenu(null)}
                     className="group block"
                   >
-                    <div className="relative aspect-4/5 bg-zinc-100 rounded-xl overflow-hidden mb-2">
-                      <Image
+                    <div className="relative aspect-[4/5] bg-zinc-100 rounded-lg overflow-hidden mb-2">
+                      <img
                         src={card.image}
                         alt={card.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <span className="absolute top-2 left-2 bg-white/90 backdrop-blur-xs text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full text-zinc-900">
+                      <span className="absolute top-2 left-2 bg-white/90 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full text-zinc-900">
                         {card.tag}
                       </span>
                     </div>
-                    <p className="text-xs font-bold text-zinc-900 group-hover:underline line-clamp-1">
+                    <p className="text-[13px] font-bold text-zinc-900 group-hover:underline line-clamp-1">
                       {card.title}
                     </p>
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>
@@ -538,16 +518,15 @@ export default function Navbar() {
         )}
       </header>
 
-      {/* Mobile Slide-Out Navigation Menu */}
+      {/* Mobile Slide-Out Menu */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs"
+            className="fixed inset-0 bg-black/50"
             onClick={() => setIsMobileMenuOpen(false)}
           />
-
-          <div className="fixed inset-y-0 right-0 max-w-xs w-full bg-white shadow-2xl flex flex-col animate-slideIn">
-            <div className="p-5 border-b border-zinc-200 flex items-center justify-between">
+          <div className="fixed inset-y-0 left-0 max-w-xs w-full bg-white shadow-2xl flex flex-col">
+            <div className="p-5 border-b border-zinc-100 flex items-center justify-between">
               <Logo size="sm" />
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
@@ -557,34 +536,32 @@ export default function Navbar() {
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-5 space-y-4">
+            <div className="flex-1 overflow-y-auto py-4">
               {Object.entries(MEGA_MENUS).map(([category, data]) => {
                 const isExpanded = mobileExpanded === category;
                 return (
-                  <div key={category} className="border-b border-zinc-100 pb-3">
+                  <div key={category} className="border-b border-zinc-100">
                     <button
                       onClick={() => setMobileExpanded(isExpanded ? null : category)}
-                      className="w-full flex items-center justify-between text-base font-bold text-zinc-900 text-left py-1"
+                      className="w-full flex items-center justify-between px-5 py-4 text-[15px] font-medium text-zinc-900 text-left"
                     >
                       <span>{category}</span>
                       <ChevronRight
-                        className={`w-4 h-4 text-zinc-400 transition-transform ${
-                          isExpanded ? 'rotate-90' : ''
-                        }`}
+                        className={`w-4 h-4 text-zinc-400 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
                       />
                     </button>
 
                     {isExpanded && (
-                      <div className="mt-3 pl-3 space-y-3">
+                      <div className="px-5 pb-4 space-y-2.5">
                         {data.columns.flatMap((c) => c.links).map((link, idx) => (
-                          <Link
+                          <a
                             key={idx}
                             href={link.href}
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className="block text-xs font-medium text-zinc-600 hover:text-zinc-950 py-1"
+                            className="block text-sm text-zinc-600 hover:text-zinc-900 py-0.5"
                           >
                             {link.name}
-                          </Link>
+                          </a>
                         ))}
                       </div>
                     )}
@@ -592,58 +569,43 @@ export default function Navbar() {
                 );
               })}
 
-              <div className="pt-4 space-y-3">
-                <Link
-                  href="/wishlist"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 text-sm font-semibold text-zinc-800"
-                >
-                  <Heart className="w-4 h-4" /> Wishlist ({wishlist.length})
-                </Link>
-                <Link
-                  href="/cart"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 text-sm font-semibold text-zinc-800"
-                >
+              <div className="px-5 py-4 space-y-3 border-b border-zinc-100">
+                <a href="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-[15px] font-medium text-zinc-800">
+                  <Heart className="w-4 h-4" /> Favourites ({wishlist.length})
+                </a>
+                <a href="/cart" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-[15px] font-medium text-zinc-800">
                   <ShoppingBag className="w-4 h-4" /> Bag ({totalCartItems})
-                </Link>
-                <Link
-                  href="/account"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-3 text-sm font-semibold text-zinc-800"
-                >
+                </a>
+                <a href="/account" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-[15px] font-medium text-zinc-800">
                   <UserIcon className="w-4 h-4" /> My Account
-                </Link>
+                </a>
               </div>
             </div>
 
-            <div className="p-5 border-t border-zinc-200 bg-zinc-50">
+            <div className="p-5 border-t border-zinc-100">
               {user ? (
                 <button
-                  onClick={() => {
-                    setIsMobileMenuOpen(false);
-                    logout();
-                  }}
-                  className="w-full py-3 bg-zinc-950 text-white rounded-full text-xs font-bold uppercase tracking-wider"
+                  onClick={() => { setIsMobileMenuOpen(false); logout(); }}
+                  className="w-full py-3.5 bg-zinc-950 text-white rounded-full text-sm font-bold uppercase tracking-wider"
                 >
                   Sign Out
                 </button>
               ) : (
-                <div className="space-y-2">
-                  <Link
+                <div className="space-y-2.5">
+                  <a
                     href="/login"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full py-3 bg-zinc-950 text-white text-center rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer hover:bg-zinc-800 transition-colors"
+                    className="block w-full py-3.5 bg-zinc-950 text-white text-center rounded-full text-sm font-bold"
                   >
-                    Log In
-                  </Link>
-                  <Link
+                    Sign In
+                  </a>
+                  <a
                     href="/register"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block w-full py-2.5 border border-zinc-300 text-zinc-900 text-center rounded-full text-xs font-bold uppercase tracking-wider cursor-pointer hover:bg-zinc-100 transition-colors"
+                    className="block w-full py-3 border border-zinc-300 text-zinc-900 text-center rounded-full text-sm font-medium hover:bg-zinc-100"
                   >
-                    Sign Up
-                  </Link>
+                    Join Us
+                  </a>
                 </div>
               )}
             </div>
@@ -651,7 +613,7 @@ export default function Navbar() {
         </div>
       )}
 
-      {/* Global Search Modal */}
+      {/* Search Modal */}
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
