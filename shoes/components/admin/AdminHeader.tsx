@@ -91,7 +91,7 @@ export default function AdminHeader({
       </div>
 
       {/* Right: Actions */}
-      <div className="flex items-center gap-2.5">
+      <div className="flex items-center gap-2.5 shrink-0">
         {/* Reset Database Button */}
         <button
           onClick={onReseed}
@@ -106,10 +106,11 @@ export default function AdminHeader({
         {/* Add Product Button */}
         <button
           onClick={onOpenAddProduct}
-          className="px-3.5 py-1.5 rounded-lg bg-white hover:bg-zinc-200 text-zinc-950 text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+          className="px-3 sm:px-3.5 py-1.5 rounded-lg bg-white hover:bg-zinc-200 text-zinc-950 text-xs font-bold flex items-center gap-1.5 transition-colors shadow-xs cursor-pointer"
         >
           <Plus className="w-4 h-4 stroke-[2.5]" />
-          <span>Add Product</span>
+          <span className="hidden sm:inline">Add Product</span>
+          <span className="sm:hidden">Add</span>
         </button>
       </div>
     </header>

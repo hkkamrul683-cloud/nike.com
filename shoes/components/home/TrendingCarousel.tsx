@@ -42,7 +42,7 @@ export default function TrendingCarousel({
           <p className="text-xs sm:text-sm text-zinc-500 mt-1 font-medium">{subtitle}</p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <Link
             href={viewAllLink}
             className="text-xs font-bold uppercase tracking-wider text-zinc-900 hover:underline hidden sm:inline"
@@ -54,6 +54,7 @@ export default function TrendingCarousel({
               onClick={() => scroll('left')}
               className="p-2.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 transition-colors"
               title="Scroll Left"
+              aria-label="Scroll Left"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -61,6 +62,7 @@ export default function TrendingCarousel({
               onClick={() => scroll('right')}
               className="p-2.5 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-800 transition-colors"
               title="Scroll Right"
+              aria-label="Scroll Right"
             >
               <ChevronRight className="w-5 h-5" />
             </button>

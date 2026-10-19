@@ -403,7 +403,7 @@ export default function AdminVendors({
                       {/* Name & Company */}
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-zinc-800 to-zinc-950 border border-zinc-700/70 flex items-center justify-center font-mono font-bold text-xs text-emerald-400 shrink-0 shadow-xs">
+                          <div className="w-9 h-9 rounded-xl bg-linear-to-br from-zinc-800 to-zinc-950 border border-zinc-700/70 flex items-center justify-center font-mono font-bold text-xs text-emerald-400 shrink-0 shadow-xs">
                             {initials}
                           </div>
                           <div className="min-w-0 max-w-xs">
@@ -533,7 +533,7 @@ export default function AdminVendors({
             className="fixed inset-0 bg-black/75 backdrop-blur-xs transition-opacity"
           />
 
-          <div className="relative w-full max-w-lg bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl p-6 z-10 animate-in fade-in zoom-in-95 duration-150">
+          <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl p-4 sm:p-6 z-10 animate-in fade-in zoom-in-95 duration-150">
             {/* Modal Header */}
             <div className="flex items-center justify-between pb-4 border-b border-zinc-800">
               <div className="flex items-center gap-2">
@@ -559,7 +559,7 @@ export default function AdminVendors({
                 </div>
               )}
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-[11px] font-mono uppercase text-zinc-400 mb-1">
                     Vendor Brand Name *
@@ -588,7 +588,7 @@ export default function AdminVendors({
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-[11px] font-mono uppercase text-zinc-400 mb-1">
                     Contact Person
@@ -617,7 +617,7 @@ export default function AdminVendors({
                 </div>
               </div>
 
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
                   <label className="block text-[11px] font-mono uppercase text-zinc-400 mb-1">
                     Phone Number

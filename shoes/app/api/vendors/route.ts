@@ -73,14 +73,30 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const user = await getCurrentUser();
-    if (!user || user.role !== 'ADMIN') {
+    if (!user) {
       return NextResponse.json(
-        { success: false, error: 'Unauthorized: Admin privileges required' },
+        { success: false, error: 'Unauthorized: Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    if (user.role !== 'ADMIN') {
+      return NextResponse.json(
+        { success: false, error: 'Forbidden: Admin privileges required' },
         { status: 403 }
       );
     }
 
-    const body = await req.json();
+    let body: any;
+    try {
+      body = await req.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, error: 'Invalid JSON request payload' },
+        { status: 400 }
+      );
+    }
+
     const {
       name,
       company,
@@ -93,16 +109,36 @@ export async function POST(req: NextRequest) {
       notes,
     } = body;
 
-    if (!name || !email) {
+    if (!name || typeof name !== 'string' || !name.trim()) {
       return NextResponse.json(
-        { success: false, error: 'Vendor name and email are required' },
+        { success: false, error: 'Vendor name is required' },
         { status: 400 }
       );
     }
 
+    if (!email || typeof email !== 'string' || !email.trim()) {
+      return NextResponse.json(
+        { success: false, error: 'Vendor email is required' },
+        { status: 400 }
+      );
+    }
+
+    const cleanEmail = email.trim().toLowerCase();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(cleanEmail)) {
+      return NextResponse.json(
+        { success: false, error: 'Invalid email address format' },
+        { status: 400 }
+      );
+    }
+
+    const rawRate = commissionRate !== undefined && commissionRate !== '' ? parseFloat(String(commissionRate)) : 10;
+    const cleanRate = isNaN(rawRate) || rawRate < 0 || rawRate > 100 ? 10 : rawRate;
+
     const slug =
       body.slug ||
       name
+        .trim()
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/(^-|-$)+/g, '');
@@ -111,7 +147,7 @@ export async function POST(req: NextRequest) {
 
     // Check if slug or email exists
     const existing = await vendorsCol.findOne({
-      $or: [{ slug }, { email: email.toLowerCase() }],
+      $or: [{ slug }, { email: cleanEmail }],
     });
     if (existing) {
       return NextResponse.json(
@@ -119,24 +155,24 @@ export async function POST(req: NextRequest) {
           success: false,
           error: 'A vendor with this name or email already exists',
         },
-        { status: 400 }
+        { status: 409 }
       );
     }
 
     const newVendor: Vendor = {
-      name,
+      name: name.trim(),
       slug,
-      company: company || name,
-      contactPerson: contactPerson || 'Operations Lead',
-      email: email.toLowerCase(),
-      phone: phone || '+880 1700-000000',
-      address: address || 'Dhaka, Bangladesh',
-      city: city || 'Dhaka',
-      commissionRate: parseFloat(commissionRate || '10'),
-      status: body.status || 'active',
+      company: (company || name).trim(),
+      contactPerson: (contactPerson || 'Operations Lead').trim(),
+      email: cleanEmail,
+      phone: (phone || '+880 1700-000000').trim(),
+      address: (address || 'Dhaka, Bangladesh').trim(),
+      city: (city || 'Dhaka').trim(),
+      commissionRate: cleanRate,
+      status: body.status === 'inactive' ? 'inactive' : 'active',
       rating: 5.0,
       joinedDate: new Date().toISOString().split('T')[0],
-      notes: notes || '',
+      notes: (notes || '').trim(),
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -150,10 +186,10 @@ export async function POST(req: NextRequest) {
       },
       { status: 201 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error('Error creating vendor:', error);
     return NextResponse.json(
-      { success: false, error: error.message },
+      { success: false, error: 'Failed to create vendor' },
       { status: 500 }
     );
   }

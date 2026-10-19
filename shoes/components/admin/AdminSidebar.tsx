@@ -155,7 +155,7 @@ export default function AdminSidebar({
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
                 <span className="font-bold text-sm text-white tracking-tight truncate">HypeKicks</span>
-                <span className="text-[10px] font-mono font-medium px-1.5 py-0.2 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
+                <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
                   prod
                 </span>
               </div>
