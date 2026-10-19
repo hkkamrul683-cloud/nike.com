@@ -1,0 +1,2148 @@
+[
+  {
+    "_id": "6acd3037c9e4402199081cd9",
+    "slug": "sportix-air-infinity-pro",
+    "badge": "Best Seller",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Volt / Black / Phantom",
+      "Triple Black",
+      "Hyper Crimson / White"
+    ],
+    "colorway": "Volt / Black / Phantom",
+    "createdAt": "2026-10-12T19:08:37.746Z",
+    "description": "The pinnacle of road racing innovation. Designed with dual ZoomAir energy pods and full-length responsive carbon plate technology to propel every stride forward with unrivaled energy return.",
+    "details": [
+      "Dual ZoomAir pods under the forefoot deliver springy, pressurized rebound",
+      "Full-length carbon composite plate stabilizes and provides propulsion",
+      "AtomKnit ultra-breathable upper reduces weight and resists moisture",
+      "Engineered waffle rubber outsole for targeted marathon traction"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX Air Infinity Pro",
+    "price": 275,
+    "salePrice": 220,
+    "sizes": [
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 12"
+    ],
+    "sku": "SPX-AIR-INF-01",
+    "sport": "running",
+    "stock": 45,
+    "subtitle": "Men's Road Racing & Marathon Shoes",
+    "updatedAt": "2026-10-12T19:08:37.746Z"
+  },
+  {
+    "_id": "6acd3037c9e4402199081cda",
+    "slug": "sportix-flight-retro-high",
+    "badge": "Member Exclusive",
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Chicago Red / Black / Sail",
+      "Shadow Grey / White",
+      "Royal Blue / Obsidian"
+    ],
+    "colorway": "Chicago Red / Black / Sail",
+    "createdAt": "2026-10-12T19:08:38.004Z",
+    "description": "Honoring four decades of basketball supremacy. Premium full-grain leather, padded collar support, and the unmistakable Flight heel cushion build a timeless court icon.",
+    "details": [
+      "Genuine tumbled leather upper with contrasting overlays",
+      "Encapsulated Air cushion in the heel for lightweight impact protection",
+      "Solid rubber cupsole with deep pivot-circle flex grooves",
+      "Perforated toe box for constant airflow during active play"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1579338559194-a162d19bf842?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Flight Retro High",
+    "price": 185,
+    "salePrice": null,
+    "sizes": [
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 11.5",
+      "US 12"
+    ],
+    "sku": "SPX-FLT-RET-02",
+    "sport": "basketball",
+    "stock": 32,
+    "subtitle": "Men's Heritage Basketball Shoes",
+    "updatedAt": "2026-10-12T19:08:38.004Z"
+  },
+  {
+    "_id": "6acd3037c9e4402199081cdb",
+    "slug": "sportix-zoom-strike-elite",
+    "badge": "New Arrival",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Metallic Silver / Volt / Black",
+      "Crimson Burst / Gold"
+    ],
+    "colorway": "Metallic Silver / Volt / Black",
+    "createdAt": "2026-10-12T19:08:38.188Z",
+    "description": "Built for lethal speed and razor-sharp cuts. Vaporposite+ upper clings to your foot while an articulated chevron stud chassis digs deep into natural turf.",
+    "details": [
+      "Vaporposite+ grippy grid mesh maximizes ball control at high speeds",
+      "Three-quarter length Zoom Air unit seated directly in the turf plate",
+      "Tri-star studs provide multidirectional traction for explosive cuts",
+      "Flyknit dynamic collar wraps the ankle with secure compression"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1575537302964-96cd47c06b1b?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": false,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX Zoom Strike Elite",
+    "price": 260,
+    "salePrice": null,
+    "sizes": [
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11"
+    ],
+    "sku": "SPX-ZOM-STR-03",
+    "sport": "football",
+    "stock": 28,
+    "subtitle": "Men's Firm-Ground Football Cleats",
+    "updatedAt": "2026-10-12T19:08:38.188Z"
+  },
+  {
+    "_id": "6acd3037c9e4402199081cdc",
+    "slug": "sportix-metatrack-cross-9",
+    "badge": "Popular",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Onyx Black / Smoke Grey",
+      "Deep Forest / White"
+    ],
+    "colorway": "Onyx Black / Smoke Grey",
+    "createdAt": "2026-10-12T19:08:38.337Z",
+    "description": "The gold standard in strength conditioning and functional training. Larger Hyperlift heel plate guarantees total stability during squats, cleans, and sled pushes.",
+    "details": [
+      "Extended Hyperlift heel plate provides rigid stability under heavy loads",
+      "Extended rubber wrap on the lateral side protects against rope climbs",
+      "Firm foam heel with springy forefoot cushion for burpees and box jumps",
+      "Textured haptic print over mesh shields high-wear zones"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Metatrack Cross 9",
+    "price": 150,
+    "salePrice": 129.99,
+    "sizes": [
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 12"
+    ],
+    "sku": "SPX-MET-CRS-04",
+    "sport": "training",
+    "stock": 50,
+    "subtitle": "Men's High-Intensity Workout & Gym Shoes",
+    "updatedAt": "2026-10-12T19:08:38.337Z"
+  },
+  {
+    "_id": "6acd3038c9e4402199081cdd",
+    "slug": "sportix-air-max-pulse-90",
+    "badge": null,
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "White / Particle Grey / Black",
+      "All White",
+      "Triple Black"
+    ],
+    "colorway": "White / Particle Grey / Black",
+    "createdAt": "2026-10-12T19:08:38.563Z",
+    "description": "Nothing as fly, nothing as proven. The legendary silhouette updated with modern point-loaded Air chambers and stitched synthetic leather mudguards.",
+    "details": [
+      "Visible MaxAir heel unit delivers legendary comfort with bold attitude",
+      "Stitched overlays and TPU accents retain authentic 90s street DNA",
+      "Padded low-cut collar looks sleek and feels incredibly soft",
+      "Rubber Waffle outsole delivers heritage styling with durable traction"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1579338559194-a162d19bf842?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Air Max Pulse 90",
+    "price": 140,
+    "salePrice": null,
+    "sizes": [
+      "US 7",
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 12"
+    ],
+    "sku": "SPX-AIR-PLS-05",
+    "sport": "lifestyle",
+    "stock": 60,
+    "subtitle": "Men's Streetwear Lifestyle Sneaker",
+    "updatedAt": "2026-10-12T19:08:38.563Z"
+  },
+  {
+    "_id": "6acd3038c9e4402199081cde",
+    "slug": "sportix-dunk-low-heritage",
+    "badge": "Trending",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Panda Black & White",
+      "Vintage Green / Sail",
+      "Industrial Blue"
+    ],
+    "colorway": "Panda Black & White",
+    "createdAt": "2026-10-12T19:08:38.808Z",
+    "description": "Created for the hardwood but adopted by subcultures worldwide. Crisply color-blocked leather panels and vintage proportions make it an essential everyday rotation piece.",
+    "details": [
+      "Crisp leather upper softens and gains vintage character with wear",
+      "Foam midsole offers lightweight, responsive all-day cushioning",
+      "Low-cut, padded collar looks sleek and feels comfortable",
+      "Rubber circle pivot traction pattern delivers durable grip"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Dunk Low Heritage",
+    "price": 115,
+    "salePrice": null,
+    "sizes": [
+      "US 6",
+      "US 6.5",
+      "US 7",
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 11"
+    ],
+    "sku": "SPX-DNK-LOW-06",
+    "sport": "lifestyle",
+    "stock": 40,
+    "subtitle": "Unisex Street & Skate Sneaker",
+    "updatedAt": "2026-10-12T19:08:38.808Z"
+  },
+  {
+    "_id": "6acd3038c9e4402199081cdf",
+    "slug": "sportix-invincible-cushion-3",
+    "badge": "Staff Pick",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Soft Pink / Sail / Guava",
+      "Triple White",
+      "Lavender Frost"
+    ],
+    "colorway": "Soft Pink / Sail / Guava",
+    "createdAt": "2026-10-12T19:08:39.054Z",
+    "description": "Maximum shock absorption for long easy miles. Generous stack of high-rebound ZoomX foam keeps your legs fresh mile after mile with pillow-soft landings.",
+    "details": [
+      "Super-thick stack of ZoomX foam dampens harsh ground impacts",
+      "Wider base geometry enhances stability on tired foot strikes",
+      "Engineered Flyknit upper places breathability zones where feet heat up",
+      "Rubber outsole tuned for road durability in wet or dry conditions"
+    ],
+    "gender": "women",
+    "images": [
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX Invincible Cushion 3",
+    "price": 190,
+    "salePrice": 159,
+    "sizes": [
+      "US 6",
+      "US 6.5",
+      "US 7",
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5"
+    ],
+    "sku": "SPX-INV-CSH-07",
+    "sport": "running",
+    "stock": 35,
+    "subtitle": "Women's Maximum Cushion Road Running Shoes",
+    "updatedAt": "2026-10-12T19:08:39.054Z"
+  },
+  {
+    "_id": "6acd3038c9e4402199081ce0",
+    "slug": "sportix-flight-court-elevate",
+    "badge": "New",
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Crimson / Pure White / Gold",
+      "Obsidian / Lilac"
+    ],
+    "colorway": "Crimson / Pure White / Gold",
+    "createdAt": "2026-10-12T19:08:39.256Z",
+    "description": "Engineered specifically for explosive transitions on the hardwood. High-cut padded ankle brace and decoupled forefoot plate enable rapid crossover acceleration.",
+    "details": [
+      "Dynamic lockdown lacing wraps around the midfoot cage",
+      "Decoupled forefoot plate enables natural foot flexion and fast cuts",
+      "Dual-density midsole absorbs heavy rebound landings cleanly",
+      "Herringbone traction pattern grips dusty indoor floors"
+    ],
+    "gender": "women",
+    "images": [
+      "https://images.unsplash.com/photo-1579338559194-a162d19bf842?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": false,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX Flight Court Elevate",
+    "price": 165,
+    "salePrice": null,
+    "sizes": [
+      "US 6.5",
+      "US 7",
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10"
+    ],
+    "sku": "SPX-FLT-CRT-08",
+    "sport": "basketball",
+    "stock": 25,
+    "subtitle": "Women's High-Top Basketball Shoes",
+    "updatedAt": "2026-10-12T19:08:39.256Z"
+  },
+  {
+    "_id": "6acd3038c9e4402199081ce1",
+    "slug": "sportix-free-flex-barefoot-50",
+    "badge": null,
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Plum Fog / Rose Gold",
+      "Pure Black / White"
+    ],
+    "colorway": "Plum Fog / Rose Gold",
+    "createdAt": "2026-10-12T19:08:39.484Z",
+    "description": "Laser-cut flex grooves in the sole mimic natural barefoot motion while an ultralight mesh upper provides socks-like glove fit for gym and pilates workouts.",
+    "details": [
+      "Laser-siped groove pattern delivers 360-degree natural foot flex",
+      "Seamless bootie construction hugs the foot without hot spots",
+      "Minimal 4mm heel-to-toe drop encourages midfoot landing posture",
+      "Reinforced toe bumper for floor exercises and planks"
+    ],
+    "gender": "women",
+    "images": [
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Free Flex Barefoot 5.0",
+    "price": 110,
+    "salePrice": null,
+    "sizes": [
+      "US 6",
+      "US 6.5",
+      "US 7",
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9"
+    ],
+    "sku": "SPX-FRE-FLX-09",
+    "sport": "training",
+    "stock": 45,
+    "subtitle": "Women's Natural Movement Training Shoes",
+    "updatedAt": "2026-10-12T19:08:39.484Z"
+  },
+  {
+    "_id": "6acd3038c9e4402199081ce2",
+    "slug": "sportix-club-fleece-pullover-hoodie",
+    "badge": "Classic",
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Black / White",
+      "Dark Grey Heather",
+      "Club Gold",
+      "Gym Red"
+    ],
+    "colorway": "Black / White",
+    "createdAt": "2026-10-12T19:08:39.534Z",
+    "description": "Universally loved for its coziness and consistency, Club Fleece is for everyone. Always soft and made with our standard fit, it's a staple that helps you do more.",
+    "details": [
+      "Club Fleece is brushed on the interior for added warmth and plush softness",
+      "Ribbed hem and cuffs keep warmth locked inside",
+      "Front kangaroo pocket offers convenient hand warmth and storage",
+      "Embroidered SPORTIX Futura logo on the chest"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Club Fleece Pullover Hoodie",
+    "price": 65,
+    "salePrice": 52,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "sku": "SPX-CLB-FLC-BLK",
+    "sport": "lifestyle",
+    "stock": 80,
+    "subtitle": "Brushed-Back Fleece Everyday Hoodie",
+    "updatedAt": "2026-10-18T11:48:00.397Z"
+  },
+  {
+    "_id": "6acd3039c9e4402199081ce3",
+    "slug": "sportix-tech-knit-windrunner-jacket",
+    "badge": "Best Seller",
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Black / Charcoal Grey",
+      "Volt Glow / Black"
+    ],
+    "colorway": "Black / Charcoal Grey",
+    "createdAt": "2026-10-12T19:08:39.683Z",
+    "description": "Lightweight weather-resistant woven shell combined with breathable vent flaps across the back. Iconic 26-degree chevron design pays homage to heritage track style.",
+    "details": [
+      "Water-repellent finish shields light rain and drizzle",
+      "Back chevron vent increases breathability during high cardio",
+      "Zippered hand pockets store phone, keys, and cards securely",
+      "Scuba hood zips all the way up to the chin for wind protection"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX Tech Knit Windrunner Jacket",
+    "price": 120,
+    "salePrice": null,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "sku": "SPX-TCH-WND-11",
+    "sport": "running",
+    "stock": 50,
+    "subtitle": "Men's Full-Zip Technical Track Jacket",
+    "updatedAt": "2026-10-12T19:08:39.683Z"
+  },
+  {
+    "_id": "6acd3039c9e4402199081ce4",
+    "slug": "sportix-dri-fit-pro-training-tee",
+    "badge": null,
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Matte Black",
+      "Iron Grey",
+      "Gym Red",
+      "Hyper Royal"
+    ],
+    "colorway": "Matte Black",
+    "createdAt": "2026-10-12T19:08:39.843Z",
+    "description": "High-performance micro-mesh construction pulls sweat away from skin for rapid evaporation. Raglan flatlock seams eliminate chafing during heavy bench presses.",
+    "details": [
+      "Dri-FIT moisture dispersion technology keeps you dry and light",
+      "Underarm mesh gussets ensure unrestricted shoulder range of motion",
+      "Flatlock ergonomic stitching prevents workout skin chafing",
+      "Extended back hem offers confident coverage when bending and lifting"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Dri-FIT Pro Training Tee",
+    "price": 38,
+    "salePrice": null,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "2XL"
+    ],
+    "sku": "SPX-DRI-TEE-12",
+    "sport": "training",
+    "stock": 120,
+    "subtitle": "Men's Short-Sleeve Athletic Training Top",
+    "updatedAt": "2026-10-12T19:08:39.843Z"
+  },
+  {
+    "_id": "6acd3039c9e4402199081ce5",
+    "slug": "sportix-challenger-7-running-shorts",
+    "badge": null,
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Onyx Black",
+      "Slate Navy",
+      "Army Olive"
+    ],
+    "colorway": "Onyx Black",
+    "createdAt": "2026-10-12T19:08:39.906Z",
+    "description": "Versatile performance shorts designed for runs, gym sessions, and yoga. Built-in moisture-wicking brief liner provides support without bunching.",
+    "details": [
+      "Lightweight 4-way stretch recycled poly fabric",
+      "Internal liner brief feels soft and supportive",
+      "Center-back snap pocket securely accommodates smartphones",
+      "Reflective SPORTIX logo enhances low-light evening visibility"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": false,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Challenger 7\" Running Shorts",
+    "price": 45,
+    "salePrice": null,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "sku": "SPX-CHL-SRT-13",
+    "sport": "running",
+    "stock": 90,
+    "subtitle": "Men's 7\" Lined Athletic Running Shorts",
+    "updatedAt": "2026-10-12T19:08:39.906Z"
+  },
+  {
+    "_id": "6acd3039c9e4402199081ce6",
+    "slug": "sportix-flight-warmup-tearaway-pants",
+    "badge": "Retro",
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Black / Red Accent",
+      "Sail / Midnight Navy"
+    ],
+    "colorway": "Black / Red Accent",
+    "createdAt": "2026-10-12T19:08:39.955Z",
+    "description": "Throw it back to 90s pre-game tunnel walks. Full snap-button side seams allow instant tearaway before tip-off, cut from crisp windbreaker nylon.",
+    "details": [
+      "Side snap plackets from waist to ankle for rapid warm-up removal",
+      "Water-resistant crisp crinkle nylon exterior with mesh lining",
+      "Elastic waistband with internal drawcord secures the fit",
+      "Embroidered Flight heritage script logo down the left calf"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Flight Warmup Tearaway Pants",
+    "price": 95,
+    "salePrice": 79,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "sku": "SPX-FLT-TRW-14",
+    "sport": "basketball",
+    "stock": 35,
+    "subtitle": "Men's Heritage Basketball Pants",
+    "updatedAt": "2026-10-12T19:08:39.955Z"
+  },
+  {
+    "_id": "6acd3039c9e4402199081ce7",
+    "slug": "sportix-aeroswift-high-support-sports-bra",
+    "badge": "Best Seller",
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Onyx Black",
+      "Coral Blaze",
+      "White Summit"
+    ],
+    "colorway": "Onyx Black",
+    "createdAt": "2026-10-12T19:08:40.173Z",
+    "description": "Designed for running, basketball, and HIIT workouts. Molded cups tame bounce while laser-perforated straps channel heat away from the upper back.",
+    "details": [
+      "Molded compression cups control vertical and horizontal bounce",
+      "Wide racerback design frees shoulder blades for full rotation",
+      "Smooth bottom chest band prevents chafing and rolling up",
+      "Breathable mesh front window allows focused evaporative cooling"
+    ],
+    "gender": "women",
+    "images": [
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1506152983158-b4a74a01c721?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX AeroSwift High-Support Sports Bra",
+    "price": 65,
+    "salePrice": null,
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "sku": "SPX-AER-BRA-15",
+    "sport": "training",
+    "stock": 65,
+    "subtitle": "Women's Padded High-Impact Sports Bra",
+    "updatedAt": "2026-10-12T19:08:40.173Z"
+  },
+  {
+    "_id": "6acd3039c9e4402199081ce8",
+    "slug": "sportix-one-high-waisted-7-8-leggings",
+    "badge": "Member Pick",
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Midnight Black",
+      "Smoky Mauve",
+      "Deep Teal"
+    ],
+    "colorway": "Midnight Black",
+    "createdAt": "2026-10-12T19:08:40.323Z",
+    "description": "Buttery-soft, non-sheer compression fabric passed every gym squat test. High-rise waistband sculpts core support and features two concealed drop-in side pockets.",
+    "details": [
+      "Ultra-dense non-sheer knit passes full squat opacity tests",
+      "Seamless sides offer smooth lines and frictionless movement",
+      "Two large side thigh pockets comfortably hold any modern smartphone",
+      "V-shaped back yoke flatters your natural athletic silhouette"
+    ],
+    "gender": "women",
+    "images": [
+      "https://images.unsplash.com/photo-1506152983158-b4a74a01c721?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX One High-Waisted 7/8 Leggings",
+    "price": 85,
+    "salePrice": 68,
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "sku": "SPX-ONE-LEG-16",
+    "sport": "training",
+    "stock": 75,
+    "subtitle": "Women's Squat-Proof Workout Tight Leggings",
+    "updatedAt": "2026-10-12T19:08:40.323Z"
+  },
+  {
+    "_id": "6acd3039c9e4402199081ce9",
+    "slug": "sportix-oversized-essential-crewneck",
+    "badge": null,
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Oatmeal Heather",
+      "Vintage Sage",
+      "Deep Black"
+    ],
+    "colorway": "Oatmeal Heather",
+    "createdAt": "2026-10-12T19:08:40.477Z",
+    "description": "Cozy volume meets streetwear style. Dropped shoulders, extra room through the sleeves, and heavy brushed fleece turn this into an instant rest-day favorite.",
+    "details": [
+      "Roomy dropped-shoulder drape gives a relaxed, casual aesthetic",
+      "Heavyweight 360gsm cotton-poly fleece feels lush and warm",
+      "Elongated ribbing on cuffs and hem gives structured definition",
+      "Tonal minimalist SPORTIX chest embroidery for understated luxury"
+    ],
+    "gender": "women",
+    "images": [
+      "https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": true,
+    "name": "SPORTIX Oversized Essential Crewneck",
+    "price": 75,
+    "salePrice": null,
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L"
+    ],
+    "sku": "SPX-OVR-CRW-17",
+    "sport": "lifestyle",
+    "stock": 55,
+    "subtitle": "Women's Relaxed Fit Fleece Sweatshirt",
+    "updatedAt": "2026-10-12T19:08:40.477Z"
+  },
+  {
+    "_id": "6acd3039c9e4402199081cea",
+    "slug": "sportix-junior-air-flex-runner",
+    "badge": "Back to School",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Electric Volt / Royal Blue",
+      "Triple Black",
+      "Hyper Pink / White"
+    ],
+    "colorway": "Electric Volt / Royal Blue",
+    "createdAt": "2026-10-12T19:08:40.533Z",
+    "description": "Built for recess, gym class, and everyday adventures. Durable reinforced toe tips resist scuffing while an easy-entry elastic heel collar slips on in seconds.",
+    "details": [
+      "Reinforced synthetic toe cap resists schoolyard scuffs and drag",
+      "Flexible foam sole incorporates deep natural grooves",
+      "Stretchy slip-on collar with pull tabs for easy independent dressing",
+      "Breathable mesh keeps active young feet cool and dry all day"
+    ],
+    "gender": "kids",
+    "images": [
+      "https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Junior Air Flex Runner",
+    "price": 68,
+    "salePrice": null,
+    "sizes": [
+      "1Y",
+      "2Y",
+      "3Y",
+      "4Y",
+      "5Y",
+      "6Y",
+      "7Y"
+    ],
+    "sku": "SPX-KID-RUN-18",
+    "sport": "running",
+    "stock": 50,
+    "subtitle": "Kids' Grade School Running Shoes",
+    "updatedAt": "2026-10-12T19:08:40.533Z"
+  },
+  {
+    "_id": "6acd303ac9e4402199081ceb",
+    "slug": "sportix-flight-youth-edition",
+    "badge": null,
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Varsity Red / White / Black",
+      "Cool Grey / Ice Blue"
+    ],
+    "colorway": "Varsity Red / White / Black",
+    "createdAt": "2026-10-12T19:08:40.681Z",
+    "description": "Court confidence for young hoopers. Cushioned collar pads support rapid pivots while iconic Flight styling turns heads on and off the school basketball court.",
+    "details": [
+      "High-top padded collar hugs ankles securely during jump stops",
+      "Tough non-marking rubber outsole protects indoor hardwood gyms",
+      "Traditional lacing with lock-down midfoot eyelets",
+      "Signature contrast Flight side wings and embossed heel branding"
+    ],
+    "gender": "kids",
+    "images": [
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": true,
+    "name": "SPORTIX Flight Youth Edition",
+    "price": 88,
+    "salePrice": 72,
+    "sizes": [
+      "2Y",
+      "3Y",
+      "4Y",
+      "5Y",
+      "6Y",
+      "7Y"
+    ],
+    "sku": "SPX-KID-FLT-19",
+    "sport": "basketball",
+    "stock": 30,
+    "subtitle": "Kids' Grade School Basketball High-Tops",
+    "updatedAt": "2026-10-12T19:08:40.681Z"
+  },
+  {
+    "_id": "6acd303ac9e4402199081cec",
+    "slug": "sportix-pro-duffel-bag-60l",
+    "badge": "Essential",
+    "categoryId": "6acd30350587c5cc899bc6cc",
+    "categorySlug": "accessories",
+    "colors": [
+      "Stealth Black",
+      "Charcoal Camo",
+      "Navy Obsidian"
+    ],
+    "colorway": "Stealth Black",
+    "createdAt": "2026-10-12T19:08:40.730Z",
+    "description": "Built to haul everything. Features an exterior ventilated shoe compartment that keeps sweaty cleats separate from clean clothes, plus waterproof coated base panels.",
+    "details": [
+      "Separate zippered bottom shoe tunnel isolates dirty footwear",
+      "Dense 600D water-repellent polyester protects gear from wet ground",
+      "Padded removable shoulder strap adjusts comfortably across the chest",
+      "Dual external mesh bottle sleeves and fleece-lined media pocket"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Pro Duffel Bag 60L",
+    "price": 55,
+    "salePrice": null,
+    "sizes": [
+      "One Size (60L)"
+    ],
+    "sku": "SPX-DUF-60L-20",
+    "sport": "training",
+    "stock": 70,
+    "subtitle": "Training Gym & Travel Duffel (60 Liters)",
+    "updatedAt": "2026-10-12T19:08:40.730Z"
+  },
+  {
+    "_id": "6acd303ac9e4402199081ced",
+    "slug": "sportix-elite-crew-cushion-socks-3-pack",
+    "badge": null,
+    "categoryId": "6acd30350587c5cc899bc6cc",
+    "categorySlug": "accessories",
+    "colors": [
+      "White (3-Pack)",
+      "Black (3-Pack)",
+      "Multi (White/Black/Grey)"
+    ],
+    "colorway": "White (3-Pack)",
+    "createdAt": "2026-10-12T19:08:40.876Z",
+    "description": "Targeted cushioning under the heel and ball of the foot mitigates court shock while arch compression bands keep socks firmly locked in place without slipping down.",
+    "details": [
+      "Arch band contours around the midfoot for a snug, secure fit",
+      "Dri-FIT yarns pull perspiration away for dry, fresh comfort",
+      "Zonal high-density padding softens repetitive landing impact",
+      "Reinforced heel and toe increase lifespan through seasons of play"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Elite Crew Cushion Socks (3-Pack)",
+    "price": 24,
+    "salePrice": null,
+    "sizes": [
+      "S (4-6)",
+      "M (6-8)",
+      "L (8-12)",
+      "XL (12-15)"
+    ],
+    "sku": "SPX-SCK-ELT-21",
+    "sport": "basketball",
+    "stock": 150,
+    "subtitle": "High-Performance Ribbed Athletic Crew Socks",
+    "updatedAt": "2026-10-12T19:08:40.876Z"
+  },
+  {
+    "_id": "6acd303ac9e4402199081cee",
+    "slug": "sportix-aerobill-featherlight-running-cap",
+    "badge": null,
+    "categoryId": "6acd30350587c5cc899bc6cc",
+    "categorySlug": "accessories",
+    "colors": [
+      "Onyx Black",
+      "Pure White",
+      "Volt Lime"
+    ],
+    "colorway": "Onyx Black",
+    "createdAt": "2026-10-12T19:08:40.928Z",
+    "description": "Engineered for blinding midday sun. Featherlight recycled poly fabric combines with laser-perforated side vents and a dark underbill that minimizes glare.",
+    "details": [
+      "AeroBill technology combines sweat-wicking breathability with comfort",
+      "Dark underbill blocks harsh sunlight glare from reflecting into eyes",
+      "Laser perforations along crown panels accelerate evaporative cooling",
+      "Rear hook-and-loop strap offers quick one-handed sizing adjustments"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": false,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX AeroBill Featherlight Running Cap",
+    "price": 32,
+    "salePrice": null,
+    "sizes": [
+      "One Size (Adjustable)"
+    ],
+    "sku": "SPX-CAP-AER-22",
+    "sport": "running",
+    "stock": 80,
+    "subtitle": "Breathable Laser-Vented Athletic Hat",
+    "updatedAt": "2026-10-12T19:08:40.928Z"
+  },
+  {
+    "_id": "6acd303ac9e4402199081cef",
+    "slug": "sportix-hypercharge-insulated-steel-bottle-32oz",
+    "badge": "Popular",
+    "categoryId": "6acd30350587c5cc899bc6cc",
+    "categorySlug": "accessories",
+    "colors": [
+      "Matte Black",
+      "Stainless Silver",
+      "Volt Yellow"
+    ],
+    "colorway": "Matte Black",
+    "createdAt": "2026-10-12T19:08:40.995Z",
+    "description": "Keeps drinks icy cold for 24+ hours of grueling training. Ergonomic quick-sip chug spout delivers high-volume hydration with a leak-proof twist lock.",
+    "details": [
+      "Double-wall vacuum insulation prevents condensation and locks in cold",
+      "Durable 18/8 kitchen-grade pro stainless steel will not retain flavors",
+      "Fast-flow wide chug spout enables rapid replenishment between drills",
+      "Soft-touch silicone carry loop clips effortlessly to gym bags"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX HyperCharge Insulated Steel Bottle 32oz",
+    "price": 38,
+    "salePrice": 30,
+    "sizes": [
+      "32 oz (946 ml)"
+    ],
+    "sku": "SPX-BTL-HYP-23",
+    "sport": "training",
+    "stock": 100,
+    "subtitle": "Double-Wall Vacuum Insulated Sports Bottle",
+    "updatedAt": "2026-10-12T19:08:40.995Z"
+  },
+  {
+    "_id": "6acd303ac9e4402199081cf0",
+    "slug": "sportix-flight-heritage-snapback-cap",
+    "badge": null,
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Black / Red Flight",
+      "Gym Red / Black",
+      "Vintage Grey"
+    ],
+    "colorway": "Black / Red Flight",
+    "createdAt": "2026-10-12T19:08:41.177Z",
+    "description": "High-crown structured snapback crafted from premium heavy wool-blend twill with dimensional raised 3D Flight crest embroidery.",
+    "details": [
+      "Structured 6-panel silhouette with flat bill visor",
+      "High-density 3D Flight embroidery on front crown",
+      "Adjustable snapback closure for customized fit",
+      "Embroidered eyelets for breathability"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": false,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Flight Heritage Snapback Cap",
+    "price": 36,
+    "salePrice": null,
+    "sizes": [
+      "One Size (Adjustable)"
+    ],
+    "sku": "SPX-FLT-CAP-24",
+    "sport": "basketball",
+    "stock": 60,
+    "subtitle": "Classic 6-Panel Basketball Cap",
+    "updatedAt": "2026-10-12T19:08:41.177Z"
+  },
+  {
+    "_id": "6acdbf7ec9e4402199081f5f",
+    "slug": "sportix-air-force-1-07",
+    "badge": "Best Seller",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Triple White",
+      "Black / White",
+      "Sail / Coconut Milk"
+    ],
+    "colorway": "Triple White",
+    "createdAt": "2026-10-13T05:19:57.797Z",
+    "description": "The radiance lives on in the SPORTIX Air Force 1 '07, the b-ball icon that puts a fresh spin on what you know best: crisp leather, bold details and the perfect amount of flash to make you shine.",
+    "details": [
+      "Stitched leather overlays on the upper add heritage style, durability and support",
+      "Originally designed for performance hoops, SPORTIX Air cushioning adds lightweight, all-day comfort",
+      "Low-cut silhouette adds a clean, streamlined look",
+      "Padded collar feels soft and comfortable",
+      "Perforations on the toe box for breathability"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Air Force 1 '07",
+    "price": 115,
+    "salePrice": null,
+    "sizes": [
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 12"
+    ],
+    "sku": "SPX-AF1-07-WHT",
+    "sport": "lifestyle",
+    "stock": 75,
+    "subtitle": "Men's Everyday Shoes",
+    "updatedAt": "2026-10-18T11:47:59.327Z"
+  },
+  {
+    "_id": "6acdbf7fc9e4402199081f60",
+    "slug": "air-jordan-1-retro-high-og",
+    "badge": "Member Exclusive",
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Chicago Red / Black / Sail",
+      "Shadow Grey / White",
+      "Royal Blue / Obsidian"
+    ],
+    "colorway": "Chicago Red / Black / Sail",
+    "createdAt": "2026-10-13T05:19:58.018Z",
+    "description": "Familiar but always fresh, the iconic Air Jordan 1 is remastered for today's sneakerhead culture. Premium leather, comfortable cushioning and classic design details deliver hardwood heritage with modern swagger.",
+    "details": [
+      "Genuine tumbled leather upper with contrasting Chicago overlays",
+      "Encapsulated Air cushion in the heel for lightweight impact protection",
+      "Solid rubber cupsole with deep pivot-circle flex grooves",
+      "Wings logo stamped on collar and woven SPORTIX Air tongue label"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1579338559194-a162d19bf842?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "Air Jordan 1 Retro High OG",
+    "price": 180,
+    "salePrice": null,
+    "sizes": [
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 11.5",
+      "US 12"
+    ],
+    "sku": "AIR-JD1-RET-CHI",
+    "sport": "basketball",
+    "stock": 40,
+    "subtitle": "Men's Basketball Heritage Shoes",
+    "updatedAt": "2026-10-18T11:47:59.424Z"
+  },
+  {
+    "_id": "6acdbf7fc9e4402199081f61",
+    "slug": "sportix-dunk-low-retro",
+    "badge": "Trending",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "White / Black (Panda)",
+      "Coast Blue / Sail",
+      "Grey Fog / White"
+    ],
+    "colorway": "White / Black (Panda)",
+    "createdAt": "2026-10-13T05:19:58.242Z",
+    "description": "Created for the hardwood but taken to the streets, the '80s icon returns with crisp overlays and original team colors. With its iconic basketball design, it channels '80s vintage back onto the street.",
+    "details": [
+      "Crisp leather upper ages to soft perfection and features durable overlays",
+      "Foam midsole offers lightweight, responsive cushioning",
+      "Padded, low-cut collar looks sleek and feels comfortable",
+      "Rubber outsole with classic hoops pivot circle adds durability and heritage grip"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Dunk Low Retro",
+    "price": 115,
+    "salePrice": 95,
+    "sizes": [
+      "US 7",
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11"
+    ],
+    "sku": "SPX-DNK-LOW-PND",
+    "sport": "lifestyle",
+    "stock": 50,
+    "subtitle": "Men's Iconic Streetwear Shoes",
+    "updatedAt": "2026-10-18T11:47:59.520Z"
+  },
+  {
+    "_id": "6acdbf7fc9e4402199081f62",
+    "slug": "sportix-air-max-90",
+    "badge": "Heritage",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Infrared / White / Black",
+      "Triple Black",
+      "Pure Platinum / Wolf Grey"
+    ],
+    "colorway": "Infrared / White / Black",
+    "createdAt": "2026-10-13T05:19:58.460Z",
+    "description": "Nothing as fly, nothing as proven. The SPORTIX Air Max 90 stays true to its OG running roots with the iconic Waffle sole, stitched overlays and classic TPU accents on the heel and eyestays. Max Air cushioning adds comfort to your journey.",
+    "details": [
+      "Originally designed for performance running, Max Air unit in the heel adds unbelievable cushioning",
+      "Low-top design combines with padded collar for a sleek look that feels soft and comfortable",
+      "Stitched overlays and TPU accents add durability, comfort and the iconic 90s look",
+      "Rubber Waffle outsole delivers traction and heritage style"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Air Max 90",
+    "price": 130,
+    "salePrice": null,
+    "sizes": [
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 12"
+    ],
+    "sku": "SPX-AM90-INF-01",
+    "sport": "lifestyle",
+    "stock": 35,
+    "subtitle": "Men's Road Classic Shoes",
+    "updatedAt": "2026-10-18T11:47:59.617Z"
+  },
+  {
+    "_id": "6acdbf7fc9e4402199081f63",
+    "slug": "sportix-vaporfly-3",
+    "badge": "Marathon Elite",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Volt / Fierce Pink / Black",
+      "Hyper Royal / White",
+      "Triple White"
+    ],
+    "colorway": "Volt / Fierce Pink / Black",
+    "createdAt": "2026-10-13T05:19:58.681Z",
+    "description": "Catch 'em if you can. Giving you race-day speed to conquer any distance, the SPORTIX Vaporfly 3 is made for the chasers, the racers and the elevated pacers who can't turn down the thrill of the pursuit.",
+    "details": [
+      "Full-length carbon fiber Flyplate provides a stiff and propulsive feel",
+      "SPORTIX ZoomX foam runs from heel to toe for maximum energy return",
+      "Selected Flyknit yarns bring engineered zones of support through the forefoot",
+      "Updated thin outsole rubber reduces weight without sacrificing durability"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": false,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX Vaporfly 3",
+    "price": 260,
+    "salePrice": 210,
+    "sizes": [
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11"
+    ],
+    "sku": "SPX-VPF3-VLT-02",
+    "sport": "running",
+    "stock": 25,
+    "subtitle": "Men's Road Racing Marathon Shoes",
+    "updatedAt": "2026-10-18T11:47:59.710Z"
+  },
+  {
+    "_id": "6acdbf80c9e4402199081f64",
+    "slug": "air-jordan-4-retro",
+    "badge": "Exclusive Drop",
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Military Blue / Neutral Grey",
+      "Bred Reimagined",
+      "White Cement"
+    ],
+    "colorway": "Military Blue / Neutral Grey",
+    "createdAt": "2026-10-13T05:19:58.897Z",
+    "description": "One of the most beloved silhouettes in the sneaker kingdom. The Air Jordan 4 Retro delivers lightweight cushioning with sculpted midsole details and iconic mesh quarter panels for unmatched street presence.",
+    "details": [
+      "Genuine full-grain leather, synthetic and fabric upper",
+      "Visible Air-Sole unit in heel and encapsulated forefoot Air unit",
+      "Molded plastic eyestays and heel pull tab",
+      "Rubber outsole with modified herringbone traction pattern"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1579338559194-a162d19bf842?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "Air Jordan 4 Retro",
+    "price": 215,
+    "salePrice": null,
+    "sizes": [
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 12"
+    ],
+    "sku": "AIR-JD4-RET-BLU",
+    "sport": "basketball",
+    "stock": 30,
+    "subtitle": "Men's Hardwood Classic Shoes",
+    "updatedAt": "2026-10-18T11:47:59.804Z"
+  },
+  {
+    "_id": "6acdbf80c9e4402199081f65",
+    "slug": "sportix-air-zoom-pegasus-41",
+    "badge": "Best Seller",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "White / Black / Bright Crimson",
+      "Triple Black",
+      "Glacier Blue / Sail"
+    ],
+    "colorway": "White / Black / Bright Crimson",
+    "createdAt": "2026-10-13T05:19:59.119Z",
+    "description": "Responsive cushioning in the Pegasus provides an energized ride for everyday road running. Experience lighter-weight energy return with dual Air Zoom units and a ReactX foam midsole.",
+    "details": [
+      "Upgraded breathable engineered mesh upper keeps feet ventilated",
+      "ReactX foam midsole surrounds forefoot and heel Air Zoom units",
+      "Signature waffle-inspired rubber outsole for grip on pavement",
+      "Plush collar, tongue and sockliner provide a secure and comfortable fit"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": true,
+    "name": "SPORTIX Air Zoom Pegasus 41",
+    "price": 140,
+    "salePrice": null,
+    "sizes": [
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 12"
+    ],
+    "sku": "SPX-PEG-41-WHT",
+    "sport": "running",
+    "stock": 60,
+    "subtitle": "Men's Road Running Shoes",
+    "updatedAt": "2026-10-18T11:47:59.904Z"
+  },
+  {
+    "_id": "6acdbf80c9e4402199081f66",
+    "slug": "sportix-metcon-9",
+    "badge": "Pro Athlete Choice",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Smoke Grey / White / Total Orange",
+      "Black / Gum Light Brown"
+    ],
+    "colorway": "Smoke Grey / White / Total Orange",
+    "createdAt": "2026-10-13T05:19:59.192Z",
+    "description": "Whatever your workout demands, the Metcon 9 delivers. Equipped with an enlarged Hyperlift plate and dual-density foam, it is sworn to by elite weightlifters and functional fitness athletes across the globe.",
+    "details": [
+      "Enlarged Hyperlift plate in the heel provides unshakeable stability under heavy loads",
+      "Lace lock system securely clips laces to the tongue so they never untie mid-set",
+      "Full-wrap rubber rope guard protects during aggressive rope climbs",
+      "Dual-density midsole cushioning cushions box jumps and sprints"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Metcon 9",
+    "price": 150,
+    "salePrice": 127.5,
+    "sizes": [
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 12"
+    ],
+    "sku": "SPX-MTC-9-GRY",
+    "sport": "training",
+    "stock": 45,
+    "subtitle": "Men's Workout & Cross-Training Shoes",
+    "updatedAt": "2026-10-18T11:47:59.952Z"
+  },
+  {
+    "_id": "6acdbf80c9e4402199081f67",
+    "slug": "sportix-mercurial-superfly-9-elite",
+    "badge": "Matchday Edition",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Metallic Silver / Volt / Black",
+      "Lemon Chiffon / Bright Crimson"
+    ],
+    "colorway": "Metallic Silver / Volt / Black",
+    "createdAt": "2026-10-13T05:19:59.265Z",
+    "description": "Instantly tilt the pitch in the bold design of the Superfly 9 Elite FG. SPORTIX added a football-specific 3/4 Zoom Air unit so you can dominate in the critical moments of a match.",
+    "details": [
+      "Football-specific 3/4 Zoom Air unit seated directly in the soleplate for explosive propulsion",
+      "Vaporposite+ upper combines grippy mesh with premium touch coating for lightning-fast control",
+      "Tri-star stud configuration delivers omnidirectional grip for rapid acceleration and cuts",
+      "Flyknit dynamic collar wraps the ankle in secure compression"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1514989940723-e8e51635b782?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": false,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX Mercurial Superfly 9 Elite",
+    "price": 285,
+    "salePrice": null,
+    "sizes": [
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11"
+    ],
+    "sku": "SPX-MRC-SUP9-SLV",
+    "sport": "football",
+    "stock": 20,
+    "subtitle": "Men's Firm-Ground Football Cleats",
+    "updatedAt": "2026-10-18T11:48:00.005Z"
+  },
+  {
+    "_id": "6acdbf80c9e4402199081f68",
+    "slug": "air-jordan-1-low",
+    "badge": "Popular",
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Black / White / Gym Red",
+      "Triple White",
+      "Wolf Grey / Aluminum"
+    ],
+    "colorway": "Black / White / Gym Red",
+    "createdAt": "2026-10-13T05:19:59.509Z",
+    "description": "Inspired by the 1985 original, the Air Jordan 1 Low offers a clean, classic look that's familiar yet always fresh. With an iconic design that pairs perfectly with any fit, these kicks ensure you'll always be on point.",
+    "details": [
+      "Encapsulated Air-Sole unit provides lightweight cushioning",
+      "Genuine leather in the upper offers durability and a premium look",
+      "Solid rubber outsole enhances traction on a variety of surfaces",
+      "Stitched Wings logo on heel and Jumpman on tongue"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1579338559194-a162d19bf842?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "Air Jordan 1 Low",
+    "price": 115,
+    "salePrice": null,
+    "sizes": [
+      "US 7",
+      "US 7.5",
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11"
+    ],
+    "sku": "AIR-JD1-LOW-BRED",
+    "sport": "lifestyle",
+    "stock": 55,
+    "subtitle": "Men's Low-Top Lifestyle Shoes",
+    "updatedAt": "2026-10-18T11:48:00.107Z"
+  },
+  {
+    "_id": "6acdbf80c9e4402199081f69",
+    "slug": "sportix-vomero-5",
+    "badge": "Trending",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Photon Dust / Metallic Silver",
+      "Oatmeal / Pale Ivory",
+      "Triple Black"
+    ],
+    "colorway": "Photon Dust / Metallic Silver",
+    "createdAt": "2026-10-13T05:19:59.584Z",
+    "description": "Carve a new lane for yourself in the Zoom Vomero 5—your go-to for complexity, depth and easy styling. The richly layered design includes textiles, synthetic suede and plastic accents that come together to make one of the coolest sneakers of the season.",
+    "details": [
+      "Synthetic leather on the upper adds durability while mesh panels add breathability",
+      "Zoom Air cushioning offers a quick-off-the-ground sensation",
+      "Plastic cage on the side adds supportive structure",
+      "Ventilation ports on the heel keep it airy and comfortable"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": false,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX Vomero 5",
+    "price": 160,
+    "salePrice": null,
+    "sizes": [
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11"
+    ],
+    "sku": "SPX-VOM5-SLV-01",
+    "sport": "lifestyle",
+    "stock": 40,
+    "subtitle": "Men's Retro Y2K Running Shoes",
+    "updatedAt": "2026-10-18T11:48:00.160Z"
+  },
+  {
+    "_id": "6acdbf80c9e4402199081f6a",
+    "slug": "sportix-tech-fleece-windrunner-hoodie",
+    "badge": "Iconic Apparel",
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Heather Grey / Black",
+      "Triple Black",
+      "Obsidian Navy"
+    ],
+    "colorway": "Heather Grey / Black",
+    "createdAt": "2026-10-13T05:19:59.810Z",
+    "description": "Blending two of our most iconic looks, this full-zip hoodie draws design inspiration from our timeless Windrunner jacket as well as our signature Tech Fleece jacket. Smooth on both sides, this premium lightweight fleece delivers plenty of warmth without adding bulk.",
+    "details": [
+      "Premium lightweight thermal fleece is smooth on both sides, delivering warmth without bulk",
+      "Signature chevron design lines on the chest nod to the heritage 1978 Windrunner jacket",
+      "Zippered sleeve pocket provides quick storage for keys, cards and phone",
+      "4-panel articulated hood with high-collar wind coverage"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX Tech Fleece Windrunner",
+    "price": 145,
+    "salePrice": null,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "sku": "SPX-TF-WND-GRY",
+    "sport": "lifestyle",
+    "stock": 50,
+    "subtitle": "Men's Full-Zip Technical Hoodie",
+    "updatedAt": "2026-10-18T11:48:00.256Z"
+  },
+  {
+    "_id": "6acdbf81c9e4402199081f6b",
+    "slug": "sportix-tech-fleece-joggers",
+    "badge": "Best Seller",
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Heather Grey",
+      "Black",
+      "Dark Marina Blue"
+    ],
+    "colorway": "Heather Grey",
+    "createdAt": "2026-10-13T05:20:00.027Z",
+    "description": "Ready for cooler weather, our tailored Tech Fleece joggers feature a slimmer fit that's perfect for everyday wear. Roomy through the thighs, this tapered design narrows at the knee to give you a comfortable feel without losing the clean, tailored look.",
+    "details": [
+      "Signature taped zippered pocket with interior organizer pocket keeps essentials secure",
+      "Elastic waistband with external contrast drawcord allows for a custom fit",
+      "Tall ribbed ankle cuffs showcase your favorite sneakers",
+      "Lightweight thermal fleece construction"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Tech Fleece Joggers",
+    "price": 125,
+    "salePrice": null,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "sku": "SPX-TF-JOG-01",
+    "sport": "lifestyle",
+    "stock": 60,
+    "subtitle": "Men's Slim-Fit Fleece Pants",
+    "updatedAt": "2026-10-18T11:48:00.349Z"
+  },
+  {
+    "_id": "6acdbf81c9e4402199081f6c",
+    "slug": "sportix-dri-fit-legend-fitness-tee",
+    "badge": "Training Essential",
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Black",
+      "Obsidian",
+      "White",
+      "Carbon Heather"
+    ],
+    "colorway": "Black",
+    "createdAt": "2026-10-13T05:20:00.175Z",
+    "description": "Power through your toughest training sessions in the SPORTIX Dri-FIT Legend T-Shirt. Sweat-wicking technology helps keep you dry and comfortable from warmups to cool-downs.",
+    "details": [
+      "SPORTIX Dri-FIT technology moves sweat away from your skin for quicker evaporation",
+      "Lightweight athletic jersey fabric feels soft against your skin",
+      "Standard fit for a relaxed, easy feel",
+      "Odor-resistant finish helps fabric stay fresh throughout workouts"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Dri-FIT Legend Fitness Tee",
+    "price": 35,
+    "salePrice": null,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "sku": "SPX-DF-LEG-TEE",
+    "sport": "training",
+    "stock": 90,
+    "subtitle": "Men's Performance Training Top",
+    "updatedAt": "2026-10-18T11:48:00.445Z"
+  },
+  {
+    "_id": "6acdbf81c9e4402199081f6d",
+    "slug": "jordan-essentials-fleece-hoodie",
+    "badge": "Flight Heritage",
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Gym Red / Black",
+      "Black / White",
+      "Sail / Light Bone"
+    ],
+    "colorway": "Gym Red / Black",
+    "createdAt": "2026-10-13T05:20:00.288Z",
+    "description": "Pull on everyday comfort with the Jordan Essentials Fleece Pullover. Made from heavyweight French terry fabric that's brushed on the inside for softness, it features an embroidered Jumpman patch on the chest.",
+    "details": [
+      "Heavyweight French terry fleece is brushed on the interior for cozy softness",
+      "Spacious hood adjusts with a metal-tipped drawcord",
+      "Front kangaroo pocket stores everyday items",
+      "Stitched Jumpman patch and tonal Michael Jordan signature embroidery"
+    ],
+    "gender": "men",
+    "images": [
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "Jordan Essentials Fleece Hoodie",
+    "price": 85,
+    "salePrice": null,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "sku": "AIR-JD-ESS-HD-RED",
+    "sport": "basketball",
+    "stock": 45,
+    "subtitle": "Men's Heavyweight Fleece Pullover",
+    "updatedAt": "2026-10-18T11:48:00.493Z"
+  },
+  {
+    "_id": "6acdbf81c9e4402199081f6e",
+    "slug": "sportix-one-high-waisted-leggings",
+    "badge": "Best Seller",
+    "categoryId": "6acd30340587c5cc899bc6ca",
+    "categorySlug": "clothing",
+    "colors": [
+      "Black / White Swoosh",
+      "Midnight Navy",
+      "Smoky Mauve"
+    ],
+    "colorway": "Black / White Swoosh",
+    "createdAt": "2026-10-13T05:20:00.530Z",
+    "description": "Ready for a workout or down to chill, the SPORTIX One Leggings are versatile enough for anything. The silky-soft fabric provides squat-proof coverage with all-day confidence.",
+    "details": [
+      "Non-sheer fabric passes the squat test to keep you reliably covered",
+      "Seamless sides and a contoured V-shape waistband give a smooth silhouette",
+      "2 hidden pockets in the high-rise waistband keep your phone and cards close",
+      "Dri-FIT technology helps you stay dry and comfortable"
+    ],
+    "gender": "women",
+    "images": [
+      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX One High-Waisted 7/8 Leggings",
+    "price": 65,
+    "salePrice": null,
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "sku": "SPX-ONE-LEG-BLK",
+    "sport": "training",
+    "stock": 70,
+    "subtitle": "Women's Squat-Proof Workout Leggings",
+    "updatedAt": "2026-10-18T11:48:00.585Z"
+  },
+  {
+    "_id": "6acdbf81c9e4402199081f6f",
+    "slug": "sportix-air-max-270-kids",
+    "badge": "Kids Top Pick",
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "colors": [
+      "Black / University Red / White",
+      "Triple White",
+      "Photo Blue / Black"
+    ],
+    "colorway": "Black / University Red / White",
+    "createdAt": "2026-10-13T05:20:00.743Z",
+    "description": "Boasting SPORTIX's first lifestyle Air unit, the SPORTIX Air Max 270 delivers visible bounce under every step. Updated for modern comfort, it pays homage to the original 1991 Air Max 180.",
+    "details": [
+      "Large Max Air 270 unit in the heel delivers responsive cushioning",
+      "Stretchy inner sleeve creates a snug, sock-like fit",
+      "Breathable mesh upper keeps little feet cool",
+      "Dual-density foam sole cushions growing feet"
+    ],
+    "gender": "kids",
+    "images": [
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": true,
+    "name": "SPORTIX Air Max 270 (Kids)",
+    "price": 130,
+    "salePrice": 104,
+    "sizes": [
+      "US 3.5Y",
+      "US 4Y",
+      "US 4.5Y",
+      "US 5Y",
+      "US 5.5Y",
+      "US 6Y",
+      "US 6.5Y",
+      "US 7Y"
+    ],
+    "sku": "SPX-KID-270-RED",
+    "sport": "lifestyle",
+    "stock": 35,
+    "subtitle": "Big Kids' Shoes",
+    "updatedAt": "2026-10-18T11:48:00.689Z"
+  },
+  {
+    "_id": "6acdbf82c9e4402199081f70",
+    "slug": "air-jordan-1-mid-kids",
+    "badge": "Flight Kids",
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Black / Gym Red / White",
+      "Ice Blue / White",
+      "Shadow Grey"
+    ],
+    "colorway": "Black / Gym Red / White",
+    "createdAt": "2026-10-13T05:20:00.980Z",
+    "description": "The Air Jordan 1 Mid brings full-court style and premium comfort to an iconic look. Its Air-Sole unit cushions play on the hardwood, while the padded collar gives a supportive feel.",
+    "details": [
+      "Premium genuine leather and synthetic upper for durability and comfort",
+      "Air-Sole unit in the heel delivers signature cushioning",
+      "Solid rubber outsole provides traction on diverse surfaces",
+      "Perforated toe box for active breathability"
+    ],
+    "gender": "kids",
+    "images": [
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "Air Jordan 1 Mid (Kids)",
+    "price": 110,
+    "salePrice": null,
+    "sizes": [
+      "US 3.5Y",
+      "US 4Y",
+      "US 4.5Y",
+      "US 5Y",
+      "US 5.5Y",
+      "US 6Y",
+      "US 6.5Y",
+      "US 7Y"
+    ],
+    "sku": "AIR-JD1-KID-MID",
+    "sport": "basketball",
+    "stock": 40,
+    "subtitle": "Big Kids' Basketball Shoes",
+    "updatedAt": "2026-10-18T11:48:00.781Z"
+  },
+  {
+    "_id": "6acdbf82c9e4402199081f71",
+    "slug": "sportix-brasilia-training-duffel-bag-60l",
+    "badge": "Gear Essential",
+    "categoryId": "6acd30350587c5cc899bc6cc",
+    "categorySlug": "accessories",
+    "colors": [
+      "Black / White",
+      "Midnight Navy / Black",
+      "Iron Grey"
+    ],
+    "colorway": "Black / White",
+    "createdAt": "2026-10-13T05:20:01.053Z",
+    "description": "The spacious and durable SPORTIX Brasilia Duffel Bag keeps all your workout gear at hand. A side compartment stores shoes separately, while inner and outer pockets help you stay organized.",
+    "details": [
+      "Zippered main compartment secures your training essentials",
+      "Zippered inner pocket keeps dirty shoes and sweaty clothes separate",
+      "Coated bottom helps shield your gear from bumps, scrapes and spills",
+      "Outer pockets keep your must-haves within quick reach"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Brasilia Training Duffel Bag (60L)",
+    "price": 47,
+    "salePrice": null,
+    "sizes": [
+      "Medium (60L)"
+    ],
+    "sku": "SPX-BAG-BRA-60L",
+    "sport": "training",
+    "stock": 50,
+    "subtitle": "Medium Training Gear Duffel Bag",
+    "updatedAt": "2026-10-18T11:48:00.831Z"
+  },
+  {
+    "_id": "6acdbf82c9e4402199081f72",
+    "slug": "sportix-everyday-cushion-crew-socks-6-pairs",
+    "badge": "Pack of 6",
+    "categoryId": "6acd30350587c5cc899bc6cc",
+    "categorySlug": "accessories",
+    "colors": [
+      "White / Black Swoosh",
+      "Black / White Swoosh"
+    ],
+    "colorway": "White / Black Swoosh",
+    "createdAt": "2026-10-13T05:20:01.126Z",
+    "description": "Power through your workout with the SPORTIX Everyday Cushion Crew Training Socks. Thick terry sole gives you extra comfort for foot drills and lifts, while ribbed arch band wraps your midfoot for a supportive feel.",
+    "details": [
+      "Dri-FIT technology helps feet stay dry and comfortable",
+      "Thick terry sole delivers impact absorption and cushioning",
+      "Ribbed arch band offers a snug, supportive feel",
+      "Crew silhouette covers your ankle and lower calf"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "SPORTIX Everyday Cushion Crew Socks (6 Pairs)",
+    "price": 24,
+    "salePrice": null,
+    "sizes": [
+      "M (US 6-8)",
+      "L (US 8-12)",
+      "XL (US 12-15)"
+    ],
+    "sku": "SPX-SCK-EVR-6PK",
+    "sport": "training",
+    "stock": 120,
+    "subtitle": "Dri-FIT Training Crew Socks",
+    "updatedAt": "2026-10-18T11:48:00.880Z"
+  },
+  {
+    "_id": "6acdbf82c9e4402199081f73",
+    "slug": "sportix-club-unstructured-swoosh-cap",
+    "badge": "Popular",
+    "categoryId": "6acd30350587c5cc899bc6cc",
+    "categorySlug": "accessories",
+    "colors": [
+      "Black / White Swoosh",
+      "White / Black Swoosh",
+      "Khaki / Brown"
+    ],
+    "colorway": "Black / White Swoosh",
+    "createdAt": "2026-10-13T05:20:01.200Z",
+    "description": "A mid-depth cap with classic style for any occasion, this SPORTIX Club Cap comes in smooth cotton twill with a soft wash for comfort from day one.",
+    "details": [
+      "Soft cotton twill fabric feels comfortable and smooth",
+      "Mid-depth 6-panel design is easy to style with any outfit",
+      "Tri-glide metal clamp closure with Swoosh design lets you adjust your fit with ease",
+      "Embroidered eyelets allow optimal airflow"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": true,
+    "isNew": false,
+    "name": "SPORTIX Club Unstructured Swoosh Cap",
+    "price": 28,
+    "salePrice": null,
+    "sizes": [
+      "One Size (Adjustable)"
+    ],
+    "sku": "SPX-CAP-CLB-BLK",
+    "sport": "lifestyle",
+    "stock": 75,
+    "subtitle": "Classic Curved Bill Dad Hat",
+    "updatedAt": "2026-10-18T11:48:00.928Z"
+  },
+  {
+    "_id": "6acdbf82c9e4402199081f74",
+    "slug": "sportix-hypercharge-32oz-chug-bottle",
+    "badge": "Hydration",
+    "categoryId": "6acd30350587c5cc899bc6cc",
+    "categorySlug": "accessories",
+    "colors": [
+      "Matte Black",
+      "Stainless Silver",
+      "Volt Yellow"
+    ],
+    "colorway": "Matte Black",
+    "createdAt": "2026-10-13T05:20:01.417Z",
+    "description": "Stay hydrated through two-a-days and marathon training. The SPORTIX 32oz Hypercharge Chug Bottle features an innovative slider button for easy one-handed drinking with vacuum insulation.",
+    "details": [
+      "Double-wall vacuum insulation keeps drinks ice-cold for 24+ hours",
+      "Innovative slider button for convenient one-handed opening and closing",
+      "Ergonomic soft-touch handle makes carrying effortless",
+      "Impact-resistant kitchen-grade stainless steel construction"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": true,
+    "isFeatured": false,
+    "isNew": true,
+    "name": "SPORTIX Hypercharge 32oz Chug Bottle",
+    "price": 38,
+    "salePrice": 30,
+    "sizes": [
+      "32 oz (946 ml)"
+    ],
+    "sku": "SPX-BTL-HYP-32",
+    "sport": "training",
+    "stock": 80,
+    "subtitle": "Graphic Stainless Steel Sports Bottle",
+    "updatedAt": "2026-10-18T11:48:01.019Z"
+  },
+  {
+    "_id": "6acdbf82c9e4402199081f75",
+    "slug": "jordan-rise-structured-snapback-cap",
+    "badge": "Flight Edition",
+    "categoryId": "6acd30350587c5cc899bc6cb",
+    "categorySlug": "flight",
+    "colors": [
+      "Black / Gym Red",
+      "Gym Red / White",
+      "Obsidian / White"
+    ],
+    "colorway": "Black / Gym Red",
+    "createdAt": "2026-10-13T05:20:01.489Z",
+    "description": "Top off your look with Jordan heritage. This structured snapback features high-density embroidered Jumpman branding on a clean, modern silhouette.",
+    "details": [
+      "High-crown design delivers a classic structured look",
+      "Woven heavy twill fabric offers lightweight durability",
+      "Adjustable snapback closure gives a personalized fit",
+      "Thick dimensional 3D Jumpman front embroidery"
+    ],
+    "gender": "unisex",
+    "images": [
+      "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=1200&q=85",
+      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=85"
+    ],
+    "isBestseller": false,
+    "isFeatured": false,
+    "isNew": false,
+    "name": "Jordan Rise Structured Snapback Cap",
+    "price": 34,
+    "salePrice": null,
+    "sizes": [
+      "One Size (Adjustable)"
+    ],
+    "sku": "AIR-JD-CAP-RISE",
+    "sport": "basketball",
+    "stock": 50,
+    "subtitle": "High-Crown Basketball Cap",
+    "updatedAt": "2026-10-18T11:48:01.066Z"
+  },
+  {
+    "_id": "6ad076540796715cb6f41212",
+    "name": "zdthsttsfc",
+    "slug": "zdthsttsfc",
+    "subtitle": "WEFSEF",
+    "description": "DFHDZFHXFYJXYRKX",
+    "details": [
+      "Performance engineered sole technology",
+      "Breathable mesh and reinforced overlays",
+      "Original SPORTIX athletic fit profile"
+    ],
+    "price": 54,
+    "salePrice": 1,
+    "stock": 25,
+    "categoryId": "6acd30340587c5cc899bc6c9",
+    "categorySlug": "shoes",
+    "gender": "men",
+    "sport": "running",
+    "badge": "New Release",
+    "isFeatured": true,
+    "isNew": true,
+    "isBestseller": false,
+    "colors": [
+      "Triple Black",
+      "Pure Platinum"
+    ],
+    "colorway": "Triple Black",
+    "sizes": [
+      "US 8",
+      "US 8.5",
+      "US 9",
+      "US 9.5",
+      "US 10",
+      "US 10.5",
+      "US 11",
+      "US 12"
+    ],
+    "images": [
+      "https://res.cloudinary.com/p2db7lof/image/upload/v1792046664/sportix/products/vziipngwcmitwfpiwjnr.jpg"
+    ],
+    "sku": "SPX-3864",
+    "createdAt": "2026-10-15T06:44:36.135Z",
+    "updatedAt": "2026-10-15T06:44:36.135Z"
+  }
+]

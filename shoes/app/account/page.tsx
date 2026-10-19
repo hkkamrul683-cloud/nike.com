@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -31,7 +31,7 @@ import { useCartWishlist } from '@/context/CartWishlistContext';
 
 type AccountTab = 'overview' | 'orders' | 'wishlist' | 'addresses' | 'pass' | 'settings';
 
-export default function AccountPage() {
+function AccountPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const initialTab = (searchParams.get('tab') as AccountTab) || 'overview';
@@ -199,10 +199,10 @@ export default function AccountPage() {
           </div>
           <div className="space-y-2">
             <h1 className="text-2xl font-black uppercase tracking-tight text-zinc-950">
-              Nike Member Account
+              HypeKicks Member Account
             </h1>
             <p className="text-sm text-zinc-500 leading-relaxed">
-              Sign in to view your orders, saved favourites, Nike Member Pass, and personalized rewards.
+              Sign in to view your orders, saved favourites, HypeKicks Member Pass, and personalized rewards.
             </p>
           </div>
           <div className="pt-2 space-y-3">
@@ -255,7 +255,7 @@ export default function AccountPage() {
     },
     {
       id: 'pass',
-      label: 'Nike Member Pass',
+      label: 'HypeKicks Member Pass',
       icon: QrCode,
       badge: 'VIP',
     },
@@ -279,10 +279,10 @@ export default function AccountPage() {
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-lg sm:text-xl font-bold tracking-tight text-zinc-900">
-                  {user.name || 'Nike Athlete'}
+                  {user.name || 'HypeKicks Member'}
                 </h1>
                 <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 text-[11px] font-bold uppercase border border-emerald-200">
-                  <CheckCircle2 className="w-3 h-3" /> Nike Member
+                  <CheckCircle2 className="w-3 h-3" /> HypeKicks Member
                 </span>
               </div>
               <p className="text-xs text-zinc-500">{user.email}</p>
@@ -404,10 +404,10 @@ export default function AccountPage() {
                     <div className="space-y-3">
                       <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-zinc-300 text-[11px] font-bold uppercase tracking-wider backdrop-blur-xs">
                         <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                        Nike Member Pass
+                        HypeKicks Member Pass
                       </div>
                       <h2 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white">
-                        {user.name || 'Nike Athlete'}
+                        {user.name || 'HypeKicks Member'}
                       </h2>
                       <div className="flex flex-wrap items-center gap-4 text-xs text-zinc-400">
                         <span>Member Since {memberSince}</span>
@@ -579,7 +579,7 @@ export default function AccountPage() {
                     <div>
                       <h4 className="text-sm font-bold text-zinc-900">Free Standard Delivery</h4>
                       <p className="text-xs text-zinc-500 mt-0.5 leading-relaxed">
-                        Automatic free shipping on every Nike Member order without minimum purchase.
+                        Automatic free shipping on every HypeKicks Member order without minimum purchase.
                       </p>
                     </div>
                   </div>
@@ -591,7 +591,7 @@ export default function AccountPage() {
                     <div>
                       <h4 className="text-sm font-bold text-zinc-900">Exclusive SNKRS Drops</h4>
                       <p className="text-xs text-zinc-500 mt-0.5 leading-relaxed">
-                        Early access to high-demand Nike silhouettes, collaborations, and member-only colorways.
+                        Early access to high-demand HypeKicks silhouettes, collaborations, and member-only colorways.
                       </p>
                     </div>
                   </div>
@@ -990,28 +990,25 @@ export default function AccountPage() {
               <div className="bg-white rounded-2xl border border-zinc-200/90 p-8 space-y-8">
                 <div>
                   <h2 className="text-xl font-bold tracking-tight text-zinc-900">
-                    Nike Digital Member Pass
+                    HypeKicks Digital Member Pass
                   </h2>
                   <p className="text-xs text-zinc-500 mt-0.5">
-                    Scan in-store at any Nike store or use online for member-exclusive benefits.
+                    Scan in-store at any HypeKicks store or use online for member-exclusive benefits.
                   </p>
                 </div>
 
                 {/* Authentic Member Pass Card */}
                 <div className="max-w-md mx-auto bg-zinc-950 text-white rounded-3xl p-8 shadow-2xl relative overflow-hidden border border-zinc-800 space-y-6">
                   <div className="flex items-center justify-between">
-                    {/* Nike Swoosh */}
-                    <svg width="60" height="24" viewBox="0 0 120 46" fill="white">
-                      <path d="M14.967 43.378c-3.97.9-7.624-.05-9.742-2.584C2.9 38.03 2.9 33.51 5.17 28.7c1.9-4.07 5.014-7.99 8.623-11.09C8.05 23.668 5.68 30.97 8.03 35.98c.87 1.87 2.58 3.1 4.7 3.56l86.17-32.71c2.18-.826 3.57-2.37 3.86-4.16.23-1.43-.24-2.9-1.34-4.16-.016-.02-.033-.038-.05-.058C115.39 2.23 120 8.16 120 8.16L14.967 43.378Z" />
-                    </svg>
+                    <span className="font-black text-sm tracking-tighter uppercase">HypeKicks</span>
                     <span className="text-[10px] font-bold tracking-widest uppercase text-zinc-400">
-                      Nike Member
+                      HypeKicks Member
                     </span>
                   </div>
 
                   <div>
                     <h3 className="text-2xl font-black uppercase tracking-tight text-white">
-                      {user.name || 'Nike Athlete'}
+                      {user.name || 'HypeKicks Member'}
                     </h3>
                     <p className="text-xs text-zinc-400 font-mono mt-0.5">
                       MBR-{user.id?.slice(-8).toUpperCase() || '2026-PASS'}
@@ -1029,7 +1026,7 @@ export default function AccountPage() {
                   </div>
 
                   <div className="text-[11px] text-zinc-400 text-center">
-                    Valid across all Nike Retail & Official Nike Online Stores
+                    Valid across all HypeKicks Stores & Official Online Drops
                   </div>
                 </div>
 
@@ -1049,7 +1046,7 @@ export default function AccountPage() {
                   </div>
                   <div className="flex items-center gap-2 text-zinc-800">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                    <span>Nike Training Club app premium unlocks</span>
+                    <span>HypeKicks VIP Club app premium unlocks</span>
                   </div>
                 </div>
               </div>
@@ -1106,7 +1103,7 @@ export default function AccountPage() {
                       className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-200 bg-zinc-100 text-sm text-zinc-500 cursor-not-allowed"
                     />
                     <span className="text-[11px] text-zinc-400 mt-1 block">
-                      Email cannot be changed directly as it is bound to your Nike ID.
+                      Email cannot be changed directly as it is bound to your HypeKicks ID.
                     </span>
                   </div>
 
@@ -1141,3 +1138,18 @@ export default function AccountPage() {
     </div>
   );
 }
+
+export default function AccountPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-zinc-50 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-zinc-900 border-t-transparent rounded-full animate-spin" />
+        </div>
+      }
+    >
+      <AccountPageContent />
+    </Suspense>
+  );
+}
+

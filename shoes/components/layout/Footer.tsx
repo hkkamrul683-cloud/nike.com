@@ -9,9 +9,9 @@ const FOOTER_LINKS = [
   {
     heading: 'Resources',
     links: [
-      { name: 'Find a Store', href: '/help' },
+      { name: 'Find a Store & Vendors', href: '/stores' },
       { name: 'Become a Member', href: '/register' },
-      { name: 'Nike Journal', href: '/about' },
+      { name: 'HypeKicks Journal', href: '/about' },
       { name: 'Gift Cards', href: '/help' },
       { name: 'Site Feedback', href: '/help' },
     ],
@@ -30,7 +30,7 @@ const FOOTER_LINKS = [
   {
     heading: 'Company',
     links: [
-      { name: 'About Nike', href: '/about' },
+      { name: 'About HypeKicks', href: '/about' },
       { name: 'News', href: '/about' },
       { name: 'Careers', href: '/about' },
       { name: 'Investors', href: '/about' },
@@ -78,9 +78,9 @@ export default function Footer() {
             <Logo size="sm" whiteOnly />
             <div className="flex items-center gap-1.5 text-zinc-400">
               <MapPin className="w-3.5 h-3.5" />
-              <span className="font-medium text-white">India</span>
+              <span className="font-medium text-white">Global</span>
             </div>
-            <span>&copy; 2026 Nike, Inc. All Rights Reserved</span>
+            <span>&copy; 2026 HypeKicks, Inc. All Rights Reserved</span>
           </div>
 
           {/* Right — legal links */}

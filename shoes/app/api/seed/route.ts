@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getCollection } from '@/lib/mongodb';
 import { SEED_CATEGORIES, SEED_PRODUCTS, SEED_COUPONS } from '@/lib/seed-data';
+import { INITIAL_VENDORS } from '@/lib/vendors-data';
 import { hashPassword } from '@/lib/auth';
 import { ObjectId } from 'mongodb';
 
@@ -19,6 +20,29 @@ async function runSeed() {
     const usersCol = await getCollection('users');
     const couponsCol = await getCollection('coupons');
     const reviewsCol = await getCollection('reviews');
+    const vendorsCol = await getCollection('vendors');
+
+    // 0. Seed Vendors
+    const vendorMap = new Map<string, ObjectId>();
+    for (const v of INITIAL_VENDORS) {
+      const existing = await vendorsCol.findOne({ slug: v.slug });
+      let vId: ObjectId;
+      if (existing) {
+        vId = existing._id;
+        await vendorsCol.updateOne(
+          { _id: vId },
+          { $set: { ...v, updatedAt: new Date() } }
+        );
+      } else {
+        const res = await vendorsCol.insertOne({
+          ...v,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        } as any);
+        vId = res.insertedId;
+      }
+      vendorMap.set(v.slug, vId);
+    }
 
     // 1. Seed Categories
     const categoryMap = new Map<string, ObjectId>();
@@ -100,6 +124,8 @@ async function runSeed() {
     let seededCount = 0;
     for (const prod of SEED_PRODUCTS) {
       const catId = categoryMap.get(prod.categorySlug) || Array.from(categoryMap.values())[0];
+      const assignedVendor = INITIAL_VENDORS[seededCount % INITIAL_VENDORS.length];
+      const assignedVendorId = vendorMap.get(assignedVendor.slug);
       
       const productDoc = {
         name: prod.name,
@@ -112,6 +138,9 @@ async function runSeed() {
         stock: prod.stock,
         categoryId: catId,
         categorySlug: prod.categorySlug,
+        vendorId: assignedVendorId || null,
+        vendorName: assignedVendor.name,
+        vendorSlug: assignedVendor.slug,
         gender: prod.gender,
         sport: prod.sport,
         badge: prod.badge || null,

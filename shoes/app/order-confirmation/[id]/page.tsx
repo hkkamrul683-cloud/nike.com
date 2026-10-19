@@ -11,6 +11,7 @@ import {
   Calendar,
   ArrowRight,
   Printer,
+  ExternalLink,
 } from 'lucide-react';
 import { trackPurchase } from '@/lib/analytics';
 
@@ -96,11 +97,11 @@ export default function OrderConfirmationPage({
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-20">
       {/* Success Hero */}
       <div className="text-center space-y-3 pb-10 border-b border-zinc-200">
-        <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
+        <div className={`w-16 h-16 ${order.paymentStatus === 'PAID' ? 'bg-emerald-100 text-emerald-600' : 'bg-amber-100 text-amber-600'} rounded-full flex items-center justify-center mx-auto shadow-sm`}>
           <CheckCircle2 className="w-10 h-10" />
         </div>
-        <span className="text-xs font-black uppercase tracking-widest text-emerald-600">
-          Payment Confirmed & Verified
+        <span className={`text-xs font-black uppercase tracking-widest ${order.paymentStatus === 'PAID' ? 'text-emerald-600' : 'text-amber-600'}`}>
+          {order.paymentStatus === 'PAID' ? 'Payment Confirmed & Verified' : 'Order Placed (Payment on Delivery)'}
         </span>
         <h1 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-zinc-950">
           THANK YOU FOR YOUR ORDER.
@@ -118,9 +119,9 @@ export default function OrderConfirmationPage({
           <span className="font-bold text-zinc-950 text-sm">{order.orderNumber}</span>
         </div>
         <div>
-          <span className="text-zinc-500 uppercase font-semibold text-[11px] block">Status</span>
-          <span className="inline-block px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 font-bold border border-emerald-200 text-[11px] uppercase mt-0.5">
-            {order.status}
+          <span className="text-zinc-500 uppercase font-semibold text-[11px] block">Payment Method</span>
+          <span className="inline-block px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-800 font-bold border border-zinc-200 text-[11px] uppercase mt-0.5">
+            {order.paymentMethod === 'SSLCOMMERZ' ? 'bKash / Local (SSL)' : order.paymentMethod === 'STRIPE' ? 'International (Stripe)' : 'Cash on Delivery'}
           </span>
         </div>
         <div>
@@ -131,10 +132,60 @@ export default function OrderConfirmationPage({
           </span>
         </div>
         <div>
-          <span className="text-zinc-500 uppercase font-semibold text-[11px] block">Tracking Code</span>
-          <span className="font-mono font-bold text-zinc-950 mt-0.5 block">{order.trackingNumber || 'Pending'}</span>
+          <span className="text-zinc-500 uppercase font-semibold text-[11px] block">
+            {order.courier ? 'Courier & Tracking' : order.transactionId ? 'Transaction ID' : 'Tracking Code'}
+          </span>
+          {order.courier ? (
+            <div className="mt-0.5">
+              <a
+                href={order.courier.trackingUrl || `https://steadfast.com.bd/t/${order.courier.trackingCode || order.trackingNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono font-bold text-emerald-600 hover:text-emerald-700 hover:underline flex items-center gap-1 text-xs truncate"
+              >
+                <span>{order.courier.trackingCode || order.trackingNumber}</span>
+                <ExternalLink className="w-3 h-3 shrink-0" />
+              </a>
+              <span className="text-[10px] text-zinc-500 font-mono block">
+                {order.courier.provider || 'Steadfast'} • CID #{order.courier.consignmentId}
+              </span>
+            </div>
+          ) : (
+            <span className="font-mono font-bold text-zinc-950 mt-0.5 block truncate">
+              {order.transactionId || order.trackingNumber || 'Pending'}
+            </span>
+          )}
         </div>
       </div>
+
+      {/* Live Courier Dispatch Banner */}
+      {order.courier && (
+        <div className="my-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+              <Truck className="w-5 h-5" />
+            </div>
+            <div>
+              <p className="font-bold text-emerald-950">
+                Shipped via {order.courier.provider || 'Steadfast Courier'}
+              </p>
+              <p className="text-emerald-700 text-[11px] mt-0.5">
+                Consignment: <strong>#{order.courier.consignmentId}</strong> • Status: <span className="uppercase font-mono font-semibold">{order.courier.deliveryStatus || 'In Review'}</span>
+                {order.courier.codAmountBDT > 0 && ` • COD Payable: ৳${order.courier.codAmountBDT.toLocaleString()} BDT`}
+              </p>
+            </div>
+          </div>
+          <a
+            href={order.courier.trackingUrl || `https://steadfast.com.bd/t/${order.courier.trackingCode || order.trackingNumber}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-colors shrink-0 shadow-sm"
+          >
+            <span>Live Courier Tracking</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      )}
 
       {/* Itemized Breakdown & Delivery Info */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-8 py-8 border-b border-zinc-200">
@@ -203,9 +254,15 @@ export default function OrderConfirmationPage({
               </span>
             </div>
             <div className="flex justify-between text-sm font-black text-zinc-950 pt-2 border-t border-zinc-200">
-              <span>Total Paid</span>
+              <span>{order.paymentStatus === 'PAID' ? 'Total Paid' : 'Total Due (Handover)'}</span>
               <span>${order.totalAmount?.toFixed(2)}</span>
             </div>
+            {order.paymentDetails?.paidAmountBDT && (
+              <div className="flex justify-between text-xs font-bold text-pink-600 pt-1">
+                <span>Paid via {order.paymentDetails.cardType || 'SSLCommerz'}</span>
+                <span>৳{Number(order.paymentDetails.paidAmountBDT).toLocaleString()} BDT</span>
+              </div>
+            )}
           </div>
         </div>
       </div>

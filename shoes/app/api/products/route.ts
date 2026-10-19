@@ -16,11 +16,16 @@ export async function GET(req: NextRequest) {
     const maxPrice = searchParams.get('maxPrice');
     const color = searchParams.get('color');
     const size = searchParams.get('size');
+    const vendor = searchParams.get('vendor') || searchParams.get('vendorSlug');
     const sort = searchParams.get('sort') || 'featured';
-    const limit = parseInt(searchParams.get('limit') || '40', 10);
+    const limit = Math.min(parseInt(searchParams.get('limit') || '100', 10), 200);
     const page = parseInt(searchParams.get('page') || '1', 10);
 
     const query: any = {};
+
+    if (vendor) {
+      query.$or = [{ vendorSlug: vendor }, { vendorName: vendor }];
+    }
 
     if (search) {
       query.$or = [
@@ -108,7 +113,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { name, subtitle, description, details, price, salePrice, stock, categorySlug, gender, sport, colors, colorway, sizes, images, sku, badge, isFeatured, isNew, isBestseller } = body;
+    const { name, subtitle, description, details, price, salePrice, stock, categorySlug, gender, sport, colors, colorway, sizes, images, sku, badge, isFeatured, isNew, isBestseller, vendorId, vendorName, vendorSlug } = body;
 
     if (!name || !price || !categorySlug) {
       return NextResponse.json({ error: 'Missing required product fields' }, { status: 400 });
@@ -136,6 +141,9 @@ export async function POST(req: NextRequest) {
       stock: parseInt(stock || '10', 10),
       categoryId: catDoc?._id || null,
       categorySlug,
+      vendorId: vendorId || null,
+      vendorName: vendorName || 'Apex Footwear Limited',
+      vendorSlug: vendorSlug || 'apex-footwear',
       gender: gender || 'unisex',
       sport: sport || 'lifestyle',
       badge: badge || null,

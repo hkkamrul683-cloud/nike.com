@@ -16,6 +16,7 @@ import {
   Check,
   Ruler,
   AlertCircle,
+  Store,
 } from 'lucide-react';
 import { useCartWishlist } from '@/context/CartWishlistContext';
 import ProductCard from '@/components/product/ProductCard';
@@ -255,6 +256,17 @@ export default function ProductDetailPage({
               {product.name}
             </h1>
             <p className="text-sm text-zinc-500 font-semibold mt-1">{product.subtitle}</p>
+
+            {/* Vendor / Supplier Badge */}
+            {product.vendorName && (
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-100 border border-zinc-200 text-zinc-800 text-xs font-medium mt-2.5">
+                <Store className="w-3.5 h-3.5 text-zinc-600" />
+                <span>
+                  Supplied by: <strong className="font-bold text-zinc-950">{product.vendorName}</strong>
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" title="Verified Shoe Supplier" />
+              </div>
+            )}
 
             {/* Price Row */}
             <div className="flex items-center gap-3 mt-3">

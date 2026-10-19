@@ -37,6 +37,7 @@ export default function AdminHeader({
     overview: 'Console Overview',
     products: 'Product Catalog',
     orders: 'Order Management',
+    vendors: 'Vendor & Supplier Management',
     customers: 'Customer Relationship Management',
     reviews: 'Reviews & Social Proof Moderation',
     coupons: 'Discounts & Promotions',
@@ -57,7 +58,7 @@ export default function AdminHeader({
         </button>
 
         <div className="flex items-center gap-2 text-xs font-medium text-zinc-400 min-w-0">
-          <span className="hidden sm:inline hover:text-zinc-200 transition-colors">SPORTIX</span>
+          <span className="hidden sm:inline hover:text-zinc-200 transition-colors">HypeKicks</span>
           <span className="hidden sm:inline text-zinc-600">/</span>
           <span className="hidden md:inline text-zinc-400">Admin</span>
           <span className="hidden md:inline text-zinc-600">/</span>

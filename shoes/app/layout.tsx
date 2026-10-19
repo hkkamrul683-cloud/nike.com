@@ -20,34 +20,34 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Nike. Just Do It. Nike IN',
+  title: 'HypeKicks — Step Into the Future',
   description:
-    'Find your perfect pair. Shop Nike shoes, clothing, and accessories. Free delivery and returns for Nike Members.',
+    'Find your perfect pair. Shop HypeKicks sneakers, running shoes, clothing, and streetwear drops. Free delivery and returns for HypeKicks Members.',
   keywords: [
-    'Nike',
-    'Nike India',
-    'Nike shoes',
+    'HypeKicks',
+    'Step Into the Future',
+    'sneakers',
     'running shoes',
     'basketball sneakers',
-    'Nike sportswear',
-    'Air Max',
-    'Air Force 1',
-    'Jordan',
+    'streetwear',
+    'Air Infinity',
+    'Flight Retro',
+    'footwear',
   ],
   openGraph: {
-    title: 'Nike. Just Do It. Nike IN',
-    description: 'Shop Nike shoes, clothing and accessories. Free delivery for Nike Members.',
-    url: 'https://www.nike.in',
-    siteName: 'Nike India',
+    title: 'HypeKicks — Step Into the Future',
+    description: 'Shop HypeKicks sneakers, clothing and accessories. Free delivery for HypeKicks Members.',
+    url: 'https://www.hypekicks.com',
+    siteName: 'HypeKicks',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80',
         width: 1200,
         height: 630,
-        alt: 'Nike — Just Do It',
+        alt: 'HypeKicks — Step Into the Future',
       },
     ],
-    locale: 'en_IN',
+    locale: 'en_US',
     type: 'website',
   },
   icons: {

@@ -52,10 +52,10 @@ export default function RegisterPage() {
             <Sparkles className="w-3.5 h-3.5" /> Free Membership
           </div>
           <h1 className="text-2xl font-black uppercase tracking-tight text-zinc-950">
-            Become a Nike Member
+            Become a HypeKicks Member
           </h1>
           <p className="text-xs text-zinc-500 font-medium">
-            Create your member profile to unlock free delivery on all orders, member-only drops, and 30-day wear trials.
+            Step Into the Future. Create your member profile to unlock free delivery on all orders, member-only drops, and 30-day wear trials.
           </p>
         </div>
 

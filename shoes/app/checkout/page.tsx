@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -14,12 +14,18 @@ import {
   AlertCircle,
   Smartphone,
   Banknote,
+  Globe,
+  Sparkles,
 } from 'lucide-react';
 import { useCartWishlist } from '@/context/CartWishlistContext';
 import { trackBeginCheckout } from '@/lib/analytics';
+import { convertUsdToBdt } from '@/lib/payment';
 
-export default function CheckoutPage() {
+function CheckoutContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const urlError = searchParams.get('error');
+
   const {
     cart,
     subtotal,
@@ -31,7 +37,7 @@ export default function CheckoutPage() {
 
   // Multi-step form state
   const [shippingMethod, setShippingMethod] = useState<'standard' | 'express'>('standard');
-  const [paymentMethod, setPaymentMethod] = useState<'CREDIT_CARD' | 'DIGITAL_WALLET' | 'CASH_ON_DELIVERY'>('CREDIT_CARD');
+  const [paymentMethod, setPaymentMethod] = useState<'SSLCOMMERZ' | 'STRIPE' | 'CASH_ON_DELIVERY'>('SSLCOMMERZ');
 
   // Address fields
   const [formData, setFormData] = useState({
@@ -43,19 +49,18 @@ export default function CheckoutPage() {
     city: '',
     state: '',
     postalCode: '',
-    country: 'United States',
-  });
-
-  // Card fields
-  const [cardData, setCardData] = useState({
-    cardNumber: '4242 •••• •••• 4242',
-    cardHolder: '',
-    expiry: '12/28',
-    cvv: '123',
+    country: 'Bangladesh',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Catch errors returned from payment gateway redirects
+  useEffect(() => {
+    if (urlError) {
+      setErrorMessage(decodeURIComponent(urlError));
+    }
+  }, [urlError]);
 
   // Pre-fill user data if logged in
   useEffect(() => {
@@ -70,6 +75,7 @@ export default function CheckoutPage() {
         city: user.addresses?.[0]?.city || prev.city,
         state: user.addresses?.[0]?.state || prev.state,
         postalCode: user.addresses?.[0]?.postalCode || prev.postalCode,
+        country: user.addresses?.[0]?.country || prev.country,
       }));
     }
   }, [user]);
@@ -96,6 +102,7 @@ export default function CheckoutPage() {
   const standardShipping = subtotal > 150 ? 0 : 12.00;
   const shippingFee = shippingMethod === 'express' ? standardShipping + 15.00 : standardShipping;
   const finalTotal = Math.max(0, subtotal - discountAmount + shippingFee);
+  const finalTotalBDT = convertUsdToBdt(finalTotal);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -139,6 +146,7 @@ export default function CheckoutPage() {
         shippingMethod,
       };
 
+      // 1. Create order in Database
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -151,11 +159,46 @@ export default function CheckoutPage() {
         throw new Error(data.error || 'Failed to place order.');
       }
 
-      // Clear the local shopping bag
-      clearCart();
+      const orderId = data.orderId || data.orderNumber;
 
-      // Redirect to confirmation page
-      router.push(`/order-confirmation/${data.orderId || data.orderNumber}`);
+      // 2. Route based on selected payment gateway
+      if (paymentMethod === 'SSLCOMMERZ') {
+        const sslRes = await fetch('/api/payment/sslcommerz/init', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ orderId }),
+        });
+
+        const sslData = await sslRes.json();
+        if (!sslRes.ok || !sslData.success || !sslData.gatewayUrl) {
+          throw new Error(sslData.error || 'Failed to connect to SSLCommerz gateway.');
+        }
+
+        clearCart();
+        window.location.href = sslData.gatewayUrl;
+        return;
+      }
+
+      if (paymentMethod === 'STRIPE') {
+        const stripeRes = await fetch('/api/payment/stripe/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ orderId }),
+        });
+
+        const stripeData = await stripeRes.json();
+        if (!stripeRes.ok || !stripeData.success || !stripeData.url) {
+          throw new Error(stripeData.error || 'Failed to initialize Stripe checkout session.');
+        }
+
+        clearCart();
+        window.location.href = stripeData.url;
+        return;
+      }
+
+      // Cash on Delivery
+      clearCart();
+      router.push(`/order-confirmation/${orderId}`);
     } catch (err: any) {
       setErrorMessage(err.message);
       setIsSubmitting(false);
@@ -170,27 +213,28 @@ export default function CheckoutPage() {
           <h1 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-zinc-950">
             Secure Checkout
           </h1>
-          <p className="text-xs text-zinc-500 font-medium mt-0.5">
-            256-Bit SSL Encrypted Payment & Guaranteed Fulfillment
+          <p className="text-xs text-zinc-500 mt-1">
+            Official SPORTIX encrypted checkout. Dual Bangladeshi & International Gateways.
           </p>
         </div>
-        <div className="flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200">
+        <div className="flex items-center gap-2 text-emerald-600 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-full text-xs font-bold">
           <ShieldCheck className="w-4 h-4" />
-          <span>Encrypted Checkout</span>
+          <span className="hidden sm:inline">256-Bit SSL Encrypted Payment</span>
+          <span className="sm:hidden">Secure</span>
         </div>
       </div>
 
       {errorMessage && (
-        <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3 text-red-700 text-xs font-semibold">
-          <AlertCircle className="w-4 h-4 shrink-0" />
-          <span>{errorMessage}</span>
+        <div className="mb-8 p-4 bg-red-50 border border-red-200 rounded-2xl flex items-center gap-3 text-red-700 text-xs sm:text-sm">
+          <AlertCircle className="w-5 h-5 shrink-0 text-red-500" />
+          <div className="flex-1 font-semibold">{errorMessage}</div>
         </div>
       )}
 
-      <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
-        {/* Left: Checkout Multi-Steps */}
-        <div className="lg:col-span-7 space-y-10">
-          {/* Step 1: Delivery Address */}
+      <form onSubmit={handlePlaceOrder} className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left: Input Columns */}
+        <div className="lg:col-span-7 space-y-8">
+          {/* Step 1: Shipping Destination */}
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-zinc-950 pb-2 border-b border-zinc-200">
               <span className="w-6 h-6 rounded-full bg-zinc-950 text-white flex items-center justify-center text-xs">
@@ -210,8 +254,8 @@ export default function CheckoutPage() {
                   required
                   value={formData.fullName}
                   onChange={handleInputChange}
-                  placeholder="e.g. Michael Jordan"
-                  className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950"
+                  placeholder="e.g. Tanvir Ahmed"
+                  className="w-full px-4 py-3 border border-zinc-200 rounded-xl outline-none focus:border-zinc-950 bg-white"
                 />
               </div>
 
@@ -225,14 +269,14 @@ export default function CheckoutPage() {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  placeholder="name@example.com"
-                  className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950"
+                  placeholder="tanvir@example.com"
+                  className="w-full px-4 py-3 border border-zinc-200 rounded-xl outline-none focus:border-zinc-950 bg-white"
                 />
               </div>
 
               <div>
                 <label className="font-bold uppercase text-zinc-700 block mb-1">
-                  Mobile Phone *
+                  Phone Number *
                 </label>
                 <input
                   type="tel"
@@ -240,8 +284,8 @@ export default function CheckoutPage() {
                   required
                   value={formData.phone}
                   onChange={handleInputChange}
-                  placeholder="+1 (555) 000-0000"
-                  className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950"
+                  placeholder="017XXXXXXXX"
+                  className="w-full px-4 py-3 border border-zinc-200 rounded-xl outline-none focus:border-zinc-950 bg-white"
                 />
               </div>
 
@@ -255,8 +299,8 @@ export default function CheckoutPage() {
                   required
                   value={formData.addressLine1}
                   onChange={handleInputChange}
-                  placeholder="123 Performance Way"
-                  className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950"
+                  placeholder="House 12, Road 4, Sector 7, Uttara"
+                  className="w-full px-4 py-3 border border-zinc-200 rounded-xl outline-none focus:border-zinc-950 bg-white"
                 />
               </div>
 
@@ -269,14 +313,14 @@ export default function CheckoutPage() {
                   name="addressLine2"
                   value={formData.addressLine2}
                   onChange={handleInputChange}
-                  placeholder="Apt 4B"
-                  className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950"
+                  placeholder="Flat 4B, Building Green"
+                  className="w-full px-4 py-3 border border-zinc-200 rounded-xl outline-none focus:border-zinc-950 bg-white"
                 />
               </div>
 
               <div>
                 <label className="font-bold uppercase text-zinc-700 block mb-1">
-                  City *
+                  City / District *
                 </label>
                 <input
                   type="text"
@@ -284,100 +328,113 @@ export default function CheckoutPage() {
                   required
                   value={formData.city}
                   onChange={handleInputChange}
-                  placeholder="Portland"
-                  className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950"
+                  placeholder="Dhaka"
+                  className="w-full px-4 py-3 border border-zinc-200 rounded-xl outline-none focus:border-zinc-950 bg-white"
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <label className="font-bold uppercase text-zinc-700 block mb-1">
-                    State / Region *
-                  </label>
-                  <input
-                    type="text"
-                    name="state"
-                    required
-                    value={formData.state}
-                    onChange={handleInputChange}
-                    placeholder="OR"
-                    className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950"
-                  />
-                </div>
-                <div>
-                  <label className="font-bold uppercase text-zinc-700 block mb-1">
-                    ZIP Code *
-                  </label>
-                  <input
-                    type="text"
-                    name="postalCode"
-                    required
-                    value={formData.postalCode}
-                    onChange={handleInputChange}
-                    placeholder="97205"
-                    className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950"
-                  />
-                </div>
+              <div>
+                <label className="font-bold uppercase text-zinc-700 block mb-1">
+                  Postal Code *
+                </label>
+                <input
+                  type="text"
+                  name="postalCode"
+                  required
+                  value={formData.postalCode}
+                  onChange={handleInputChange}
+                  placeholder="1230"
+                  className="w-full px-4 py-3 border border-zinc-200 rounded-xl outline-none focus:border-zinc-950 bg-white"
+                />
+              </div>
+
+              <div className="sm:col-span-2">
+                <label className="font-bold uppercase text-zinc-700 block mb-1">
+                  Country *
+                </label>
+                <select
+                  name="country"
+                  value={formData.country}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 border border-zinc-200 rounded-xl outline-none focus:border-zinc-950 bg-white"
+                >
+                  <option value="Bangladesh">Bangladesh (বাংলাদেশ)</option>
+                  <option value="United States">United States</option>
+                  <option value="United Kingdom">United Kingdom</option>
+                  <option value="Canada">Canada</option>
+                  <option value="Australia">Australia</option>
+                  <option value="United Arab Emirates">United Arab Emirates</option>
+                  <option value="Saudi Arabia">Saudi Arabia</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
             </div>
           </div>
 
-          {/* Step 2: Shipping Options */}
+          {/* Step 2: Delivery Speed */}
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-zinc-950 pb-2 border-b border-zinc-200">
               <span className="w-6 h-6 rounded-full bg-zinc-950 text-white flex items-center justify-center text-xs">
                 2
               </span>
-              <span>Delivery Method</span>
+              <span>Delivery Option</span>
             </div>
 
-            <div className="space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <label
-                className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
+                className={`p-4 rounded-2xl border cursor-pointer flex items-center justify-between transition-all ${
                   shippingMethod === 'standard'
-                    ? 'border-zinc-950 bg-zinc-50 shadow-xs'
-                    : 'border-zinc-200 hover:border-zinc-300'
+                    ? 'border-zinc-950 bg-zinc-950 text-white shadow-md'
+                    : 'border-zinc-200 bg-white text-zinc-900 hover:border-zinc-300'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <input
                     type="radio"
-                    name="shipping"
+                    name="shippingMethod"
+                    value="standard"
                     checked={shippingMethod === 'standard'}
                     onChange={() => setShippingMethod('standard')}
-                    className="w-4 h-4 text-zinc-950"
+                    className="hidden"
                   />
+                  <Truck className="w-5 h-5 shrink-0" />
                   <div>
-                    <p className="text-xs font-bold text-zinc-900">Standard Ground Delivery</p>
-                    <p className="text-[11px] text-zinc-500">Delivers in 2-4 business days</p>
+                    <h4 className="font-bold text-xs uppercase">Standard Delivery</h4>
+                    <p className={`text-[11px] ${shippingMethod === 'standard' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                      2-4 business days
+                    </p>
                   </div>
                 </div>
-                <span className="text-xs font-black text-zinc-900">
+                <span className="text-xs font-black">
                   {standardShipping === 0 ? 'FREE' : `$${standardShipping.toFixed(2)}`}
                 </span>
               </label>
 
               <label
-                className={`flex items-center justify-between p-4 rounded-2xl border cursor-pointer transition-all ${
+                className={`p-4 rounded-2xl border cursor-pointer flex items-center justify-between transition-all ${
                   shippingMethod === 'express'
-                    ? 'border-zinc-950 bg-zinc-50 shadow-xs'
-                    : 'border-zinc-200 hover:border-zinc-300'
+                    ? 'border-zinc-950 bg-zinc-950 text-white shadow-md'
+                    : 'border-zinc-200 bg-white text-zinc-900 hover:border-zinc-300'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <input
                     type="radio"
-                    name="shipping"
+                    name="shippingMethod"
+                    value="express"
                     checked={shippingMethod === 'express'}
                     onChange={() => setShippingMethod('express')}
-                    className="w-4 h-4 text-zinc-950"
+                    className="hidden"
                   />
+                  <Truck className="w-5 h-5 shrink-0 text-red-500" />
                   <div>
-                    <p className="text-xs font-bold text-zinc-900">Express Priority Air</p>
-                    <p className="text-[11px] text-zinc-500">Guaranteed next-day dispatch & priority courier</p>
+                    <h4 className="font-bold text-xs uppercase">Express Priority</h4>
+                    <p className={`text-[11px] ${shippingMethod === 'express' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                      Next-day guaranteed
+                    </p>
                   </div>
                 </div>
-                <span className="text-xs font-black text-zinc-900">
+                <span className="text-xs font-black">
                   ${(standardShipping + 15.00).toFixed(2)}
                 </span>
               </label>
@@ -386,112 +443,220 @@ export default function CheckoutPage() {
 
           {/* Step 3: Verified Payment Gateway */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-zinc-950 pb-2 border-b border-zinc-200">
-              <span className="w-6 h-6 rounded-full bg-zinc-950 text-white flex items-center justify-center text-xs">
-                3
+            <div className="flex items-center justify-between pb-2 border-b border-zinc-200">
+              <div className="flex items-center gap-2 text-sm font-black uppercase tracking-wider text-zinc-950">
+                <span className="w-6 h-6 rounded-full bg-zinc-950 text-white flex items-center justify-center text-xs">
+                  3
+                </span>
+                <span>Payment Gateway</span>
+              </div>
+              <span className="text-[11px] font-bold text-zinc-500 uppercase tracking-wider">
+                Select Payment Option
               </span>
-              <span>Payment Method</span>
             </div>
 
             {/* Payment Method Selectors */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* Option 1: Bangladesh Gateway (SSLCommerz) */}
               <button
                 type="button"
-                onClick={() => setPaymentMethod('CREDIT_CARD')}
-                className={`p-3 rounded-2xl border text-center flex flex-col items-center gap-1.5 transition-all ${
-                  paymentMethod === 'CREDIT_CARD'
-                    ? 'border-zinc-950 bg-zinc-950 text-white'
-                    : 'border-zinc-200 text-zinc-700 hover:border-zinc-300'
+                onClick={() => setPaymentMethod('SSLCOMMERZ')}
+                className={`p-4 rounded-2xl border text-left flex flex-col justify-between gap-3 transition-all cursor-pointer relative overflow-hidden ${
+                  paymentMethod === 'SSLCOMMERZ'
+                    ? 'border-zinc-950 bg-zinc-950 text-white shadow-md ring-2 ring-zinc-950 ring-offset-2'
+                    : 'border-zinc-200 text-zinc-700 bg-white hover:border-zinc-400'
                 }`}
               >
-                <CreditCard className="w-5 h-5" />
-                <span className="text-[11px] font-bold uppercase">Credit Card</span>
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">🇧🇩</span>
+                    <Smartphone className="w-4 h-4" />
+                  </div>
+                  <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${
+                    paymentMethod === 'SSLCOMMERZ' ? 'bg-pink-500 text-white' : 'bg-pink-100 text-pink-700'
+                  }`}>
+                    bKash / Nagad
+                  </span>
+                </div>
+                <div>
+                  <h4 className="text-xs font-black uppercase tracking-tight">Bangladesh Local</h4>
+                  <p className={`text-[11px] mt-0.5 ${paymentMethod === 'SSLCOMMERZ' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                    bKash, Nagad, Rocket & Cards
+                  </p>
+                </div>
               </button>
 
+              {/* Option 2: International Gateway (Stripe) */}
               <button
                 type="button"
-                onClick={() => setPaymentMethod('DIGITAL_WALLET')}
-                className={`p-3 rounded-2xl border text-center flex flex-col items-center gap-1.5 transition-all ${
-                  paymentMethod === 'DIGITAL_WALLET'
-                    ? 'border-zinc-950 bg-zinc-950 text-white'
-                    : 'border-zinc-200 text-zinc-700 hover:border-zinc-300'
+                onClick={() => setPaymentMethod('STRIPE')}
+                className={`p-4 rounded-2xl border text-left flex flex-col justify-between gap-3 transition-all cursor-pointer relative overflow-hidden ${
+                  paymentMethod === 'STRIPE'
+                    ? 'border-zinc-950 bg-zinc-950 text-white shadow-md ring-2 ring-zinc-950 ring-offset-2'
+                    : 'border-zinc-200 text-zinc-700 bg-white hover:border-zinc-400'
                 }`}
               >
-                <Smartphone className="w-5 h-5" />
-                <span className="text-[11px] font-bold uppercase">Apple / Google Pay</span>
+                <div className="flex items-center justify-between w-full">
+                  <div className="flex items-center gap-2">
+                    <Globe className="w-4 h-4 text-blue-400" />
+                    <CreditCard className="w-4 h-4" />
+                  </div>
+                  <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${
+                    paymentMethod === 'STRIPE' ? 'bg-indigo-500 text-white' : 'bg-indigo-100 text-indigo-700'
+                  }`}>
+                    Global
+                  </span>
+                </div>
+                <div>
+                  <h4 className="text-xs font-black uppercase tracking-tight">International</h4>
+                  <p className={`text-[11px] mt-0.5 ${paymentMethod === 'STRIPE' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                    Visa, MasterCard, Amex
+                  </p>
+                </div>
               </button>
 
+              {/* Option 3: Cash on Delivery */}
               <button
                 type="button"
                 onClick={() => setPaymentMethod('CASH_ON_DELIVERY')}
-                className={`p-3 rounded-2xl border text-center flex flex-col items-center gap-1.5 transition-all ${
+                className={`p-4 rounded-2xl border text-left flex flex-col justify-between gap-3 transition-all cursor-pointer relative overflow-hidden ${
                   paymentMethod === 'CASH_ON_DELIVERY'
-                    ? 'border-zinc-950 bg-zinc-950 text-white'
-                    : 'border-zinc-200 text-zinc-700 hover:border-zinc-300'
+                    ? 'border-zinc-950 bg-zinc-950 text-white shadow-md ring-2 ring-zinc-950 ring-offset-2'
+                    : 'border-zinc-200 text-zinc-700 bg-white hover:border-zinc-400'
                 }`}
               >
-                <Banknote className="w-5 h-5" />
-                <span className="text-[11px] font-bold uppercase">Pay on Delivery</span>
+                <div className="flex items-center justify-between w-full">
+                  <Banknote className="w-5 h-5 text-emerald-500" />
+                  <span className={`text-[10px] font-black uppercase px-2 py-0.5 rounded-full ${
+                    paymentMethod === 'CASH_ON_DELIVERY' ? 'bg-emerald-500 text-white' : 'bg-emerald-100 text-emerald-800'
+                  }`}>
+                    Handover
+                  </span>
+                </div>
+                <div>
+                  <h4 className="text-xs font-black uppercase tracking-tight">Cash on Delivery</h4>
+                  <p className={`text-[11px] mt-0.5 ${paymentMethod === 'CASH_ON_DELIVERY' ? 'text-zinc-300' : 'text-zinc-500'}`}>
+                    Pay when shoes arrive
+                  </p>
+                </div>
               </button>
             </div>
 
-            {/* Credit Card Form Inputs */}
-            {paymentMethod === 'CREDIT_CARD' && (
-              <div className="p-5 bg-zinc-50 border border-zinc-200 rounded-2xl space-y-4 text-xs">
-                <div>
-                  <label className="font-bold uppercase text-zinc-700 block mb-1">
-                    Card Number
-                  </label>
-                  <input
-                    type="text"
-                    required
-                    value={cardData.cardNumber}
-                    onChange={(e) => setCardData({ ...cardData, cardNumber: e.target.value })}
-                    className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950 bg-white font-mono"
-                  />
+            {/* Dynamic Gateway Details Panel */}
+            {paymentMethod === 'SSLCOMMERZ' && (
+              <div className="p-5 bg-gradient-to-br from-pink-50/50 via-zinc-50 to-orange-50/40 border border-pink-200/80 rounded-2xl space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-pink-200/60 pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-pink-500 animate-pulse" />
+                    <span className="text-xs font-black uppercase text-zinc-950">
+                      SSLCommerz Bangladesh Payment Gateway
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[11px] text-zinc-500 block">Total in BDT</span>
+                    <span className="text-sm font-black text-pink-600">
+                      ৳{finalTotalBDT.toLocaleString()} BDT
+                    </span>
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="font-bold uppercase text-zinc-700 block mb-1">
-                      Expiration Date
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      value={cardData.expiry}
-                      onChange={(e) => setCardData({ ...cardData, expiry: e.target.value })}
-                      className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950 bg-white font-mono"
-                    />
+                <div className="space-y-2">
+                  <p className="text-xs text-zinc-600 leading-relaxed">
+                    You will be redirected to the official SSLCommerz payment page to complete your payment with any of the supported services below:
+                  </p>
+                  
+                  {/* Supported badges */}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <span className="px-2.5 py-1 bg-white border border-pink-300 rounded-lg text-[11px] font-bold text-pink-600 shadow-sm flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-pink-600" /> bKash (বিকাশ)
+                    </span>
+                    <span className="px-2.5 py-1 bg-white border border-orange-300 rounded-lg text-[11px] font-bold text-orange-600 shadow-sm flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-orange-600" /> Nagad (নগদ)
+                    </span>
+                    <span className="px-2.5 py-1 bg-white border border-purple-300 rounded-lg text-[11px] font-bold text-purple-600 shadow-sm flex items-center gap-1">
+                      <span className="w-2 h-2 rounded-full bg-purple-600" /> Rocket (রকেট)
+                    </span>
+                    <span className="px-2.5 py-1 bg-white border border-blue-300 rounded-lg text-[11px] font-bold text-blue-700 shadow-sm flex items-center gap-1">
+                      <CreditCard className="w-3 h-3" /> Visa / Mastercard / DBBL Nexus
+                    </span>
+                    <span className="px-2.5 py-1 bg-white border border-zinc-200 rounded-lg text-[11px] font-bold text-zinc-700 shadow-sm">
+                      🏦 Internet Banking
+                    </span>
                   </div>
-                  <div>
-                    <label className="font-bold uppercase text-zinc-700 block mb-1">
-                      CVV Security Code
-                    </label>
-                    <input
-                      type="password"
-                      maxLength={4}
-                      required
-                      value={cardData.cvv}
-                      onChange={(e) => setCardData({ ...cardData, cvv: e.target.value })}
-                      className="w-full px-4 py-3 border border-zinc-300 rounded-xl outline-none focus:border-zinc-950 bg-white font-mono"
-                    />
-                  </div>
+                </div>
+
+                <div className="pt-2 flex items-center justify-between text-[11px] text-zinc-500 bg-white/60 p-2.5 rounded-xl border border-zinc-200/60">
+                  <span>Exchange Rate: <strong>1 USD = ৳120 BDT</strong></span>
+                  <span className="text-emerald-700 font-bold flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5" /> Instant Verification
+                  </span>
                 </div>
               </div>
             )}
 
-            {paymentMethod === 'DIGITAL_WALLET' && (
-              <div className="p-5 bg-zinc-50 border border-zinc-200 rounded-2xl text-xs text-zinc-600 text-center space-y-1">
-                <p className="font-bold text-zinc-900">Instant Express Checkout</p>
-                <p>Your connected biometric device wallet will authorize upon placing order.</p>
+            {paymentMethod === 'STRIPE' && (
+              <div className="p-5 bg-gradient-to-br from-indigo-50/40 via-zinc-50 to-blue-50/40 border border-indigo-200/80 rounded-2xl space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-indigo-200/60 pb-3">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse" />
+                    <span className="text-xs font-black uppercase text-zinc-950">
+                      Stripe Global Hosted Checkout
+                    </span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[11px] text-zinc-500 block">Total in USD</span>
+                    <span className="text-sm font-black text-indigo-600">
+                      ${finalTotal.toFixed(2)} USD
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <p className="text-xs text-zinc-600 leading-relaxed">
+                    You will be redirected to Stripe&apos;s bank-grade hosted checkout session. Supports international debit & credit cards from any country worldwide.
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    <span className="px-2.5 py-1 bg-white border border-zinc-200 rounded-lg text-[11px] font-bold text-zinc-800 shadow-sm">
+                      💳 Visa
+                    </span>
+                    <span className="px-2.5 py-1 bg-white border border-zinc-200 rounded-lg text-[11px] font-bold text-zinc-800 shadow-sm">
+                      💳 MasterCard
+                    </span>
+                    <span className="px-2.5 py-1 bg-white border border-zinc-200 rounded-lg text-[11px] font-bold text-zinc-800 shadow-sm">
+                      💳 American Express
+                    </span>
+                    <span className="px-2.5 py-1 bg-white border border-zinc-200 rounded-lg text-[11px] font-bold text-zinc-800 shadow-sm">
+                       Apple Pay
+                    </span>
+                    <span className="px-2.5 py-1 bg-white border border-zinc-200 rounded-lg text-[11px] font-bold text-zinc-800 shadow-sm">
+                      🌐 Google Pay
+                    </span>
+                  </div>
+                </div>
+
+                <div className="pt-2 flex items-center justify-between text-[11px] text-zinc-500 bg-white/60 p-2.5 rounded-xl border border-zinc-200/60">
+                  <span>Zero international transaction fee on eligible cards</span>
+                  <span className="text-emerald-700 font-bold flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5" /> PCI-DSS Level 1 Certified
+                  </span>
+                </div>
               </div>
             )}
 
             {paymentMethod === 'CASH_ON_DELIVERY' && (
-              <div className="p-5 bg-zinc-50 border border-zinc-200 rounded-2xl text-xs text-zinc-600 text-center space-y-1">
-                <p className="font-bold text-zinc-900">Pay Upon Courier Handover</p>
-                <p>Ensure correct cash or mobile contactless card is ready upon delivery.</p>
+              <div className="p-5 bg-zinc-50 border border-zinc-200 rounded-2xl text-xs text-zinc-600 space-y-2">
+                <div className="flex items-center gap-2 text-zinc-950 font-black uppercase text-xs">
+                  <Banknote className="w-4 h-4 text-emerald-600" />
+                  <span>Pay Upon Courier Handover</span>
+                </div>
+                <p>
+                  Your order will be packaged and dispatched immediately. Please prepare exact cash ({`$${finalTotal.toFixed(2)}`} or approximately {`৳${finalTotalBDT.toLocaleString()} BDT`}) when our delivery agent reaches your address.
+                </p>
+                <div className="p-2.5 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-[11px] font-medium flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+                  <span>Our delivery team will make a verification phone call prior to dispatch.</span>
+                </div>
               </div>
             )}
           </div>
@@ -547,9 +712,19 @@ export default function CheckoutPage() {
                   {shippingFee === 0 ? 'FREE' : `$${shippingFee.toFixed(2)}`}
                 </span>
               </div>
-              <div className="flex justify-between text-base font-black text-zinc-950 pt-3 border-t border-zinc-200">
-                <span>Total</span>
-                <span>${finalTotal.toFixed(2)}</span>
+
+              {/* Total Row */}
+              <div className="pt-3 border-t border-zinc-200 space-y-1">
+                <div className="flex justify-between text-base font-black text-zinc-950">
+                  <span>Total Amount</span>
+                  <span>${finalTotal.toFixed(2)} USD</span>
+                </div>
+                {paymentMethod === 'SSLCOMMERZ' && (
+                  <div className="flex justify-between text-xs font-bold text-pink-600">
+                    <span>Payable in BDT</span>
+                    <span>৳{finalTotalBDT.toLocaleString()} BDT</span>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -561,10 +736,16 @@ export default function CheckoutPage() {
                 className="w-full py-4 bg-zinc-950 text-white rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider hover:bg-zinc-800 transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
               >
                 {isSubmitting ? (
-                  <span>Processing Order...</span>
+                  <span className="flex items-center gap-2">
+                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    Connecting to Payment Gateway...
+                  </span>
                 ) : (
                   <>
-                    <Lock className="w-4 h-4" /> Place Order & Pay ${finalTotal.toFixed(2)}
+                    <Lock className="w-4 h-4" />
+                    {paymentMethod === 'SSLCOMMERZ' && `Pay with bKash / Cards (৳${finalTotalBDT.toLocaleString()} BDT)`}
+                    {paymentMethod === 'STRIPE' && `Pay with Stripe ($${finalTotal.toFixed(2)} USD)`}
+                    {paymentMethod === 'CASH_ON_DELIVERY' && `Confirm Order ($${finalTotal.toFixed(2)})`}
                   </>
                 )}
               </button>
@@ -573,5 +754,20 @@ export default function CheckoutPage() {
         </div>
       </form>
     </div>
+  );
+}
+
+export default function CheckoutPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="max-w-4xl mx-auto px-6 py-24 text-center">
+          <div className="w-10 h-10 border-3 border-zinc-950 border-t-transparent rounded-full animate-spin mx-auto" />
+          <p className="mt-4 text-xs font-bold uppercase text-zinc-500">Loading Checkout...</p>
+        </div>
+      }
+    >
+      <CheckoutContent />
+    </Suspense>
   );
 }

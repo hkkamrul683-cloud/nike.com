@@ -20,12 +20,14 @@ import {
   Users,
   MessageSquare,
   Sliders,
+  Store,
 } from 'lucide-react';
 
 export type AdminTab =
   | 'overview'
   | 'products'
   | 'orders'
+  | 'vendors'
   | 'customers'
   | 'reviews'
   | 'coupons'
@@ -38,6 +40,7 @@ interface AdminSidebarProps {
   productCount: number;
   orderCount: number;
   couponCount: number;
+  vendorCount?: number;
   customerCount?: number;
   reviewCount?: number;
   user: any;
@@ -53,6 +56,7 @@ export default function AdminSidebar({
   productCount,
   orderCount,
   couponCount,
+  vendorCount = 0,
   customerCount = 0,
   reviewCount = 0,
   user,
@@ -79,6 +83,12 @@ export default function AdminSidebar({
       label: 'Orders & Shipping',
       icon: ShoppingBag,
       badge: orderCount,
+    },
+    {
+      id: 'vendors' as AdminTab,
+      label: 'Vendors & Suppliers',
+      icon: Store,
+      badge: vendorCount > 0 ? vendorCount : null,
     },
     {
       id: 'customers' as AdminTab,
@@ -144,7 +154,7 @@ export default function AdminSidebar({
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5">
-                <span className="font-bold text-sm text-white tracking-tight truncate">SPORTIX</span>
+                <span className="font-bold text-sm text-white tracking-tight truncate">HypeKicks</span>
                 <span className="text-[10px] font-mono font-medium px-1.5 py-0.2 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
                   prod
                 </span>

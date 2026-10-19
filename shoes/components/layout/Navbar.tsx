@@ -14,6 +14,7 @@ import {
   LogOut,
   ShieldCheck,
   Package,
+  MapPin,
 } from 'lucide-react';
 import Logo from '@/components/brand/Logo';
 import { useCartWishlist } from '@/context/CartWishlistContext';
@@ -265,9 +266,12 @@ export default function Navbar() {
         {/* Top Micro Utility Bar — Nike style */}
         <div className="bg-white border-b border-zinc-100 px-6 py-2 hidden md:block text-[12px] text-zinc-700">
           <div className="max-w-7xl mx-auto flex justify-end items-center gap-4">
-            <a href="/help" className="hover:underline transition-colors">Find a Store</a>
+            <Link href="/stores" className="hover:underline transition-colors flex items-center gap-1 font-medium">
+              <MapPin className="w-3 h-3 text-zinc-500" />
+              <span>Find a Store & Vendors</span>
+            </Link>
             <span className="text-zinc-300 select-none">|</span>
-            <a href="/help" className="hover:underline transition-colors">Help</a>
+            <Link href="/help" className="hover:underline transition-colors">Help</Link>
             <span className="text-zinc-300 select-none">|</span>
             {user ? (
               <>
@@ -570,6 +574,9 @@ export default function Navbar() {
               })}
 
               <div className="px-5 py-4 space-y-3 border-b border-zinc-100">
+                <Link href="/stores" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-[15px] font-medium text-zinc-800">
+                  <MapPin className="w-4 h-4 text-zinc-500" /> Find Stores & Vendors
+                </Link>
                 <a href="/wishlist" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center gap-3 text-[15px] font-medium text-zinc-800">
                   <Heart className="w-4 h-4" /> Favourites ({wishlist.length})
                 </a>

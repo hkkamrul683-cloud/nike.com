@@ -14,23 +14,34 @@ import {
   Printer,
   RotateCcw,
   FileSpreadsheet,
+  Package,
+  CheckCircle2,
+  AlertCircle,
+  MapPin,
+  Calendar,
+  X,
 } from 'lucide-react';
 import AdminInvoiceModal from './AdminInvoiceModal';
 
 interface AdminOrdersProps {
   orders: any[];
   onUpdateStatus: (orderId: string, status: string) => Promise<void>;
+  onOrderUpdated?: (order: any) => void;
   searchQuery: string;
 }
 
 export default function AdminOrders({
   orders,
   onUpdateStatus,
+  onOrderUpdated,
   searchQuery,
 }: AdminOrdersProps) {
   const [selectedStatus, setSelectedStatus] = useState<string>('all');
   const [updatingId, setUpdatingId] = useState<string | null>(null);
+  const [dispatchingId, setDispatchingId] = useState<string | null>(null);
   const [invoiceOrder, setInvoiceOrder] = useState<any | null>(null);
+  const [trackingModalOrder, setTrackingModalOrder] = useState<any | null>(null);
+  const [dispatchAlert, setDispatchAlert] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   const statuses = [
     { id: 'all', label: 'All Orders' },
@@ -40,6 +51,39 @@ export default function AdminOrders({
     { id: 'RETURN_REQUESTED', label: 'Returns' },
     { id: 'CANCELLED', label: 'Cancelled' },
   ];
+
+  const handleDispatchCourier = async (orderId: string) => {
+    setDispatchingId(orderId);
+    setDispatchAlert(null);
+    try {
+      const res = await fetch('/api/courier/dispatch', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ orderId }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Failed to dispatch order to courier');
+      }
+
+      setDispatchAlert({
+        type: 'success',
+        message: `Order dispatched to Steadfast Courier! Consignment ID: #${data.consignment?.consignment_id} (Tracking: ${data.consignment?.tracking_code})`,
+      });
+
+      if (onOrderUpdated && data.order) {
+        onOrderUpdated(data.order);
+      }
+    } catch (err: any) {
+      setDispatchAlert({
+        type: 'error',
+        message: err.message || 'Error communicating with courier service.',
+      });
+    } finally {
+      setDispatchingId(null);
+      setTimeout(() => setDispatchAlert(null), 6000);
+    }
+  };
 
   const filteredOrders = orders.filter((o) => {
     const current = (o.status || 'PROCESSING').toUpperCase();
@@ -179,6 +223,32 @@ export default function AdminOrders({
         </div>
       </div>
 
+      {/* Courier Dispatch Alert */}
+      {dispatchAlert && (
+        <div
+          className={`p-3 rounded-xl border text-xs flex items-center justify-between gap-2 animate-in fade-in ${
+            dispatchAlert.type === 'success'
+              ? 'bg-emerald-950/80 border-emerald-500/40 text-emerald-300'
+              : 'bg-red-950/80 border-red-500/40 text-red-300'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            {dispatchAlert.type === 'success' ? (
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            ) : (
+              <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+            )}
+            <span className="font-medium">{dispatchAlert.message}</span>
+          </div>
+          <button
+            onClick={() => setDispatchAlert(null)}
+            className="text-zinc-400 hover:text-white transition-colors"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+      )}
+
       {/* Orders Table */}
       <div className="rounded-xl border border-zinc-800/80 bg-zinc-900/40 overflow-hidden">
         <div className="overflow-x-auto">
@@ -190,13 +260,14 @@ export default function AdminOrders({
                 <th className="py-3 px-4">Order Date</th>
                 <th className="py-3 px-4">Total Amount</th>
                 <th className="py-3 px-4">Fulfillment Status</th>
+                <th className="py-3 px-4">Courier Dispatch</th>
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-800/60 text-zinc-300">
               {filteredOrders.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="py-16 text-center text-zinc-400 text-xs">
+                  <td colSpan={7} className="py-16 text-center text-zinc-400 text-xs">
                     No orders matching active filters.
                   </td>
                 </tr>
@@ -204,6 +275,8 @@ export default function AdminOrders({
                 filteredOrders.map((o) => {
                   const currentStatus = (o.status || 'PROCESSING').toUpperCase();
                   const isUpdating = updatingId === o._id;
+                  const isDispatching = dispatchingId === o._id;
+                  const hasCourier = Boolean(o.courier?.consignmentId);
 
                   return (
                     <tr
@@ -226,6 +299,9 @@ export default function AdminOrders({
                       <td className="py-3 px-4">
                         <p className="font-semibold text-zinc-100">{o.customerName || 'Store Customer'}</p>
                         <p className="text-[11px] text-zinc-400">{o.customerEmail}</p>
+                        {o.customerPhone && (
+                          <p className="text-[10px] text-zinc-500 font-mono">{o.customerPhone}</p>
+                        )}
                       </td>
 
                       {/* Date */}
@@ -239,11 +315,23 @@ export default function AdminOrders({
                           : 'Recent'}
                       </td>
 
-                      {/* Total Amount */}
+                      {/* Total Amount & Payment Badge */}
                       <td className="py-3 px-4">
                         <span className="font-mono font-bold text-white text-xs">
                           ${o.totalAmount?.toFixed(2)}
                         </span>
+                        <div className="flex items-center gap-1.5 mt-1">
+                          <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border ${
+                            o.paymentMethod === 'SSLCOMMERZ' ? 'bg-pink-950/40 border-pink-500/30 text-pink-300' :
+                            o.paymentMethod === 'STRIPE' ? 'bg-indigo-950/40 border-indigo-500/30 text-indigo-300' :
+                            'bg-zinc-800 border-zinc-700 text-zinc-300'
+                          }`}>
+                            {o.paymentMethod === 'SSLCOMMERZ' ? 'bKash/SSL' : o.paymentMethod === 'STRIPE' ? 'Stripe' : 'COD'}
+                          </span>
+                          <span className={`text-[9px] font-mono font-semibold ${o.paymentStatus === 'PAID' ? 'text-emerald-400' : 'text-amber-400'}`}>
+                            {o.paymentStatus || 'PENDING'}
+                          </span>
+                        </div>
                       </td>
 
                       {/* Status Selector */}
@@ -265,6 +353,49 @@ export default function AdminOrders({
                             <option value="CANCELLED">CANCELLED</option>
                           </select>
                         </div>
+                      </td>
+
+                      {/* Courier Dispatch & Tracking */}
+                      <td className="py-3 px-4">
+                        {hasCourier ? (
+                          <div className="space-y-1">
+                            <div className="flex items-center gap-1.5">
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">
+                                <Truck className="w-3 h-3 text-emerald-400" />
+                                {o.courier.provider || 'Steadfast'} #{o.courier.consignmentId}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-2 text-[10px]">
+                              <span className="text-zinc-400 uppercase font-mono font-semibold">
+                                {o.courier.deliveryStatus || 'in_review'}
+                              </span>
+                              <button
+                                onClick={() => setTrackingModalOrder(o)}
+                                className="text-emerald-400 hover:text-emerald-300 font-semibold underline cursor-pointer"
+                              >
+                                Details
+                              </button>
+                              <a
+                                href={o.courier.trackingUrl || `https://steadfast.com.bd/t/${o.courier.trackingCode || o.trackingNumber}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-zinc-400 hover:text-white flex items-center gap-0.5"
+                              >
+                                Live <ExternalLink className="w-2.5 h-2.5" />
+                              </a>
+                            </div>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => handleDispatchCourier(o._id)}
+                            disabled={isDispatching || o.status === 'CANCELLED'}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-[11px] font-semibold transition-colors disabled:opacity-40 cursor-pointer shadow-sm shadow-emerald-950/30"
+                            title="Send order parcel to Steadfast Courier"
+                          >
+                            <Truck className={`w-3.5 h-3.5 ${isDispatching ? 'animate-bounce text-emerald-400' : 'text-emerald-400'}`} />
+                            <span>{isDispatching ? 'Dispatching...' : 'Send to Steadfast'}</span>
+                          </button>
+                        )}
                       </td>
 
                       {/* Actions: Print Invoice & View Details */}
@@ -296,6 +427,96 @@ export default function AdminOrders({
           </table>
         </div>
       </div>
+
+      {/* Courier Tracking Details Modal */}
+      {trackingModalOrder && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-zinc-950 border border-zinc-800 rounded-2xl w-full max-w-lg p-6 space-y-5 shadow-2xl relative">
+            <div className="flex items-center justify-between pb-3 border-b border-zinc-800">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                  <Truck className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-bold text-white">Steadfast Courier Tracking</h3>
+                  <p className="text-[11px] text-zinc-400 font-mono">
+                    Order: {trackingModalOrder.orderNumber}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setTrackingModalOrder(null)}
+                className="text-zinc-400 hover:text-white p-1 rounded-lg hover:bg-zinc-900"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs">
+              <div className="grid grid-cols-2 gap-3 p-3 bg-zinc-900/60 rounded-xl border border-zinc-800">
+                <div>
+                  <span className="text-zinc-500 text-[10px] uppercase font-mono block">Consignment ID</span>
+                  <span className="font-mono font-bold text-white text-sm">
+                    #{trackingModalOrder.courier?.consignmentId || 'Pending'}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-zinc-500 text-[10px] uppercase font-mono block">Tracking Code</span>
+                  <span className="font-mono font-bold text-emerald-400 text-sm">
+                    {trackingModalOrder.courier?.trackingCode || trackingModalOrder.trackingNumber}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-zinc-500 text-[10px] uppercase font-mono block">Delivery Status</span>
+                  <span className="font-mono font-bold text-white uppercase text-xs">
+                    {trackingModalOrder.courier?.deliveryStatus || 'in_review'}
+                  </span>
+                </div>
+                <div>
+                  <span className="text-zinc-500 text-[10px] uppercase font-mono block">COD to Collect</span>
+                  <span className="font-mono font-bold text-amber-400 text-xs">
+                    ৳{(trackingModalOrder.courier?.codAmountBDT ?? 0).toLocaleString()} BDT
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-3 bg-zinc-900/40 rounded-xl border border-zinc-800 space-y-1">
+                <span className="text-zinc-500 text-[10px] uppercase font-mono block">Recipient Details</span>
+                <p className="font-semibold text-zinc-200">{trackingModalOrder.customerName}</p>
+                <p className="text-zinc-400">{trackingModalOrder.customerPhone || trackingModalOrder.shippingAddress?.phone}</p>
+                <p className="text-zinc-400 text-[11px]">
+                  {trackingModalOrder.shippingAddress?.addressLine1}, {trackingModalOrder.shippingAddress?.city}
+                </p>
+              </div>
+
+              {trackingModalOrder.courier?.isDemo && (
+                <div className="p-2.5 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-amber-400" />
+                  <span>Sandbox Mode: This is a simulated consignment. Real consignments will be booked when live API keys are saved.</span>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-zinc-800">
+              <button
+                onClick={() => setTrackingModalOrder(null)}
+                className="px-4 py-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 text-zinc-300 text-xs font-semibold"
+              >
+                Close
+              </button>
+              <a
+                href={trackingModalOrder.courier?.trackingUrl || `https://steadfast.com.bd/t/${trackingModalOrder.courier?.trackingCode || trackingModalOrder.trackingNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-colors shadow-lg shadow-emerald-950/40"
+              >
+                <span>Track on Steadfast</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Printable Invoice Modal */}
       {invoiceOrder && (

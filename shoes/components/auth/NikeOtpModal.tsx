@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { X, ArrowLeft, CheckCircle2, AlertCircle } from 'lucide-react';
 import { useCartWishlist } from '@/context/CartWishlistContext';
+import Logo from '@/components/brand/Logo';
 
 interface NikeOtpModalProps {
   isOpen?: boolean;
@@ -226,16 +227,9 @@ export default function NikeOtpModal({
         </button>
       )}
 
-      {/* Nike Swoosh Vector Logo (exact silhouette) */}
+      {/* HypeKicks Brand Logo */}
       <div className="flex justify-center pt-1">
-        <svg
-          className="w-16 h-7 text-black transition-transform hover:scale-105"
-          viewBox="0 0 64 24"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M58.74 3.25C42.84 12.3 27.8 17.5 15.48 17.5c-5.43 0-9.52-2.3-9.52-6.95 0-2.8 1.72-5 4.63-6.1-4.73 1.05-8.69 4.15-8.69 8.85 0 6.65 6.83 11.9 17.38 11.9 14.82 0 31.4-7.75 39.46-21.95z" />
-        </svg>
+        <Logo size="md" />
       </div>
 
       {/* STEP 1: Enter Phone Number (Exact Nike UI) */}

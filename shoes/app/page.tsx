@@ -24,13 +24,17 @@ export default async function HomePage() {
     console.error('Error loading products for homepage:', error);
   }
 
-  // Convert ObjectIds to strings for React serialization
+  // Convert MongoDB documents to plain serializable objects for React Client Components
   const serialize = (items: any[]) =>
-    items.map((item) => ({
-      ...item,
-      _id: item._id?.toString(),
-      categoryId: item.categoryId?.toString(),
-    }));
+    items.map((item) => {
+      const plain = JSON.parse(JSON.stringify(item));
+      return {
+        ...plain,
+        _id: item._id?.toString() || plain._id,
+        categoryId: item.categoryId?.toString() || plain.categoryId,
+        vendorId: item.vendorId?.toString() || plain.vendorId,
+      };
+    });
 
   const trending = serialize(trendingProducts);
   const bestsellers = serialize(bestsellerProducts);

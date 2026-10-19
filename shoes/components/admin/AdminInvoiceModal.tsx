@@ -30,6 +30,7 @@ interface Order {
   status: string;
   paymentMethod: string;
   paymentStatus: string;
+  transactionId?: string;
   customerName: string;
   customerEmail: string;
   customerPhone?: string;
@@ -49,6 +50,14 @@ interface Order {
   couponCode?: string | null;
   totalAmount: number;
   trackingNumber?: string;
+  courier?: {
+    provider?: string;
+    consignmentId?: string | number;
+    trackingCode?: string;
+    deliveryStatus?: string;
+    codAmountBDT?: number;
+    trackingUrl?: string;
+  };
 }
 
 interface AdminInvoiceModalProps {
@@ -101,9 +110,9 @@ export default function AdminInvoiceModal({ order, onClose }: AdminInvoiceModalP
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-zinc-200 pb-8">
             <div>
               <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-black flex items-center gap-1.5">
-                SPORTIX<span className="text-zinc-400 font-normal text-lg">.com</span>
+                HypeKicks<span className="text-zinc-400 font-normal text-lg">.com</span>
               </h1>
-              <p className="text-xs text-zinc-500 mt-1">Premium Performance Footwear & Athletics</p>
+              <p className="text-xs text-zinc-500 mt-1">Step Into the Future • Premium Footwear</p>
               <p className="text-xs text-zinc-500 font-mono">Tax / VAT ID: BD-84920491-01</p>
             </div>
 
@@ -168,9 +177,32 @@ export default function AdminInvoiceModal({ order, onClose }: AdminInvoiceModalP
                   </span>
                 </div>
                 <div>
-                  <span className="text-zinc-500 block text-[11px]">Courier:</span>
-                  <span className="font-semibold text-zinc-900 font-mono">Steadfast Express</span>
+                  <span className="text-zinc-500 block text-[11px]">Courier / Delivery:</span>
+                  <span className="font-semibold text-zinc-900 font-mono">
+                    {order.courier?.provider || 'Steadfast Courier'}
+                    {order.courier?.consignmentId && (
+                      <span className="text-emerald-700 text-[11px] block">
+                        CID: #{order.courier.consignmentId}
+                      </span>
+                    )}
+                  </span>
                 </div>
+                {order.courier?.codAmountBDT !== undefined && order.paymentMethod === 'CASH_ON_DELIVERY' && (
+                  <div>
+                    <span className="text-zinc-500 block text-[11px]">Courier COD Collection:</span>
+                    <span className="font-semibold text-amber-700 font-mono text-xs">
+                      ৳{order.courier.codAmountBDT.toLocaleString()} BDT
+                    </span>
+                  </div>
+                )}
+                {order.transactionId && (
+                  <div className="col-span-2 pt-1 border-t border-zinc-100">
+                    <span className="text-zinc-500 block text-[11px]">Transaction ID:</span>
+                    <span className="font-semibold text-zinc-900 font-mono text-xs break-all">
+                      {order.transactionId}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -222,7 +254,7 @@ export default function AdminInvoiceModal({ order, onClose }: AdminInvoiceModalP
               <p className="font-bold text-zinc-700">Thank you for your order!</p>
               <p>
                 Eligible for hassle-free 7-day size exchange. Original box & unworn condition
-                required. For assistance contact support@sportix.com.
+                required. For assistance contact support@hypekicks.com.
               </p>
             </div>
 
@@ -252,7 +284,7 @@ export default function AdminInvoiceModal({ order, onClose }: AdminInvoiceModalP
 
           {/* Footer Barcode Placeholder */}
           <div className="border-t border-zinc-200 pt-6 flex flex-col sm:flex-row items-center justify-between text-[11px] text-zinc-400 font-mono">
-            <span>Authorized by SPORTIX Operations Team</span>
+            <span>Authorized by HypeKicks Operations Team</span>
             <span className="tracking-widest font-bold text-zinc-600 mt-2 sm:mt-0">
               * {order.orderNumber} *
             </span>

@@ -16,12 +16,14 @@ interface AdminProductSheetProps {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (payload: any) => Promise<boolean>;
+  vendors?: any[];
 }
 
 export default function AdminProductSheet({
   isOpen,
   onClose,
   onSubmit,
+  vendors = [],
 }: AdminProductSheetProps) {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadedImageUrl, setUploadedImageUrl] = useState('');
@@ -33,6 +35,9 @@ export default function AdminProductSheet({
     subtitle: '',
     description: '',
     categorySlug: 'shoes',
+    vendorSlug: vendors[0]?.slug || 'apex-footwear',
+    vendorName: vendors[0]?.name || 'Apex Footwear Limited',
+    vendorId: vendors[0]?._id || '',
     gender: 'men',
     sport: 'running',
     price: '',
@@ -235,6 +240,53 @@ export default function AdminProductSheet({
               placeholder="e.g. Men's Road Running Shoes"
               className="w-full px-3 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-white placeholder:text-zinc-600 focus:outline-hidden focus:border-zinc-700 font-medium"
             />
+          </div>
+
+          {/* Vendor / Supplier Selector */}
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400">
+                Vendor / Supplier *
+              </label>
+              <span className="text-[10px] text-emerald-400 font-mono">
+                {vendors && vendors.length > 0 ? `${vendors.length} Verified Suppliers` : '10 Default Vendors'}
+              </span>
+            </div>
+            <select
+              value={form.vendorSlug}
+              onChange={(e) => {
+                const selectedSlug = e.target.value;
+                const found = vendors?.find((v) => v.slug === selectedSlug);
+                setForm({
+                  ...form,
+                  vendorSlug: selectedSlug,
+                  vendorName: found ? found.name : selectedSlug,
+                  vendorId: found?._id || '',
+                });
+              }}
+              className="w-full px-3 py-2.5 rounded-lg bg-zinc-900 border border-zinc-800 text-white font-medium outline-none cursor-pointer focus:border-zinc-700 text-xs"
+            >
+              {vendors && vendors.length > 0 ? (
+                vendors.map((v) => (
+                  <option key={v._id || v.slug} value={v.slug}>
+                    {v.name} &bull; {v.city} ({v.commissionRate}% fee)
+                  </option>
+                ))
+              ) : (
+                <>
+                  <option value="apex-footwear">Apex Footwear Limited &bull; Dhaka (10% fee)</option>
+                  <option value="bata-bangladesh">Bata Bangladesh &bull; Gazipur (12% fee)</option>
+                  <option value="lotto-sports-bd">Lotto Sports BD &bull; Dhaka (15% fee)</option>
+                  <option value="bay-footwear">Bay Footwear Group &bull; Dhaka (10% fee)</option>
+                  <option value="nike-authorized-bd">Sportix / Nike Authorized Hub &bull; Dhaka (15% fee)</option>
+                  <option value="adidas-originals-bd">Adidas Originals BD &bull; Dhaka (14% fee)</option>
+                  <option value="puma-sports-hub">Puma Sports Hub &bull; Dhaka (12% fee)</option>
+                  <option value="step-footwear">Step Footwear Ltd. &bull; Dhaka (8% fee)</option>
+                  <option value="orion-footwear">Orion Footwear Limited &bull; Dhaka (10% fee)</option>
+                  <option value="vans-converse-outlet">Vans & Converse BD Outlet &bull; Dhaka (12% fee)</option>
+                </>
+              )}
+            </select>
           </div>
 
           {/* Category & Gender */}

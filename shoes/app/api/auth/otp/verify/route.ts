@@ -33,9 +33,9 @@ export async function POST(req: NextRequest) {
     if (!user) {
       // Create new user account automatically (Seamless Passwordless Registration)
       const newUser = {
-        name: name || `SPORTIX Member ${cleanPhone.slice(-4)}`,
+        name: name || `HypeKicks Member ${cleanPhone.slice(-4)}`,
         phone: cleanPhone,
-        email: `member_${cleanPhone}@sportix.com`,
+        email: `member_${cleanPhone}@hypekicks.com`,
         role: 'USER',
         addresses: [],
         createdAt: new Date(),
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
         _id: insertResult.insertedId,
         ...newUser,
       };
-    } else if (name && (!user.name || user.name.startsWith('Nike Member') || user.name.startsWith('SPORTIX Member'))) {
+    } else if (name && (!user.name || user.name.startsWith('Nike Member') || user.name.startsWith('SPORTIX Member') || user.name.startsWith('HypeKicks Member'))) {
       await usersCol.updateOne(
         { _id: user._id },
         { $set: { name, updatedAt: new Date() } }

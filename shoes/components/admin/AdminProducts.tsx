@@ -15,6 +15,7 @@ import {
   CheckCircle,
   Layers,
   X,
+  Store,
 } from 'lucide-react';
 
 interface AdminProductsProps {
@@ -23,6 +24,7 @@ interface AdminProductsProps {
   onOpenAddProduct: () => void;
   searchQuery: string;
   setSearchQuery: (q: string) => void;
+  vendors?: any[];
 }
 
 export default function AdminProducts({
@@ -31,8 +33,10 @@ export default function AdminProducts({
   onOpenAddProduct,
   searchQuery,
   setSearchQuery,
+  vendors = [],
 }: AdminProductsProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedVendor, setSelectedVendor] = useState<string>('all');
   const [stockFilter, setStockFilter] = useState<'all' | 'low' | 'instock'>('all');
   const [deletingSlug, setDeletingSlug] = useState<string | null>(null);
   const [viewingSizeProduct, setViewingSizeProduct] = useState<any | null>(null);
@@ -51,12 +55,19 @@ export default function AdminProducts({
       !searchQuery ||
       p.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.subtitle?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.slug?.toLowerCase().includes(searchQuery.toLowerCase());
+      p.slug?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.vendorName?.toLowerCase().includes(searchQuery.toLowerCase());
 
     // Category filter
     const matchesCategory =
       selectedCategory === 'all' ||
       p.categorySlug?.toLowerCase() === selectedCategory.toLowerCase();
+
+    // Vendor filter
+    const matchesVendor =
+      selectedVendor === 'all' ||
+      p.vendorSlug === selectedVendor ||
+      p.vendorName === selectedVendor;
 
     // Stock filter
     let matchesStock = true;
@@ -66,7 +77,7 @@ export default function AdminProducts({
       matchesStock = (p.stock || 0) > 5;
     }
 
-    return matchesSearch && matchesCategory && matchesStock;
+    return matchesSearch && matchesCategory && matchesVendor && matchesStock;
   });
 
   const handleDelete = async (slug: string, name: string) => {
@@ -101,7 +112,21 @@ export default function AdminProducts({
         </div>
 
         {/* Stock & Count Indicators */}
-        <div className="flex items-center gap-2 self-end md:self-auto text-xs">
+        <div className="flex flex-wrap items-center gap-2 self-end md:self-auto text-xs">
+          {/* Vendor Filter */}
+          <select
+            value={selectedVendor}
+            onChange={(e) => setSelectedVendor(e.target.value)}
+            className="px-2.5 py-1.5 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-300 outline-none text-xs font-medium cursor-pointer"
+          >
+            <option value="all">Vendor: All</option>
+            {vendors.map((v) => (
+              <option key={v._id || v.slug} value={v.slug}>
+                {v.name}
+              </option>
+            ))}
+          </select>
+
           <select
             value={stockFilter}
             onChange={(e: any) => setStockFilter(e.target.value)}
@@ -125,6 +150,7 @@ export default function AdminProducts({
             <thead className="bg-zinc-950/70 border-b border-zinc-800/80 text-[11px] font-mono uppercase tracking-wider text-zinc-400">
               <tr>
                 <th className="py-3 px-4">Item Details</th>
+                <th className="py-3 px-4">Vendor</th>
                 <th className="py-3 px-4">Category</th>
                 <th className="py-3 px-4">Price</th>
                 <th className="py-3 px-4">Stock Level</th>
@@ -136,7 +162,7 @@ export default function AdminProducts({
             <tbody className="divide-y divide-zinc-800/60 text-zinc-300">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-16 text-center">
+                  <td colSpan={8} className="py-16 text-center">
                     <div className="max-w-xs mx-auto space-y-3">
                       <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-zinc-400 mx-auto">
                         <Package className="w-5 h-5" />
@@ -181,6 +207,21 @@ export default function AdminProducts({
                             <p className="text-[11px] text-zinc-400 truncate">{p.subtitle || 'Sportswear'}</p>
                           </div>
                         </div>
+                      </td>
+
+                      {/* Vendor */}
+                      <td className="py-3 px-4">
+                        {p.vendorName ? (
+                          <span
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-zinc-800 text-zinc-300 border border-zinc-700/60 text-[10px] font-medium truncate max-w-[130px]"
+                            title={p.vendorName}
+                          >
+                            <Store className="w-2.5 h-2.5 text-emerald-400 shrink-0" />
+                            <span className="truncate">{p.vendorName}</span>
+                          </span>
+                        ) : (
+                          <span className="text-zinc-600 font-mono text-[11px]">-</span>
+                        )}
                       </td>
 
                       {/* Category */}

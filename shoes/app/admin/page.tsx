@@ -11,6 +11,7 @@ import AdminCustomers from '@/components/admin/AdminCustomers';
 import AdminReviews from '@/components/admin/AdminReviews';
 import AdminSettings from '@/components/admin/AdminSettings';
 import AdminCoupons from '@/components/admin/AdminCoupons';
+import AdminVendors from '@/components/admin/AdminVendors';
 import AdminSystem from '@/components/admin/AdminSystem';
 import AdminProductSheet from '@/components/admin/AdminProductSheet';
 import AdminLoginGate from '@/components/admin/AdminLoginGate';
@@ -29,6 +30,7 @@ export default function AdminDashboardPage() {
   const [products, setProducts] = useState<any[]>([]);
   const [orders, setOrders] = useState<any[]>([]);
   const [coupons, setCoupons] = useState<any[]>([]);
+  const [vendors, setVendors] = useState<any[]>([]);
   const [customers, setCustomers] = useState<any[]>([]);
   const [reviews, setReviews] = useState<any[]>([]);
   const [settings, setSettings] = useState<any>(null);
@@ -39,13 +41,14 @@ export default function AdminDashboardPage() {
   const loadData = async () => {
     setIsLoading(true);
     try {
-      const [prodRes, ordRes, cpnRes, custRes, revRes, setRes] = await Promise.all([
+      const [prodRes, ordRes, cpnRes, custRes, revRes, setRes, vendRes] = await Promise.all([
         fetch('/api/products?limit=100'),
         fetch('/api/orders?all=true'),
         fetch('/api/coupons'),
         fetch('/api/admin/customers'),
         fetch('/api/admin/reviews'),
         fetch('/api/admin/settings'),
+        fetch('/api/vendors'),
       ]);
 
       if (prodRes.ok) {
@@ -71,6 +74,10 @@ export default function AdminDashboardPage() {
       if (setRes.ok) {
         const d = await setRes.json();
         if (d.settings) setSettings(d.settings);
+      }
+      if (vendRes.ok) {
+        const d = await vendRes.json();
+        if (d.vendors) setVendors(d.vendors);
       }
     } catch (e) {
       console.error('Failed to load admin telemetry:', e);
@@ -262,6 +269,7 @@ export default function AdminDashboardPage() {
         productCount={products.length}
         orderCount={orders.length}
         couponCount={coupons.length}
+        vendorCount={vendors.length}
         customerCount={customers.length}
         reviewCount={reviews.length}
         user={user}
@@ -309,6 +317,7 @@ export default function AdminDashboardPage() {
               {activeTab === 'products' && (
                 <AdminProducts
                   products={products}
+                  vendors={vendors}
                   onDeleteProduct={handleDeleteProduct}
                   onOpenAddProduct={() => setIsAddSheetOpen(true)}
                   searchQuery={globalSearch}
@@ -320,7 +329,21 @@ export default function AdminDashboardPage() {
                 <AdminOrders
                   orders={orders}
                   onUpdateStatus={handleUpdateOrderStatus}
+                  onOrderUpdated={(updated) =>
+                    setOrders((prev) =>
+                      prev.map((o) =>
+                        o._id === updated._id || o.orderNumber === updated.orderNumber ? updated : o
+                      )
+                    )
+                  }
                   searchQuery={globalSearch}
+                />
+              )}
+
+              {activeTab === 'vendors' && (
+                <AdminVendors
+                  vendors={vendors}
+                  onRefresh={loadData}
                 />
               )}
 
@@ -370,6 +393,7 @@ export default function AdminDashboardPage() {
         isOpen={isAddSheetOpen}
         onClose={() => setIsAddSheetOpen(false)}
         onSubmit={handleCreateProduct}
+        vendors={vendors}
       />
     </div>
   );

@@ -132,8 +132,11 @@ function ProductsCatalogContent() {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
-        const query = searchParams.toString();
-        const res = await fetch(`/api/products?${query}&limit=60`);
+        const params = new URLSearchParams(searchParams.toString());
+        if (!params.has('limit')) {
+          params.set('limit', '150');
+        }
+        const res = await fetch(`/api/products?${params.toString()}`);
         if (res.ok) {
           const data = await res.json();
           setProducts(data.products || []);
@@ -151,6 +154,14 @@ function ProductsCatalogContent() {
 
   // Construct readable page title
   const getPageTitle = () => {
+    const vendorParam = searchParams.get('vendor') || searchParams.get('vendorSlug');
+    if (vendorParam) {
+      const formatted = vendorParam
+        .split('-')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ');
+      return `${formatted} Collection`;
+    }
     if (searchQuery) return `Search Results for "${searchQuery}"`;
     if (isSale) return 'Sale & Clearance';
     if (isBestseller) return 'Best Sellers';
@@ -175,8 +186,17 @@ function ProductsCatalogContent() {
     return parts.join(' ');
   };
 
+  const vendorParam = searchParams.get('vendor') || searchParams.get('vendorSlug');
+
   // Active filter pills count
   const activeFilters = [
+    vendorParam && {
+      label: `Vendor: ${vendorParam
+        .split('-')
+        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+        .join(' ')}`,
+      key: 'vendor',
+    },
     searchQuery && { label: `"${searchQuery}"`, key: 'search' },
     selectedCategory && {
       label: CATEGORIES.find((c) => c.value === selectedCategory)?.label || selectedCategory,

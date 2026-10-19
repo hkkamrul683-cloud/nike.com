@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Truck, RotateCcw, CreditCard, HelpCircle, Mail, Phone } from 'lucide-react';
+import { Truck, RotateCcw, CreditCard, HelpCircle, Mail, Phone, Store } from 'lucide-react';
 
 export default function HelpPage() {
   return (
@@ -37,6 +37,26 @@ export default function HelpPage() {
             We accept all major credit/debit cards, Apple Pay, Google Pay, and Cash on Delivery for designated regions.
           </p>
         </div>
+      </div>
+
+      {/* Stores & Vendors Banner */}
+      <div className="p-8 rounded-3xl bg-emerald-950/10 border border-emerald-900/20 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-1.5 text-emerald-800 text-xs font-bold uppercase tracking-wider">
+            <Store className="w-4 h-4 text-emerald-700" />
+            <span>10 Verified Stores & Authorized Footwear Vendors</span>
+          </div>
+          <h3 className="text-lg font-black uppercase text-zinc-950">Looking for our physical stores or vendors?</h3>
+          <p className="text-xs text-zinc-600">
+            Find addresses, opening hours, and direct shoe collections across Gulshan, Banani, Uttara, Gazipur, and more.
+          </p>
+        </div>
+        <Link
+          href="/stores"
+          className="px-6 py-3.5 bg-zinc-950 text-white rounded-full text-xs font-bold uppercase tracking-wider hover:bg-zinc-800 transition-colors shrink-0"
+        >
+          View Stores & Vendors
+        </Link>
       </div>
 
       <div className="bg-zinc-950 text-white p-8 rounded-3xl flex flex-col sm:flex-row items-center justify-between gap-6">

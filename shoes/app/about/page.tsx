@@ -4,19 +4,19 @@ export default function AboutPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-20 space-y-10">
       <div className="text-center space-y-3 pb-8 border-b border-zinc-200">
-        <span className="text-xs font-black uppercase tracking-widest text-red-600">Our Story</span>
+        <span className="text-xs font-black uppercase tracking-widest text-zinc-500">Our Story</span>
         <h1 className="text-3xl sm:text-5xl font-black uppercase italic tracking-tight text-zinc-950">
-          WE EXIST TO SERVE THE ATHLETE.
+          STEP INTO THE FUTURE.
         </h1>
         <p className="text-xs sm:text-sm text-zinc-600 max-w-xl mx-auto">
-          SPORTIX was born on the track and built for the streets. We design sports footwear and technical apparel that merges aerodynamic innovation with iconic street heritage.
+          HypeKicks was born on the track and built for the streets. We design sports footwear and technical streetwear that merges aerodynamic innovation with iconic street heritage.
         </p>
       </div>
 
       <div className="space-y-6 text-xs sm:text-sm text-zinc-700 leading-relaxed">
         <h2 className="text-xl font-black uppercase text-zinc-950">Aerodynamic Performance</h2>
         <p>
-          Every pair of SPORTIX road racers, basketball high-tops, and gym training shoes is tested by competitive marathoners and hardwood players. By pairing pressurized Air cushioning with responsive carbon propulsion, we eliminate wasted energy and convert ground strike impact into explosive forward momentum.
+          Every pair of HypeKicks road racers, basketball high-tops, and gym training shoes is tested by competitive athletes and streetwear creators. By pairing pressurized Air cushioning with responsive carbon propulsion, we eliminate wasted energy and convert ground strike impact into explosive forward momentum.
         </p>
 
         <h2 className="text-xl font-black uppercase text-zinc-950">Sustainable Athletics</h2>

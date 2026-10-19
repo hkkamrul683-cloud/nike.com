@@ -9,7 +9,7 @@ export default function HeroCampaign() {
       <div className="relative w-full h-[75vh] sm:h-[85vh] min-h-[540px] max-h-[900px]">
         <Image
           src="https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=2000&q=85"
-          alt="Nike — Just Do It"
+          alt="HypeKicks — Step Into the Future"
           fill
           priority
           sizes="100vw"
@@ -18,14 +18,14 @@ export default function HeroCampaign() {
         {/* Gradient overlay — subtle bottom fade */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-        {/* Text Content — bottom left, Nike style */}
+        {/* Text Content — bottom left */}
         <div className="absolute bottom-0 left-0 right-0 px-6 sm:px-12 md:px-16 pb-12 sm:pb-16">
           <div className="max-w-2xl space-y-4">
-            <h1 className="text-5xl sm:text-7xl md:text-8xl font-black uppercase tracking-tighter leading-none text-white">
-              JUST DO IT.
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter leading-none text-white">
+              STEP INTO THE FUTURE.
             </h1>
             <p className="text-sm sm:text-base text-white/80 font-normal max-w-md leading-relaxed">
-              New season, new moves. Explore the latest Nike footwear and apparel engineered to push every limit.
+              New season, new drops. Explore the latest HypeKicks footwear and apparel engineered to push every limit.
             </p>
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <Link
@@ -52,7 +52,7 @@ export default function HeroCampaign() {
         <div className="relative h-[50vh] min-h-[320px] overflow-hidden group">
           <Image
             src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=900&q=80"
-            alt="Nike Running — Air Infinity Pro"
+            alt="HypeKicks Running — Air Infinity Pro"
             fill
             sizes="(max-width: 640px) 100vw, 50vw"
             className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -74,7 +74,7 @@ export default function HeroCampaign() {
         <div className="relative h-[50vh] min-h-[320px] overflow-hidden group">
           <Image
             src="https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=900&q=80"
-            alt="Nike Basketball — Flight Retro"
+            alt="HypeKicks Basketball — Flight Retro"
             fill
             sizes="(max-width: 640px) 100vw, 50vw"
             className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"

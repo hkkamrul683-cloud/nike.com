@@ -20,6 +20,11 @@ import {
   Eye,
   Check,
   Globe,
+  Package,
+  EyeOff,
+  Wallet,
+  Send,
+  RefreshCw,
 } from 'lucide-react';
 
 export interface StoreSettings {
@@ -38,6 +43,12 @@ export interface StoreSettings {
   enableCashOnDelivery: boolean;
   enableOnlinePayment: boolean;
   returnPolicyDays: number;
+  // Courier Logistics
+  courierProvider?: string;
+  steadfastApiKey?: string;
+  steadfastSecretKey?: string;
+  steadfastSandbox?: boolean;
+  steadfastAutoDispatch?: boolean;
   // Marketing & Pixels
   metaPixelId?: string;
   metaPixelActive?: boolean;
@@ -74,6 +85,12 @@ export default function AdminSettings({ initialSettings, onSaveSettings }: Admin
     enableCashOnDelivery: initialSettings?.enableCashOnDelivery ?? true,
     enableOnlinePayment: initialSettings?.enableOnlinePayment ?? true,
     returnPolicyDays: initialSettings?.returnPolicyDays ?? 7,
+    // Courier Logistics
+    courierProvider: initialSettings?.courierProvider || 'steadfast',
+    steadfastApiKey: initialSettings?.steadfastApiKey || '',
+    steadfastSecretKey: initialSettings?.steadfastSecretKey || '',
+    steadfastSandbox: initialSettings?.steadfastSandbox ?? true,
+    steadfastAutoDispatch: initialSettings?.steadfastAutoDispatch ?? false,
     // Marketing & Pixels
     metaPixelId: initialSettings?.metaPixelId || '',
     metaPixelActive: initialSettings?.metaPixelActive ?? true,
@@ -88,6 +105,42 @@ export default function AdminSettings({ initialSettings, onSaveSettings }: Admin
 
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [showApiKey, setShowApiKey] = useState(false);
+  const [showSecretKey, setShowSecretKey] = useState(false);
+  const [isTestingCourier, setIsTestingCourier] = useState(false);
+  const [courierTestResult, setCourierTestResult] = useState<{
+    success: boolean;
+    message: string;
+    balance?: number;
+  } | null>(null);
+
+  const handleTestCourier = async () => {
+    setIsTestingCourier(true);
+    setCourierTestResult(null);
+    try {
+      const res = await fetch('/api/courier/balance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          apiKey: formData.steadfastApiKey,
+          secretKey: formData.steadfastSecretKey,
+        }),
+      });
+      const data = await res.json();
+      setCourierTestResult({
+        success: data.success,
+        message: data.message || (data.success ? 'Steadfast connection verified.' : 'Connection failed.'),
+        balance: data.balance,
+      });
+    } catch (e: any) {
+      setCourierTestResult({
+        success: false,
+        message: e.message || 'Network error communicating with Steadfast.',
+      });
+    } finally {
+      setIsTestingCourier(false);
+    }
+  };
 
   useEffect(() => {
     if (initialSettings) {
@@ -378,6 +431,192 @@ export default function AdminSettings({ initialSettings, onSaveSettings }: Admin
                   }
                   className="w-4 h-4 accent-white rounded cursor-pointer"
                 />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Courier & Parcel Fulfillment Logistics (Steadfast Courier API) */}
+        <div className="md:col-span-2 bg-gradient-to-b from-zinc-900/60 to-zinc-950/80 border border-emerald-500/30 rounded-2xl p-5 sm:p-7 space-y-6 shadow-xl shadow-emerald-950/10">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-zinc-800">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                <Truck className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-bold text-white text-base">Courier & Parcel Fulfillment API</h3>
+                  <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    Steadfast Express
+                  </span>
+                  {formData.steadfastSandbox && (
+                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                      Sandbox Active
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-zinc-400 mt-0.5">
+                  Automate parcel booking, COD collection, consignment IDs, and live tracking with Steadfast Courier.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <a
+                href="https://portal.steadfast.com.bd"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium transition-colors border border-zinc-700"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                Steadfast Portal
+              </a>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {/* Courier Provider & Mode */}
+            <div className="space-y-4">
+              <div>
+                <label className="block text-xs font-medium text-zinc-300 mb-1">
+                  Primary Delivery Courier Partner
+                </label>
+                <select
+                  value={formData.courierProvider || 'steadfast'}
+                  onChange={(e) => setFormData({ ...formData, courierProvider: e.target.value })}
+                  className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500 cursor-pointer"
+                >
+                  <option value="steadfast">Steadfast Courier (Recommended - Bangladesh)</option>
+                  <option value="pathao">Pathao Courier</option>
+                  <option value="redx">RedX Delivery</option>
+                </select>
+              </div>
+
+              {/* Toggles */}
+              <div className="space-y-3 pt-1">
+                <div className="flex items-center justify-between p-3 rounded-lg bg-zinc-950/60 border border-zinc-800">
+                  <div>
+                    <p className="text-xs font-semibold text-white">Sandbox / Simulation Mode</p>
+                    <p className="text-[11px] text-zinc-400">
+                      Generate simulated consignments risk-free without deducting courier balance
+                    </p>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={formData.steadfastSandbox ?? true}
+                    onChange={(e) =>
+                      setFormData({ ...formData, steadfastSandbox: e.target.checked })
+                    }
+                    className="w-4 h-4 accent-emerald-500 rounded cursor-pointer"
+                  />
+                </div>
+
+                <div className="flex items-center justify-between p-3 rounded-lg bg-zinc-950/60 border border-zinc-800">
+                  <div>
+                    <p className="text-xs font-semibold text-white">Auto-Dispatch to Courier</p>
+                    <p className="text-[11px] text-zinc-400">
+                      Automatically book parcel upon new customer order creation
+                    </p>
+                  </div>
+                  <input
+                    type="checkbox"
+                    checked={formData.steadfastAutoDispatch ?? false}
+                    onChange={(e) =>
+                      setFormData({ ...formData, steadfastAutoDispatch: e.target.checked })
+                    }
+                    className="w-4 h-4 accent-emerald-500 rounded cursor-pointer"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* API Credentials */}
+            <div className="space-y-4 bg-zinc-950/70 p-4 rounded-xl border border-zinc-800/80">
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-medium text-zinc-300">
+                    Steadfast API Key
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setShowApiKey(!showApiKey)}
+                    className="text-[11px] text-zinc-400 hover:text-white flex items-center gap-1"
+                  >
+                    {showApiKey ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                    <span>{showApiKey ? 'Hide' : 'Show'}</span>
+                  </button>
+                </div>
+                <input
+                  type={showApiKey ? 'text' : 'password'}
+                  placeholder="Paste your Steadfast API Key"
+                  value={formData.steadfastApiKey || ''}
+                  onChange={(e) =>
+                    setFormData({ ...formData, steadfastApiKey: e.target.value.trim() })
+                  }
+                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-emerald-500 placeholder:text-zinc-600"
+                />
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-xs font-medium text-zinc-300">
+                    Steadfast Secret Key
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => setShowSecretKey(!showSecretKey)}
+                    className="text-[11px] text-zinc-400 hover:text-white flex items-center gap-1"
+                  >
+                    {showSecretKey ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
+                    <span>{showSecretKey ? 'Hide' : 'Show'}</span>
+                  </button>
+                </div>
+                <input
+                  type={showSecretKey ? 'text' : 'password'}
+                  placeholder="Paste your Steadfast Secret Key"
+                  value={formData.steadfastSecretKey || ''}
+                  onChange={(e) =>
+                    setFormData({ ...formData, steadfastSecretKey: e.target.value.trim() })
+                  }
+                  className="w-full bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-xs font-mono text-white focus:outline-none focus:border-emerald-500 placeholder:text-zinc-600"
+                />
+              </div>
+
+              {/* Test Connection Button & Result */}
+              <div className="pt-1">
+                <button
+                  type="button"
+                  disabled={isTestingCourier}
+                  onClick={handleTestCourier}
+                  className="w-full py-2 px-3 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 text-xs font-semibold border border-emerald-500/30 flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
+                >
+                  <RefreshCw className={`w-3.5 h-3.5 ${isTestingCourier ? 'animate-spin' : ''}`} />
+                  <span>{isTestingCourier ? 'Testing Connection...' : 'Test Connection & Account Balance'}</span>
+                </button>
+
+                {courierTestResult && (
+                  <div
+                    className={`mt-2 p-2.5 rounded-lg text-xs border flex items-start gap-2 ${
+                      courierTestResult.success
+                        ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300'
+                        : 'bg-red-950/60 border-red-500/40 text-red-300'
+                    }`}
+                  >
+                    {courierTestResult.success ? (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    ) : (
+                      <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                    )}
+                    <div>
+                      <p className="font-semibold">{courierTestResult.message}</p>
+                      {courierTestResult.balance !== undefined && (
+                        <p className="text-[11px] font-mono mt-0.5 text-zinc-300">
+                          Current Courier Balance: <strong>৳{courierTestResult.balance.toLocaleString()} BDT</strong>
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

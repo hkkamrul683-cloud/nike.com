@@ -106,8 +106,22 @@ export default function AccountOrdersPage() {
               <div className="p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 text-xs font-bold text-zinc-800">
-                    <Truck className="w-4 h-4 text-zinc-500" />
-                    <span>Tracking: <strong className="font-mono text-zinc-950">{order.trackingNumber || 'Processing'}</strong></span>
+                    <Truck className="w-4 h-4 text-emerald-600" />
+                    <span>
+                      Tracking:{' '}
+                      {order.courier ? (
+                        <a
+                          href={order.courier.trackingUrl || `https://steadfast.com.bd/t/${order.courier.trackingCode || order.trackingNumber}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-mono text-emerald-600 hover:underline inline-flex items-center gap-1"
+                        >
+                          {order.courier.trackingCode || order.trackingNumber} ({order.courier.provider || 'Steadfast'})
+                        </a>
+                      ) : (
+                        <strong className="font-mono text-zinc-950">{order.trackingNumber || 'Processing'}</strong>
+                      )}
+                    </span>
                   </div>
                   <Link
                     href={`/order-confirmation/${order._id || order.orderNumber}`}

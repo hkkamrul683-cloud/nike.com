@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 
 export default function PromoBar() {
   const pathname = usePathname();
-  const [announcement, setAnnouncement] = useState('Free Delivery & Returns on All Nike Member Orders. Join Now →');
+  const [announcement, setAnnouncement] = useState('Free Delivery & Returns on All HypeKicks Member Orders. Step Into the Future →');
   const [isActive, setIsActive] = useState(true);
 
   useEffect(() => {

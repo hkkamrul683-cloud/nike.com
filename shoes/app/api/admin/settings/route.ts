@@ -29,6 +29,13 @@ const DEFAULT_SETTINGS = {
   clarityId: process.env.NEXT_PUBLIC_CLARITY_ID || '',
   clarityActive: true,
   googleSiteVerification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || '',
+
+  // Courier & Logistics Fulfillment (Steadfast)
+  courierProvider: 'steadfast',
+  steadfastApiKey: process.env.STEADFAST_API_KEY || '',
+  steadfastSecretKey: process.env.STEADFAST_SECRET_KEY || '',
+  steadfastSandbox: process.env.STEADFAST_SANDBOX === 'true' || true,
+  steadfastAutoDispatch: false,
 };
 
 export async function GET(req: NextRequest) {
@@ -50,6 +57,13 @@ export async function GET(req: NextRequest) {
       clarityId: existingVal.clarityId !== undefined ? existingVal.clarityId : (process.env.NEXT_PUBLIC_CLARITY_ID || ''),
       clarityActive: existingVal.clarityActive !== undefined ? existingVal.clarityActive : true,
       googleSiteVerification: existingVal.googleSiteVerification !== undefined ? existingVal.googleSiteVerification : (process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || ''),
+      
+      // Courier
+      courierProvider: existingVal.courierProvider || 'steadfast',
+      steadfastApiKey: existingVal.steadfastApiKey !== undefined ? existingVal.steadfastApiKey : (process.env.STEADFAST_API_KEY || ''),
+      steadfastSecretKey: existingVal.steadfastSecretKey !== undefined ? existingVal.steadfastSecretKey : (process.env.STEADFAST_SECRET_KEY || ''),
+      steadfastSandbox: existingVal.steadfastSandbox !== undefined ? existingVal.steadfastSandbox : (process.env.STEADFAST_SANDBOX === 'true' || true),
+      steadfastAutoDispatch: existingVal.steadfastAutoDispatch !== undefined ? existingVal.steadfastAutoDispatch : false,
     };
 
     return NextResponse.json({
