@@ -11,6 +11,15 @@ export default async function HomePage() {
 
   try {
     const productsCol = await getCollection('products');
+    const totalCount = await productsCol.countDocuments({});
+    if (totalCount === 0) {
+      try {
+        const { runSeed } = await import('@/app/api/seed/route');
+        await runSeed();
+      } catch (seedErr) {
+        console.error('Auto-seeding failed on homepage:', seedErr);
+      }
+    }
     trendingProducts = await productsCol
       .find({ isFeatured: true })
       .limit(8)

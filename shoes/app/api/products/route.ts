@@ -82,6 +82,16 @@ export async function GET(req: NextRequest) {
     else if (sort === 'featured') sortOption = { isFeatured: -1, isBestseller: -1 };
 
     const productsCol = await getCollection('products');
+    const dbTotal = await productsCol.countDocuments({});
+    if (dbTotal === 0) {
+      try {
+        const { runSeed } = await import('@/app/api/seed/route');
+        await runSeed();
+      } catch (seedErr) {
+        console.error('Auto-seeding failed:', seedErr);
+      }
+    }
+
     const total = await productsCol.countDocuments(query);
     const products = await productsCol
       .find(query)

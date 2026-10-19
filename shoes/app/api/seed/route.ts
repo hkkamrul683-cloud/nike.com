@@ -13,7 +13,7 @@ export async function POST() {
   return runSeed();
 }
 
-async function runSeed() {
+export async function runSeed() {
   try {
     const categoriesCol = await getCollection('categories');
     const productsCol = await getCollection('products');
